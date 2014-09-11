@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911212323) do
+ActiveRecord::Schema.define(version: 20140911231001) do
+
+  create_table "citations", force: true do |t|
+    t.string   "uri"
+    t.text     "text"
+    t.integer  "index"
+    t.integer  "citing_paper_id"
+    t.integer  "cited_paper_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "papers", force: true do |t|
     t.string   "uri"

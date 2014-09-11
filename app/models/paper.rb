@@ -3,7 +3,8 @@ require 'uri'
 class Paper < ActiveRecord::Base
   validates :uri, presence: true
   validate :valid_uri
-
+  has_many :citations
+  
   private
 
   def valid_uri
