@@ -4,6 +4,8 @@ class Paper < ActiveRecord::Base
   validates :uri, presence: true
   validate :valid_uri
   has_many :citations, foreign_key: :citing_paper_id
+  has_many :citing_papers, through: :citations, class: Paper
+  has_many :cited_papers, through: :citations, class: Paper
   
   private
 

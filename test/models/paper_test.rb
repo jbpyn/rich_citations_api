@@ -11,13 +11,33 @@ class PaperTest < ActiveSupport::TestCase
     assert_not paper.save
   end
 
-  test 'should have ' do
+  test 'should have a list of citations' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/b")
     a.citations += [Citation.new(cited_paper: b), Citation.new(cited_paper: c)]
     a.save
     assert_equal(a.citations[0].cited_paper, b)
+    assert_equal(a.citations[0].citing_paper, a)
     assert_equal(a.citations[1].cited_paper, c)
+    assert_equal(a.citations[1].citing_paper, a)
   end
+
+  test 'should have CITING papers' do
+    a = Paper.new(uri: "http://example.org/a")
+    b = Paper.new(uri: "http://example.org/b")
+    c = Paper.new(uri: "http://example.org/b")
+    a.citing_papers += [b, c]
+    a.save
+    assert_equal(a.citing_papers, [b, c])
+  end    
+
+  test 'should have CITED papers' do
+    a = Paper.new(uri: "http://example.org/a")
+    b = Paper.new(uri: "http://example.org/b")
+    c = Paper.new(uri: "http://example.org/b")
+    a.cited_papers += [b, c]
+    a.save
+    assert_equal(a.cited_papers, [b, c])
+  end    
 end
