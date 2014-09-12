@@ -15,12 +15,14 @@ class PaperTest < ActiveSupport::TestCase
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/b")
-    a.citations += [Citation.new(cited_paper: b), Citation.new(cited_paper: c)]
+    a.citations += [Citation.new(cited_paper: b, text: 'foo'), Citation.new(cited_paper: c, text: 'bar')]
     a.save
     assert_equal(a.citations[0].cited_paper, b)
     assert_equal(a.citations[0].citing_paper, a)
+    assert_equal(a.citations[0].text, 'foo')
     assert_equal(a.citations[1].cited_paper, c)
     assert_equal(a.citations[1].citing_paper, a)
+    assert_equal(a.citations[1].text, 'bar')
   end
 
   test 'should have CITING papers' do
