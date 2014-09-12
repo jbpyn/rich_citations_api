@@ -3,7 +3,7 @@ require 'uri'
 class Paper < ActiveRecord::Base
   validates :uri, presence: true
   validate :valid_uri
-  has_many :citations
+  has_many :citations, foreign_key: :citing_paper_id
   
   private
 
