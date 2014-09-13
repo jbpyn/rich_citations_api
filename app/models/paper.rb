@@ -17,6 +17,16 @@ class Paper < ActiveRecord::Base
     write_attribute('bibliographic', MultiJson.dump(value) )
   end
 
+  def extended
+    raw = read_attribute('extended')
+    @extended ||= raw && MultiJson.load(raw)
+  end
+
+  def extended= value
+    @extended = nil
+    write_attribute('extended', MultiJson.dump(value) )
+  end
+  
   def reload
     super
     @bibliographic = nil

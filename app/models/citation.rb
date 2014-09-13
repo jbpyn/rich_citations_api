@@ -10,7 +10,7 @@ class Citation < ActiveRecord::Base
 
   def text= value
     @text = nil
-    write_attribute('text', value && MultiJson.dump(value) )
+    write_attribute('text', MultiJson.dump(value) )
   end
 
   def reload

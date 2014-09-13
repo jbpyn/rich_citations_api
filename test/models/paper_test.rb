@@ -62,4 +62,23 @@ class PaperTest < ActiveSupport::TestCase
     assert_nil(b.bibliographic)
   end
 
+  test 'should round trip extended json' do
+    a = Paper.create(uri: "http://example.org/a", extended: { 'red' => [1,2] } )
+    assert_equal(a.extended, { 'red' => [1,2] })
+
+    a.reload
+    assert_equal(a.extended, { 'red' => [1,2] } )
+
+    b = Paper.find(a.id)
+    assert_equal(b.extended, { 'red' => [1,2] } )
+  end
+
+  test 'can set extended to nil' do
+    a = Paper.create(uri: "http://example.org/a", extended: nil )
+    assert_nil(a.extended)
+
+    b = Paper.find(a.id)
+    assert_nil(b.extended)
+  end
+  
 end
