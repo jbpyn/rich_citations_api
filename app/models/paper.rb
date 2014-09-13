@@ -4,8 +4,9 @@ class Paper < ActiveRecord::Base
   validates :uri, presence: true
   validate :valid_uri
   has_many :citations, foreign_key: :citing_paper_id
-  has_many :citing_papers, through: :citations, class: Paper
   has_many :cited_papers, through: :citations, class: Paper
+  has_many :citings,   foreign_key: :cited_paper_id, class: Citation
+  has_many :citing_papers, through: :citings, class: Paper
 
   def bibliographic
     raw = read_attribute('bibliographic')
@@ -14,7 +15,7 @@ class Paper < ActiveRecord::Base
 
   def bibliographic= value
     @bibliographic = nil
-    write_attribute('bibliographic', MultiJson.dump(value) )
+    write_attribute('bibliographic', value && MultiJson.dump(value) )
   end
 
   def extended
@@ -24,7 +25,7 @@ class Paper < ActiveRecord::Base
 
   def extended= value
     @extended = nil
-    write_attribute('extended', MultiJson.dump(value) )
+    write_attribute('extended', value && MultiJson.dump(value) )
   end
 
   def metadata(include_cited_paper=false)
