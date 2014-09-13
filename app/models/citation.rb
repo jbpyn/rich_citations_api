@@ -10,7 +10,7 @@ class Citation < ActiveRecord::Base
 
   def text= value
     @text = nil
-    write_attribute('text', MultiJson.dump(value) )
+    write_attribute('text', value && MultiJson.dump(value) )
   end
 
   def reload
@@ -19,15 +19,15 @@ class Citation < ActiveRecord::Base
   end
 
   def metadata(include_cited_paper=false)
-    result = text || {}
-    text['uri']   = uri
-    text['index'] = index
+    result = (text || {}).merge( 'index' => index,
+                                 'uri'   => uri,
+                                 'ref'   => ref         )
 
     if include_cited_paper && cited_paper
-      text['bibliographic'] = cited_paper.bibliographic
+      result['bibliographic'] = cited_paper.bibliographic
     end
 
-    text
+    result
   end
   alias :to_json metadata
 
