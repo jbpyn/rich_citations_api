@@ -40,6 +40,36 @@ class Citation < ActiveRecord::Base
   end
   alias :to_json metadata
 
+  def assign_metadata(ref, metadata)
+    metadata = metadata.dup
+    uri      = metadata.delete('uri')
+
+    if ref != metadata.delete('ref')
+      raise "rexternal ref does not match fragment ref for #{ref}" #@todo
+    end
+
+    bibliographic = metadata.delete('bibliographic')
+    cited_paper   = Paper.for_uri(uri)
+
+    unless cited_paper || bibliographic
+      raise "Cannot assign metadata unless the paper exists or bibliographic metadata is provided for #{ref}" #@todo
+    end
+
+    if bibliographic
+      if cited_paper
+        cited_paper.update_attributes!(:bibliographic => bibliographic)
+      else
+        cited_paper = Paper.create!(uri:uri, bibliographic:bibliographic)
+      end
+    end
+
+    self.uri         = uri
+    self.ref         = ref
+    self.index       = metadata.delete('index')
+    self.text        = metadata
+    self.cited_paper = cited_paper
+  end
+
   private
 
   def valid_uri

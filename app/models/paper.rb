@@ -12,6 +12,10 @@ class Paper < ActiveRecord::Base
   validates :uri, presence: true
   validate :valid_uri
 
+  def self.for_uri(uri)
+    where(uri:uri).first
+  end
+
   def bibliographic
     raw = read_attribute('bibliographic')
     @bibliographic ||= raw && MultiJson.load(raw)
