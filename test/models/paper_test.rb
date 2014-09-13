@@ -14,8 +14,9 @@ class PaperTest < ActiveSupport::TestCase
   test 'should have a list of citations' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
-    c = Paper.new(uri: "http://example.org/b")
-    a.citations += [Citation.new(cited_paper: b, text: { 'blue' => 2 } ), Citation.new(cited_paper: c, text: { 'red' =>  1 })]
+    c = Paper.new(uri: "http://example.org/c")
+    a.citations += [ new_citation( index:0, cited_paper:b, text: { 'blue' => 2 } ),
+                     new_citation( index:1, cited_paper:c, text: { 'red' =>  1 } ) ]
     a.save
     assert_equal(a.citations[0].cited_paper, b)
     assert_equal(a.citations[0].citing_paper, a)
@@ -28,19 +29,22 @@ class PaperTest < ActiveSupport::TestCase
   test 'should have CITING papers' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
-    c = Paper.new(uri: "http://example.org/b")
-    a.citing_papers += [b, c]
-    a.save
-    assert_equal(a.citing_papers, [b, c])
+    c = Paper.new(uri: "http://example.org/c")
+    new_citation( index:0, citing_paper:a, cited_paper:c, text: { 'blue' => 2 }, save:true )
+    new_citation( index:0, citing_paper:b, cited_paper:c, text: { 'red'  => 3 }, save:true )
+
+    assert_equal(c.citing_papers, [a, b])
   end    
 
   test 'should have CITED papers' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
-    c = Paper.new(uri: "http://example.org/b")
-    a.cited_papers += [b, c]
+    c = Paper.new(uri: "http://example.org/c")
+    a.citations += [ new_citation( index:0, cited_paper:b, text: { 'blue' => 2 } ),
+                     new_citation( index:1, cited_paper:c, text: { 'red'  =>  1 } ) ]
     a.save
-    assert_equal(a.cited_papers, [b, c])
+
+    assert_equal(a.cited_papers(true), [b, c])
   end
 
   test 'should round trip bibliographic json' do
@@ -86,18 +90,16 @@ class PaperTest < ActiveSupport::TestCase
                   bibliographic: {'title' => 'Citing 1'},
                   extended:      { 'groups' => [1,2] }              )
 
-    p1 = Paper.new(uri: 'http://example.org/b1', bibliographic: {'title' => 'cited 1'} )
-    p.citations << Citation.new(cited_paper: p1, uri: 'http://example.org/b1', index:0, text:{ 'word_count' => 42})
-    p2 = Paper.new(uri: 'http://example.org/b2', bibliographic: {'title' => 'cited 2'} )
-    p.citations << Citation.new(cited_paper: p2, uri: 'http://example.org/b2', index:1, text:{ 'word_count' => 24})
+    p.citations << new_citation(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
+    p.citations << new_citation(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
 
     assert_equal(p.metadata, {
                                  'uri'           => 'http://example.org/a',
                                  'groups'        => [1, 2],
                                  'bibliographic' => {'title' => 'Citing 1' },
                                  'references'    => [
-                                                      {"word_count"=>42, "uri"=>"http://example.org/b1", "index"=>0},
-                                                      {"word_count"=>24, "uri"=>"http://example.org/b2", "index"=>1}
+                                                      {"word_count"=>42, "uri"=>"http://example.org/0", "index"=>0, "ref"=>"ref.0"},
+                                                      {"word_count"=>24, "uri"=>"http://example.org/1", "index"=>1, "ref"=>"ref.1"}
                                                     ]
                              } )
   end
@@ -107,19 +109,17 @@ class PaperTest < ActiveSupport::TestCase
                   bibliographic: {'title' => 'Citing 1'},
                   extended:      { 'groups' => [1,2] }              )
 
-    p1 = Paper.new(uri: 'http://example.org/b1', bibliographic: {'title' => 'cited 1'} )
-    p.citations << Citation.new(cited_paper: p1, uri: 'http://example.org/b1', index:0, text:{ 'word_count' => 42})
-    p2 = Paper.new(uri: 'http://example.org/b2', bibliographic: {'title' => 'cited 2'} )
-    p.citations << Citation.new(cited_paper: p2, uri: 'http://example.org/b2', index:1, text:{ 'word_count' => 24})
+    p.citations << new_citation(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
+    p.citations << new_citation(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
 
     assert_equal(p.metadata(true), {
                                  'uri'           => 'http://example.org/a',
                                  'groups'        => [1, 2],
                                  'bibliographic' => {'title' => 'Citing 1' },
                                  'references'    => [
-                                                      {"word_count"=>42, "uri"=>"http://example.org/b1", "index"=>0,
+                                                      {"word_count"=>42, "uri"=>"http://example.org/0", "index"=>0, "ref"=>'ref.0',
                                                        "bibliographic"=>{"title"=>"cited 1"} },
-                                                      {"word_count"=>24, "uri"=>"http://example.org/b2", "index"=>1,
+                                                      {"word_count"=>24, "uri"=>"http://example.org/1", "index"=>1, "ref"=>'ref.1',
                                                        "bibliographic"=>{"title"=>"cited 2"} }
                                                     ]
                              } )
