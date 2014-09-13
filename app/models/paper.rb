@@ -45,6 +45,18 @@ class Paper < ActiveRecord::Base
   end
   alias :to_json metadata
 
+  def assign_metadata(metadata)
+    metadata = metadata.dup
+
+    references = metadata.delete('references')
+    create_citations_from_metadata(references) if references.present?
+
+    self.uri           = metadata.delete('uri')
+    self.bibliographic = metadata.delete('bibliographic')
+    self.extended      = metadata
+
+  end
+
   def reload
     super
     @bibliographic = nil
@@ -64,6 +76,14 @@ class Paper < ActiveRecord::Base
     return nil if citations.empty?
 
     citations.map { |c| c.metadata(include_cited_papers) }
+  end
+
+  def create_citations_from_metadata(references)
+    references && references.each do |ref, metadata|
+      citation = Citation.new
+      citation.assign_metadata(ref, metadata)
+      citations <<  citation
+    end
   end
 
 end
