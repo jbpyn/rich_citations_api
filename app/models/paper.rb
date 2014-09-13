@@ -26,7 +26,16 @@ class Paper < ActiveRecord::Base
     @extended = nil
     write_attribute('extended', MultiJson.dump(value) )
   end
-  
+
+  def metadata(include_cited_paper=false)
+    (extended || {}).merge(
+      'uri'           => uri,
+      'bibliographic' => bibliographic,
+      'references'    => citations_metadata(include_cited_paper) #@todo: Should this name match the field name?
+    ).compact
+  end
+  alias :to_json metadata
+
   def reload
     super
     @bibliographic = nil
@@ -40,6 +49,12 @@ class Paper < ActiveRecord::Base
     errors.add(:uri, 'must be a URI') if parsed.scheme.nil?
   rescue URI::InvalidURIError
     errors.add(:uri, 'must be a URI')
+  end
+
+  def citations_metadata(include_cited_papers=false)
+    return nil if citations.empty?
+
+    citations.map { |c| c.metadata(include_cited_papers) }
   end
 
 end

@@ -41,4 +41,29 @@ class CitationTest < ActiveSupport::TestCase
     assert_nil(b.text)
   end
 
+  test 'Citations should be able to return their metadata' do
+    p  = Paper.new(uri: 'http://example.org/a')
+    p1 = Paper.new(uri: 'http://example.org/b', bibliographic: {'title' => 'cited 1'} )
+    c1 = Citation.new(citing_paper: p, cited_paper: p1, uri: 'http://example.org/b', index:3, text:{ 'word_count' => 42})
+
+    assert_equal(c1.metadata, {
+                                  'uri'        => 'http://example.org/b',
+                                  'index'      => 3,
+                                  'word_count' => 42
+                              } )
+  end
+
+  test 'Citations should be able to return their metadata including cited metadata' do
+    p  = Paper.new(uri: 'http://example.org/a')
+    p1 = Paper.new(uri: 'http://example.org/b', bibliographic: {'title' => 'cited 1'} )
+    c1 = Citation.new(citing_paper: p, cited_paper: p1, uri: 'http://example.org/b', index:3, text:{ 'word_count' => 42})
+
+    assert_equal(c1.metadata(true), {
+                                       'uri'           => 'http://example.org/b',
+                                       'index'         => 3,
+                                       'word_count'    => 42,
+                                       'bibliographic' => {'title' => 'cited 1'}
+                                   } )
+  end
+
 end

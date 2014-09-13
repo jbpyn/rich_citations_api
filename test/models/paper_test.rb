@@ -80,5 +80,49 @@ class PaperTest < ActiveSupport::TestCase
     b = Paper.find(a.id)
     assert_nil(b.extended)
   end
-  
+
+  test 'Papers should be able to return their metadata' do
+    p = Paper.new(uri: 'http://example.org/a',
+                  bibliographic: {'title' => 'Citing 1'},
+                  extended:      { 'groups' => [1,2] }              )
+
+    p1 = Paper.new(uri: 'http://example.org/b1', bibliographic: {'title' => 'cited 1'} )
+    p.citations << Citation.new(cited_paper: p1, uri: 'http://example.org/b1', index:0, text:{ 'word_count' => 42})
+    p2 = Paper.new(uri: 'http://example.org/b2', bibliographic: {'title' => 'cited 2'} )
+    p.citations << Citation.new(cited_paper: p2, uri: 'http://example.org/b2', index:1, text:{ 'word_count' => 24})
+
+    assert_equal(p.metadata, {
+                                 'uri'           => 'http://example.org/a',
+                                 'groups'        => [1, 2],
+                                 'bibliographic' => {'title' => 'Citing 1' },
+                                 'references'    => [
+                                                      {"word_count"=>42, "uri"=>"http://example.org/b1", "index"=>0},
+                                                      {"word_count"=>24, "uri"=>"http://example.org/b2", "index"=>1}
+                                                    ]
+                             } )
+  end
+
+  test 'Papers should be able to return their metadata including cited paper metadata' do
+    p = Paper.new(uri: 'http://example.org/a',
+                  bibliographic: {'title' => 'Citing 1'},
+                  extended:      { 'groups' => [1,2] }              )
+
+    p1 = Paper.new(uri: 'http://example.org/b1', bibliographic: {'title' => 'cited 1'} )
+    p.citations << Citation.new(cited_paper: p1, uri: 'http://example.org/b1', index:0, text:{ 'word_count' => 42})
+    p2 = Paper.new(uri: 'http://example.org/b2', bibliographic: {'title' => 'cited 2'} )
+    p.citations << Citation.new(cited_paper: p2, uri: 'http://example.org/b2', index:1, text:{ 'word_count' => 24})
+
+    assert_equal(p.metadata(true), {
+                                 'uri'           => 'http://example.org/a',
+                                 'groups'        => [1, 2],
+                                 'bibliographic' => {'title' => 'Citing 1' },
+                                 'references'    => [
+                                                      {"word_count"=>42, "uri"=>"http://example.org/b1", "index"=>0,
+                                                       "bibliographic"=>{"title"=>"cited 1"} },
+                                                      {"word_count"=>24, "uri"=>"http://example.org/b2", "index"=>1,
+                                                       "bibliographic"=>{"title"=>"cited 2"} }
+                                                    ]
+                             } )
+  end
+
 end
