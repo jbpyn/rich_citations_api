@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
     save = options.delete(:save)
 
     if options[:cited_paper] && !options.has_key?(:uri) && options[:cited_paper].uri
-      options[:uri] = options[:cited_paper]
+      options[:uri] = options[:cited_paper].uri
     end
 
     if options[:index]

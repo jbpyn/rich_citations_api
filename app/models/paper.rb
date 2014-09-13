@@ -1,12 +1,16 @@
 require 'uri'
 
 class Paper < ActiveRecord::Base
+
+  # relationships
+  has_many :citations,     foreign_key: :citing_paper_id,                  inverse_of: :citing_paper
+  has_many :citings,       foreign_key: :cited_paper_id,  class: Citation, inverse_of: :cited_paper
+  has_many :cited_papers,  through:     :citations,       class: Paper
+  has_many :citing_papers, through:     :citings,         class: Paper
+
+  # validations
   validates :uri, presence: true
   validate :valid_uri
-  has_many :citations, foreign_key: :citing_paper_id
-  has_many :cited_papers, through: :citations, class: Paper
-  has_many :citings,   foreign_key: :cited_paper_id, class: Citation
-  has_many :citing_papers, through: :citings, class: Paper
 
   def bibliographic
     raw = read_attribute('bibliographic')

@@ -1,7 +1,16 @@
 class Citation < ActiveRecord::Base
+
+  # relationships
   belongs_to :cited_paper, class: Paper
   belongs_to :citing_paper, class: Paper
-  validates  :citing_paper, uniqueness: {scope: :cited_paper}
+
+  # validations
+  validates  :citing_paper, presence:true
+  validates  :cited_paper,                 uniqueness: {scope: :citing_paper}
+  validates  :index,        presence:true, uniqueness: {scope: :citing_paper}
+  validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}
+  validates  :ref,          presence:true, uniqueness: {scope: :citing_paper}
+  validate   :valid_uri
 
   def text
     raw = read_attribute('text')
@@ -30,5 +39,14 @@ class Citation < ActiveRecord::Base
     result
   end
   alias :to_json metadata
+
+  private
+
+  def valid_uri
+    parsed = URI.parse(uri)
+    errors.add(:uri, 'must be a URI') if parsed.scheme.nil?
+  rescue URI::InvalidURIError
+    errors.add(:uri, 'must be a URI')
+  end
 
 end
