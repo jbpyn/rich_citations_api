@@ -97,10 +97,10 @@ class PaperTest < ActiveSupport::TestCase
                                  'uri'           => 'http://example.org/a',
                                  'groups'        => [1, 2],
                                  'bibliographic' => {'title' => 'Citing 1' },
-                                 'references'    => [
-                                                      {"word_count"=>42, "uri"=>"http://example.org/0", "index"=>0, "ref"=>"ref.0"},
-                                                      {"word_count"=>24, "uri"=>"http://example.org/1", "index"=>1, "ref"=>"ref.1"}
-                                                    ]
+                                 'references'    => {
+                                                      'ref.0' => {"word_count"=>42, "uri"=>"http://example.org/0", "index"=>0, "ref"=>"ref.0"},
+                                                      'ref.1' => {"word_count"=>24, "uri"=>"http://example.org/1", "index"=>1, "ref"=>"ref.1"},
+                                                    }
                              } )
   end
 
@@ -116,12 +116,12 @@ class PaperTest < ActiveSupport::TestCase
                                  'uri'           => 'http://example.org/a',
                                  'groups'        => [1, 2],
                                  'bibliographic' => {'title' => 'Citing 1' },
-                                 'references'    => [
-                                                      {"word_count"=>42, "uri"=>"http://example.org/0", "index"=>0, "ref"=>'ref.0',
-                                                       "bibliographic"=>{"title"=>"cited 1"} },
-                                                      {"word_count"=>24, "uri"=>"http://example.org/1", "index"=>1, "ref"=>'ref.1',
-                                                       "bibliographic"=>{"title"=>"cited 2"} }
-                                                    ]
+                                 'references'    => {
+                                                       'ref.0' => {"word_count"=>42, "uri"=>"http://example.org/0", "index"=>0, "ref"=>'ref.0',
+                                                                   "bibliographic"=>{"title"=>"cited 1"} },
+                                                       'ref.1' => {"word_count"=>24, "uri"=>"http://example.org/1", "index"=>1, "ref"=>'ref.1',
+                                                                   "bibliographic"=>{"title"=>"cited 2"} }
+                                                    }
                              } )
   end
 

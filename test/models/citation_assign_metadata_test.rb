@@ -65,6 +65,21 @@ class CitationAssignMetadataTest < ActiveSupport::TestCase
     assert_equal(p.bibliographic, {'title' => 'Title'})
   end
 
+  test "it should round-trip the metadata" do
+    p1 = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
+
+    metadata = { 'ref'           => 'ref.x',
+                 'index'         => 2,
+                 'uri'           => 'http://example.org/a',
+                 'bibliographic' => {'title' => 'Updated Title'},
+                 'mentions'      => 2                              }
+
+    c = Citation.new
+    c.assign_metadata('ref.x', metadata)
+
+    assert_equal(c.metadata(true), metadata)
+  end
+
   test "it should raise an exception if the cited paper does not exist and no bibliographic data is provided" do
     p = Paper.for_uri('http://example.org/a')
     assert_nil(p)

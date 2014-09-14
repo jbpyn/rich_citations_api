@@ -54,7 +54,6 @@ class Paper < ActiveRecord::Base
     self.uri           = metadata.delete('uri')
     self.bibliographic = metadata.delete('bibliographic')
     self.extended      = metadata
-
   end
 
   def reload
@@ -75,7 +74,7 @@ class Paper < ActiveRecord::Base
   def citations_metadata(include_cited_papers=false)
     return nil if citations.empty?
 
-    citations.map { |c| c.metadata(include_cited_papers) }
+    citations.map { |c| [c.ref, c.metadata(include_cited_papers)] }.to_h
   end
 
   def create_citations_from_metadata(references)

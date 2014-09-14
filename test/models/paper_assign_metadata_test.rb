@@ -29,4 +29,20 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal p.citations[1].uri, 'http://example.com/c2'
   end
 
+  test "it should rount trip metadata" do
+    metadata = { 'uri'           => 'http://example.com/a',
+                 'bibliographic' => { 'title' => 'Title' },
+                 'more_stuff'    => 'Was here!',
+                 'references'    => {
+                    'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {}, 'index' => 1 },
+                    'ref.2' => { 'ref' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {}, 'index' => 2 },
+                 }
+               }
+
+    p = Paper.new
+    p.assign_metadata(metadata)
+
+    assert_equal(p.metadata(true), metadata)
+  end
+
 end
