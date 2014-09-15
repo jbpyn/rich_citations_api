@@ -42,3 +42,11 @@ class ActiveSupport::TestCase
   end
 
 end
+
+class ActionController::TestResponse
+
+  def json
+    MultiJson.load(body)
+  end
+
+end
