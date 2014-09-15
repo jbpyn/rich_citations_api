@@ -23,15 +23,18 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should update an existing papers metadata if it is provided" do
+    citing = Paper.create!(uri:'http://example.org/citing')
+
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    c = Reference.new
+    c = Reference.new(citing_paper:citing)
     c.assign_metadata('ref.x',
                       'ref'           => 'ref.x',
                       'index'         => 2,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Updated Title'},
                       'mentions'      => 2                               )
+    c.save!
 
     assert_equal c.uri,   'http://example.org/a'
     assert_equal c.ref,   'ref.x'
@@ -43,17 +46,24 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal(p.bibliographic, {'title' => 'Updated Title'})
   end
 
+  test "it should not update an existing paper if there is an error" do
+    skip "Write this test when there are some validations that would cause saving to fail"
+  end
+
   test "it should create a cited paper if necessary" do
+    citing = Paper.create!(uri:'http://example.org/citing')
+
     p = Paper.for_uri('http://example.org/a')
     assert_nil(p)
 
-    c = Reference.new
+    c = Reference.new(citing_paper:citing)
     c.assign_metadata('ref.x',
                       'ref'           => 'ref.x',
                       'index'         => 2,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Title'},
                       'mentions'      => 2                               )
+    c.save!
 
     assert_equal c.uri,   'http://example.org/a'
     assert_equal c.ref,   'ref.x'
@@ -63,6 +73,26 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.for_uri('http://example.org/a')
     assert_equal c.cited_paper, p
     assert_equal(p.bibliographic, {'title' => 'Title'})
+  end
+
+  test "it should not create a reference or the cited paper if there are errors" do
+    citing = Paper.create!(uri:'http://example.org/citing')
+
+    p = Paper.for_uri('http://example.org/a')
+    assert_nil(p)
+
+    c = Reference.new(citing_paper:citing)
+    c.assign_metadata('ref.x',
+                      'ref'           => 'ref.x',
+                      'index'         => 2,
+                      'uri'           => 'bad_uri',
+                      'bibliographic' => {'title' => 'Title'},
+                      'mentions'      => 2                               )
+
+    assert_equal c.save, false
+
+    p = Paper.for_uri('http://example.org/a')
+    assert_nil(p)
   end
 
   test "it should round-trip the metadata" do

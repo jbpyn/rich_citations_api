@@ -1,7 +1,7 @@
 class Reference < ActiveRecord::Base
 
   # relationships
-  belongs_to :cited_paper,  class: Paper
+  belongs_to :cited_paper,  class: Paper, validate:true, autosave:true
   belongs_to :citing_paper, class: Paper
 
   # validations
@@ -57,9 +57,9 @@ class Reference < ActiveRecord::Base
 
     if bibliographic
       if cited_paper
-        cited_paper.update_attributes!(:bibliographic => bibliographic)
+        cited_paper.bibliographic = bibliographic
       else
-        cited_paper = Paper.create!(uri:uri, bibliographic:bibliographic)
+        cited_paper = Paper.new(uri:uri, bibliographic:bibliographic)
       end
     end
 
