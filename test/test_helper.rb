@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   # Infer as many values as we can based on the index
-  def new_citation(options={}, &block)
+  def new_reference(options={}, &block)
     save = options.delete(:save)
 
     if options[:cited_paper] && !options.has_key?(:uri) && options[:cited_paper].uri
@@ -27,7 +27,7 @@ class ActiveSupport::TestCase
       options[:cited_paper] = Paper.new(uri:uri, bibliographic:bib)
     end
 
-    result = Citation.new(options)
+    result = Reference.new(options)
 
     if block_given?
       if block.arity==0

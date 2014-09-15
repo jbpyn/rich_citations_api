@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PaperTest < ActiveSupport::TestCase
+
   test 'should not save Paper without URI' do
     paper = Paper.new
     assert_not paper.save
@@ -11,27 +12,27 @@ class PaperTest < ActiveSupport::TestCase
     assert_not paper.save
   end
 
-  test 'should have a list of citations' do
+  test 'should have a list of References' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    a.citations += [ new_citation( index:0, cited_paper:b, text: { 'blue' => 2 } ),
-                     new_citation( index:1, cited_paper:c, text: { 'red' =>  1 } ) ]
+    a.references += [ new_reference( index:0, cited_paper:b, text: { 'blue' => 2 } ),
+                      new_reference( index:1, cited_paper:c, text: { 'red' =>  1 } ) ]
     a.save
-    assert_equal(a.citations[0].cited_paper, b)
-    assert_equal(a.citations[0].citing_paper, a)
-    assert_equal(a.citations[0].text, { 'blue' =>  2 })
-    assert_equal(a.citations[1].cited_paper, c)
-    assert_equal(a.citations[1].citing_paper, a)
-    assert_equal(a.citations[1].text, { 'red' =>  1 })
+    assert_equal(a.references[0].cited_paper, b)
+    assert_equal(a.references[0].citing_paper, a)
+    assert_equal(a.references[0].text, { 'blue' =>  2 })
+    assert_equal(a.references[1].cited_paper, c)
+    assert_equal(a.references[1].citing_paper, a)
+    assert_equal(a.references[1].text, { 'red' =>  1 })
   end
 
   test 'should have CITING papers' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    new_citation( index:0, citing_paper:a, cited_paper:c, text: { 'blue' => 2 }, save:true )
-    new_citation( index:0, citing_paper:b, cited_paper:c, text: { 'red'  => 3 }, save:true )
+    new_reference( index:0, citing_paper:a, cited_paper:c, text: { 'blue' => 2 }, save:true )
+    new_reference( index:0, citing_paper:b, cited_paper:c, text: { 'red'  => 3 }, save:true )
 
     assert_equal(c.citing_papers, [a, b])
   end    
@@ -40,8 +41,8 @@ class PaperTest < ActiveSupport::TestCase
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    a.citations += [ new_citation( index:0, cited_paper:b, text: { 'blue' => 2 } ),
-                     new_citation( index:1, cited_paper:c, text: { 'red'  =>  1 } ) ]
+    a.references += [ new_reference( index:0, cited_paper:b, text: { 'blue' => 2 } ),
+                      new_reference( index:1, cited_paper:c, text: { 'red'  =>  1 } ) ]
     a.save
 
     assert_equal(a.cited_papers(true), [b, c])
@@ -90,8 +91,8 @@ class PaperTest < ActiveSupport::TestCase
                   bibliographic: {'title' => 'Citing 1'},
                   extended:      { 'groups' => [1,2] }              )
 
-    p.citations << new_citation(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    p.citations << new_citation(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p.references << new_reference(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
+    p.references << new_reference(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
 
     assert_equal(p.metadata, {
                                  'uri'           => 'http://example.org/a',
@@ -109,8 +110,8 @@ class PaperTest < ActiveSupport::TestCase
                   bibliographic: {'title' => 'Citing 1'},
                   extended:      { 'groups' => [1,2] }              )
 
-    p.citations << new_citation(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    p.citations << new_citation(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p.references << new_reference(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
+    p.references << new_reference(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
 
     assert_equal(p.metadata(true), {
                                  'uri'           => 'http://example.org/a',

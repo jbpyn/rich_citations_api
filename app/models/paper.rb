@@ -3,10 +3,10 @@ require 'uri'
 class Paper < ActiveRecord::Base
 
   # relationships
-  has_many :citations,     foreign_key: :citing_paper_id,                  inverse_of: :citing_paper
-  has_many :citings,       foreign_key: :cited_paper_id,  class: Citation, inverse_of: :cited_paper
-  has_many :cited_papers,  through:     :citations,       class: Paper
-  has_many :citing_papers, through:     :citings,         class: Paper
+  has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper
+  has_many :referenced_by,  foreign_key: :cited_paper_id,   class: Reference, inverse_of: :cited_paper
+  has_many :cited_papers,   through:     :references,       class: Paper
+  has_many :citing_papers,  through:     :referenced_by,    class: Paper
 
   # validations
   validates :uri, presence: true
@@ -40,7 +40,7 @@ class Paper < ActiveRecord::Base
     (extended || {}).merge(
       'uri'           => uri,
       'bibliographic' => bibliographic,
-      'references'    => citations_metadata(include_cited_paper) #@todo: Should this name match the field name?
+      'references'    => references_metadata(include_cited_paper)
     ).compact
   end
   alias :to_json metadata
@@ -49,7 +49,7 @@ class Paper < ActiveRecord::Base
     metadata = metadata.dup
 
     references = metadata.delete('references')
-    create_citations_from_metadata(references) if references.present?
+    create_references_from_metadata(references) if references.present?
 
     self.uri           = metadata.delete('uri')
     self.bibliographic = metadata.delete('bibliographic')
@@ -71,17 +71,17 @@ class Paper < ActiveRecord::Base
     errors.add(:uri, 'must be a URI')
   end
 
-  def citations_metadata(include_cited_papers=false)
-    return nil if citations.empty?
+  def references_metadata(include_cited_papers=false)
+    return nil if references.empty?
 
-    citations.map { |c| [c.ref, c.metadata(include_cited_papers)] }.to_h
+    references.map { |r| [r.ref, r.metadata(include_cited_papers)] }.to_h
   end
 
-  def create_citations_from_metadata(references)
-    references && references.each do |ref, metadata|
-      citation = Citation.new
-      citation.assign_metadata(ref, metadata)
-      citations <<  citation
+  def create_references_from_metadata(metadata)
+    metadata && metadata.each do |ref, metadata|
+      reference = Reference.new
+      reference.assign_metadata(ref, metadata)
+      references <<  reference
     end
   end
 

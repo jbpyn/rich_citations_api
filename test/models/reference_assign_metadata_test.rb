@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class CitationAssignMetadataTest < ActiveSupport::TestCase
+class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should link to to an existing paper without assigning metadata" do
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    c = Citation.new
+    c = Reference.new
     c.assign_metadata('ref.x',
                       'ref'      => 'ref.x',
                       'index'    => 2,
@@ -25,7 +25,7 @@ class CitationAssignMetadataTest < ActiveSupport::TestCase
   test "it should update an existing papers metadata if it is provided" do
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    c = Citation.new
+    c = Reference.new
     c.assign_metadata('ref.x',
                       'ref'           => 'ref.x',
                       'index'         => 2,
@@ -47,7 +47,7 @@ class CitationAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.for_uri('http://example.org/a')
     assert_nil(p)
 
-    c = Citation.new
+    c = Reference.new
     c.assign_metadata('ref.x',
                       'ref'           => 'ref.x',
                       'index'         => 2,
@@ -74,7 +74,7 @@ class CitationAssignMetadataTest < ActiveSupport::TestCase
                  'bibliographic' => {'title' => 'Updated Title'},
                  'mentions'      => 2                              }
 
-    c = Citation.new
+    c = Reference.new
     c.assign_metadata('ref.x', metadata)
 
     assert_equal(c.metadata(true), metadata)
@@ -84,7 +84,7 @@ class CitationAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.for_uri('http://example.org/a')
     assert_nil(p)
 
-    c = Citation.new
+    c = Reference.new
     assert_raises(RuntimeError) {
       c.assign_metadata('ref.x',
                         'ref'           => 'ref.x',
@@ -97,7 +97,7 @@ class CitationAssignMetadataTest < ActiveSupport::TestCase
   test "it should raise an exception if the provided ref and metadata ref do not match" do
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    c = Citation.new
+    c = Reference.new
     assert_raise(RuntimeError) {
       c.assign_metadata('ref.x',
                         'ref'      => 'ref.y',

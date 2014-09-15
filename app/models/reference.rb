@@ -1,7 +1,7 @@
-class Citation < ActiveRecord::Base
+class Reference < ActiveRecord::Base
 
   # relationships
-  belongs_to :cited_paper, class: Paper
+  belongs_to :cited_paper,  class: Paper
   belongs_to :citing_paper, class: Paper
 
   # validations

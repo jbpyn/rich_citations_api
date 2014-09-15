@@ -21,8 +21,8 @@ module V0
     end
 
     def show
-      include_citations = 'cited'.in?(includes)
-      render  json: @paper.metadata(include_citations)
+      include_cited = 'cited'.in?(includes)
+      render  json: @paper.metadata(include_cited)
     end
 
     private

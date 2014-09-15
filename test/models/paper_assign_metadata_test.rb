@@ -15,18 +15,18 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal p.extended,      { 'more_stuff' => 'Was here!' }
   end
 
-  test "it should create citations" do
+  test "it should create References" do
     p = Paper.new
     p.assign_metadata('references' => {
                           'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {} },
                           'ref.2' => { 'ref' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {} },
                       } )
 
-    assert_equal p.citations.length, 2
-    assert_equal p.citations[0].ref, 'ref.1'
-    assert_equal p.citations[0].uri, 'http://example.com/c1'
-    assert_equal p.citations[1].ref, 'ref.2'
-    assert_equal p.citations[1].uri, 'http://example.com/c2'
+    assert_equal p.references.length, 2
+    assert_equal p.references[0].ref, 'ref.1'
+    assert_equal p.references[0].uri, 'http://example.com/c1'
+    assert_equal p.references[1].ref, 'ref.2'
+    assert_equal p.references[1].uri, 'http://example.com/c2'
   end
 
   test "it should rount trip metadata" do
