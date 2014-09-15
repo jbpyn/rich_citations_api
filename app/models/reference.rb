@@ -40,9 +40,11 @@ class Reference < ActiveRecord::Base
   end
   alias :to_json metadata
 
+  #@todo: This method needs to make sure that it doesn't leave orphan
+  #       Cited records when they are automatically generated (Have a random_citation_uri)
   def assign_metadata(ref, metadata)
     metadata = metadata.dup
-    uri      = metadata.delete('uri')
+    uri      = metadata.delete('uri') || random_citation_uri
 
     if ref != metadata.delete('ref')
       raise "rexternal ref does not match fragment ref for #{ref}" #@todo
@@ -70,7 +72,15 @@ class Reference < ActiveRecord::Base
     self.cited_paper = cited_paper
   end
 
+  def is_random_uri?
+    /^cited:/ === uri
+  end
+
   private
+
+  def random_citation_uri
+    "cited:#{SecureRandom.uuid}"
+  end
 
   def valid_uri
     parsed = URI.parse(uri)
