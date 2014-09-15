@@ -43,6 +43,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.1)
     multi_json (1.10.1)
+    oj (2.10.2)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -101,6 +102,8 @@ PLATFORMS
 
 DEPENDENCIES
   jquery-rails
+  multi_json
+  oj
   rails (~> 4.1.5)
   rails_12factor
   sass-rails (~> 4.0.3)
