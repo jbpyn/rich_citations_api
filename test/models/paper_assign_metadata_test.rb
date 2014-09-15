@@ -30,6 +30,8 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not create anything if it there is an error in a Reference" do
+    Paper.delete_all
+    Reference.delete_all
     assert_equal Paper.count, 0
     assert_equal Reference.count, 0
 
