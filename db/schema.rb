@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915210755) do
+ActiveRecord::Schema.define(version: 20140915225444) do
+
+  create_table "citation_groups", force: true do |t|
+    t.boolean "ellipses_before"
+    t.text    "text_before"
+    t.text    "text"
+    t.text    "text_after"
+    t.boolean "ellipses_after"
+    t.integer "word_position"
+    t.text    "section"
+    t.integer "citing_paper_id"
+  end
+
+  create_table "citation_groups_cited_papers", force: true do |t|
+    t.integer "citation_group_id"
+    t.integer "paper_id"
+  end
 
   create_table "papers", force: true do |t|
     t.string   "uri"
