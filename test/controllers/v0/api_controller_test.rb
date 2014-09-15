@@ -85,7 +85,7 @@ class ApiControllerTest < ActionController::TestCase
 
       paper = Paper.for_uri(paper_uri)
       assert_not_nil paper
-      assert_equal   paper.citations.length, 1
+      assert_equal   paper.references.length, 1
       assert Paper.exists?(uri:'http://example.com/c1')
     end
 
