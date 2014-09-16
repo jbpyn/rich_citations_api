@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915225444) do
+ActiveRecord::Schema.define(version: 20140916183831) do
+
+  create_table "citation_group_references", force: true do |t|
+    t.integer "citation_group_id"
+    t.integer "reference_id"
+    t.integer "ordering"
+  end
 
   create_table "citation_groups", force: true do |t|
     t.boolean "ellipses_before"
@@ -22,11 +28,6 @@ ActiveRecord::Schema.define(version: 20140915225444) do
     t.integer "word_position"
     t.text    "section"
     t.integer "citing_paper_id"
-  end
-
-  create_table "citation_groups_cited_papers", force: true do |t|
-    t.integer "citation_group_id"
-    t.integer "paper_id"
   end
 
   create_table "papers", force: true do |t|
