@@ -2,9 +2,9 @@ require 'test_helper'
 
 class CitationGroupTest < ActiveSupport::TestCase
   test 'can create a citation group' do
-    a = Paper.new(uri: 'http://example.org/a')
-    b = Paper.new(uri: 'http://example.org/b')
-    c = Paper.new(uri: 'http://example.org/c')
+    a = papers(:a)
+    b = papers(:b)
+    c = papers(:c)
 
     r1 = Reference.new(text: 'foo', citing_paper: a, cited_paper: b, ref:'ref-1', index: 1, uri:'uri://1')
     r2 = Reference.new(text: 'bar', citing_paper: a, cited_paper: c, ref:'ref-1', index: 2, uri:'uri://2')
@@ -20,5 +20,9 @@ class CitationGroupTest < ActiveSupport::TestCase
     assert(g.save)
     assert_equal(g.references, [r1, r2])
     assert_equal(g.references[0].cited_paper, b)
+  end
+
+  test '' do
+    
   end
 end
