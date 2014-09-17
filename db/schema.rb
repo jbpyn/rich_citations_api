@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915210755) do
+ActiveRecord::Schema.define(version: 20140917173105) do
 
   create_table "papers", force: true do |t|
     t.string   "uri"
@@ -31,5 +31,15 @@ ActiveRecord::Schema.define(version: 20140915210755) do
     t.datetime "updated_at"
     t.string   "ref",             null: false
   end
+
+  create_table "users", force: true do |t|
+    t.string   "api_key",    limit: 36, null: false
+    t.string   "full_name"
+    t.string   "email"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
 
 end
