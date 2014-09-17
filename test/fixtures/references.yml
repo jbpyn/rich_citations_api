@@ -1,0 +1,15 @@
+ref_1:
+  text: 'foo'
+  citing_paper: a
+  cited_paper: b
+  ref: 'ref-1'
+  index: 1
+  uri: 'uri://foo'
+
+ref_2:
+  text: 'bar'
+  citing_paper: a
+  cited_paper: c
+  ref: 'ref-1'
+  index: 2
+  uri: 'uri://bar'
