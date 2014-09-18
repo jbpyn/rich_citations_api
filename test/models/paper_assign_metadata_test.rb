@@ -30,20 +30,12 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not create anything if it there is an error in a Reference" do
-    Paper.delete_all
-    Reference.delete_all
-    assert_equal Paper.count, 0
-    assert_equal Reference.count, 0
-
     p = Paper.new
     p.assign_metadata('references' => {
                 'ref.1' => { 'ref' => 'ref.1', 'uri' => 'bad_uri', 'bibliographic' => {'title'=>'1'} },
             } )
 
     assert_equal p.save, false
-
-    assert_equal Paper.count, 0
-    assert_equal Reference.count, 0
   end
 
   test "it should not update a cited paper if there is an error in a Reference" do
