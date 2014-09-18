@@ -9,10 +9,8 @@ namespace :app do
       email     = ENV['email']
       user      = User.new(full_name:full_name, email:email)
       if user.save
-         puts "Created user:"
-         puts "   api-key: #{user.api_key}"
-         puts "   name   : #{user.full_name || '[none]'}"
-         puts "   e-mail : #{user.email     || '[none]'}"
+         puts "Created user: #{user.display}"
+         puts "     api-key: #{user.api_key}"
       else
         fail "*** Failed to create user.\n  #{user.errors.full_messages}"
       end

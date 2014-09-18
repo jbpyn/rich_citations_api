@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
     where(api_key:api_key).first
   end
 
+  def display
+    result = "id:#{id}: " +
+             [ full_name ? "name:#{full_name}" : nil,
+               email     ? "email:#{email}"    : nil ].compact.join(', ')
+  end
+
   private
 
   # Must provide eat least an mail or name

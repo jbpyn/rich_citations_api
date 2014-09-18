@@ -36,4 +36,15 @@ class UserTest < ActiveSupport::TestCase
     assert_nil User.for_key('not_a_valid_api_key')
   end
 
+  test "it should return a display value based on the name and email" do
+    u = User.new(full_name:'Fred Flintstone')
+    assert_equal u.display, 'id:: name:Fred Flintstone'
+
+    u = User.new(email:'fred@flintstone.com')
+    assert_equal u.display, 'id:: email:fred@flintstone.com'
+
+    u = User.new(full_name:'Fred Flintstone', email:'fred@flintstone.com')
+    assert_equal u.display, 'id:: name:Fred Flintstone, email:fred@flintstone.com'
+  end
+
 end
