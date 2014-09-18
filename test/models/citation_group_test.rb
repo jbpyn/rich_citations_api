@@ -24,14 +24,14 @@ class CitationGroupTest < ActiveSupport::TestCase
     g = CitationGroup.new(citing_paper: papers(:d),
                           references: [r1, r2])
     assert(g.save)
-    assert_equal(0, g.citation_group_references[0].ordering)
-    assert_equal(1, g.citation_group_references[1].ordering)
+    assert_equal(1, g.citation_group_references[0].position)
+    assert_equal(2, g.citation_group_references[1].position)
   end
 
   test 'references are ordered by ordering' do
     g = CitationGroup.new(citing_paper: papers(:d))
-    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_1), ordering: 1)
-    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_2), ordering: 0)
+    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_1), position: 1)
+    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_2), position: 0)
     assert(g.save)
     assert_equal([references(:ref_2), references(:ref_1)], g.references)
   end

@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916183831) do
+ActiveRecord::Schema.define(version: 20140918202453) do
 
   create_table "citation_group_references", force: true do |t|
     t.integer "citation_group_id"
     t.integer "reference_id"
-    t.integer "ordering"
+    t.integer "position"
   end
 
   create_table "citation_groups", force: true do |t|
