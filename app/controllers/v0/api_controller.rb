@@ -1,8 +1,10 @@
 module V0
-  class ApiController < ::ActionController::Base
+  class ApiController < ::ApiController
 
     respond_to :json
-    before_filter :paper_required, except: [:create]
+
+    before_action :authentication_required!, :except => [ :show ]
+    before_action :paper_required, except: [:create]
 
     def create
       metadata = uploaded_metadata
