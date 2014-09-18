@@ -15,4 +15,5 @@ end
 
 group :test do
   gem 'rake'
+  gem "mocha"
 end
