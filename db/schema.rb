@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918224400) do
+ActiveRecord::Schema.define(version: 20140919214920) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140918224400) do
     t.integer "word_position"
     t.text    "section"
     t.integer "citing_paper_id"
+    t.integer "position"
   end
 
   create_table "papers", force: true do |t|
