@@ -1,0 +1,24 @@
+a:
+  uri: 'http://dx.doi.org/10.1234/1'
+  bibliographic: '{}'
+
+b:
+  uri: 'http://dx.doi.org/10.1234/2'
+  bibliographic: '{}'
+
+c:
+  uri: 'http://dx.doi.org/10.1234/3'
+  bibliographic: '{}'
+
+d:
+  uri: 'http://dx.doi.org/10.1234/4'
+  bibliographic: '{}'
+
+e:
+  uri: 'http://dx.doi.org/10.1234/5'
+  bibliographic: '{}'
+
+f:
+  uri: 'http://dx.doi.org/10.1234/6'
+  bibliographic: '{}'
+  

@@ -8,6 +8,7 @@ class Paper < ActiveRecord::Base
   has_many :cited_papers,   through:     :references,       class: Paper
   has_many :citing_papers,  through:     :referenced_by,    class: Paper
   has_many :audit_log_entries
+  has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy
 
   # validations
   validates :uri, presence: true

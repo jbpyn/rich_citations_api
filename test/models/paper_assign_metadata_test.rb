@@ -30,18 +30,12 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not create anything if it there is an error in a Reference" do
-    assert_equal Paper.count, 0
-    assert_equal Reference.count, 0
-
     p = Paper.new
     p.assign_metadata('references' => {
                 'ref.1' => { 'ref' => 'ref.1', 'uri' => 'bad_uri', 'bibliographic' => {'title'=>'1'} },
             } )
 
     assert_equal p.save, false
-
-    assert_equal Paper.count, 0
-    assert_equal Reference.count, 0
   end
 
   test "it should not update a cited paper if there is an error in a Reference" do
@@ -75,6 +69,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not update invalid metadata" do
+    old_paper_count = Paper.count
     p = Paper.new
     saved = p.update_metadata( {
                                    # 'uri'           => 'http://example.com/a',
@@ -82,7 +77,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                                    'more_stuff'    => 'Was here!'
                                }, nil )
     assert !saved
-    assert_equal Paper.count, 0
+    assert_equal old_paper_count, Paper.count
   end
 
   test "it should create an audit entry when updating metadata" do

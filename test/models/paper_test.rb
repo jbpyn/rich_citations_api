@@ -134,4 +134,29 @@ class PaperTest < ActiveSupport::TestCase
                              } )
   end
 
+  test 'Can add citation groups to a paper' do
+    r1 = new_reference(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
+    r2 = new_reference(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p = Paper.new(uri: 'http://example.org/a',
+                  bibliographic: { 'title' => 'Citing 1' },
+                  references: [r1, r2],
+                  citation_groups: [CitationGroup.new(references: [r1]),
+                                    CitationGroup.new(references: [r2])])
+    assert(p.save!)
+  end
+
+  test 'Citation groups are ordered in a paper' do
+    r1 = new_reference(index:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
+    r2 = new_reference(index:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    g1 = CitationGroup.new(references: [r2])
+    g2 = CitationGroup.new(references: [r1])
+    p = Paper.new(uri: 'http://example.org/a',
+                  bibliographic: { 'title' => 'Citing 1' },
+                  references: [r1, r2],
+                  citation_groups: [g2, g1])
+    assert(p.save!)
+    assert_equal(1, p.citation_groups[0].position)
+    assert_equal(2, p.citation_groups[1].position)
+    assert_equal([g2, g1], p.citation_groups)
+  end
 end

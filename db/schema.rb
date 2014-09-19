@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918224400) do
+ActiveRecord::Schema.define(version: 20140919214920) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(version: 20140918224400) do
 
   add_index "audit_log_entries", ["paper_id"], name: "index_audit_log_entries_on_paper_id"
   add_index "audit_log_entries", ["user_id"], name: "index_audit_log_entries_on_user_id"
+
+  create_table "citation_group_references", force: true do |t|
+    t.integer "citation_group_id"
+    t.integer "reference_id"
+    t.integer "position"
+  end
+
+  create_table "citation_groups", force: true do |t|
+    t.boolean "ellipses_before"
+    t.text    "text_before"
+    t.text    "text"
+    t.text    "text_after"
+    t.boolean "ellipses_after"
+    t.integer "word_position"
+    t.text    "section"
+    t.integer "citing_paper_id"
+    t.integer "position"
+  end
 
   create_table "papers", force: true do |t|
     t.string   "uri"
