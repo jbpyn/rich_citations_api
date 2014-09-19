@@ -64,4 +64,51 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal(p.metadata(true), metadata)
   end
 
+  test "it should update metadata" do
+    p = Paper.new
+    saved = p.update_metadata( {
+            'uri'           => 'http://example.com/a',
+            'bibliographic' => { 'title' => 'Title' },
+            'more_stuff'    => 'Was here!'
+                               }, nil )
+    assert saved
+  end
+
+  test "it should not update invalid metadata" do
+    p = Paper.new
+    saved = p.update_metadata( {
+                                   # 'uri'           => 'http://example.com/a',
+                                   'bibliographic' => { 'title' => 'Title' },
+                                   'more_stuff'    => 'Was here!'
+                               }, nil )
+    assert !saved
+    assert_equal Paper.count, 0
+  end
+
+  test "it should create an audit entry when updating metadata" do
+    u = User.create!(full_name:'Will Smith')
+    p = Paper.new
+    p.update_metadata( {
+                                   'uri'           => 'http://example.com/a',
+                                   'bibliographic' => { 'title' => 'Title' },
+                                   'more_stuff'    => 'Was here!'
+                               }, u )
+    assert_equal p.audit_log_entries.count, 1
+    assert_equal u.audit_log_entries.count, 1
+    assert_equal AuditLogEntry.count, 1
+  end
+
+  test "it should not create an audit entry when updating with invalid metadata" do
+    u = User.create!(full_name:'Will Smith')
+    p = Paper.new
+    p.update_metadata( {
+                           # 'uri'           => 'http://example.com/a',
+                           'bibliographic' => { 'title' => 'Title' },
+                           'more_stuff'    => 'Was here!'
+                       }, u )
+    assert_equal p.audit_log_entries.count, 0
+    assert_equal u.audit_log_entries.count, 0
+    assert_equal AuditLogEntry.count, 0
+  end
+
 end

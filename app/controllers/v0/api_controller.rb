@@ -13,9 +13,8 @@ module V0
       render status: :forbidden,      text:'Paper already exists' and return if Paper.exists?(uri: uri)
 
       paper = Paper.new
-      paper.assign_metadata(metadata)
 
-      if paper.save
+      if paper.update_metadata( metadata, authenticated_user )
         render text:'Document Created', status: :created
       else
         render text:'Invalid Metadata', status: :unprocessable_entity

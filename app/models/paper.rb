@@ -57,6 +57,13 @@ class Paper < ActiveRecord::Base
     self.extended      = metadata
   end
 
+  def update_metadata(metadata, updating_user)
+    assign_metadata(metadata)
+    saved = self.save
+    AuditLogEntry.create(paper:self, user:updating_user) if saved
+    saved
+  end
+
   def reload
     super
     @bibliographic = nil

@@ -95,6 +95,31 @@ class ::V0::ApiControllerTest < ActionController::TestCase
       assert_response :created
     end
 
+    test "It should create an audit log entry" do
+      user = User.create(full_name:'A User')
+      @controller.stubs authenticated_user:user
+
+      post :create, api:metadata(paper_uri)
+
+      paper = Paper.for_uri(paper_uri)
+      assert_equal paper.audit_log_entries.count, 1
+      assert_equal user.audit_log_entries.count,  1
+      assert_equal AuditLogEntry.count, 1
+    end
+
+    test "It should not create an audit log entry if the metadata is invalid" do
+      user = User.create(full_name:'A User')
+      @controller.stubs authenticated_user:user
+
+      data = metadata(paper_uri)
+      data.delete('uri')
+      post :create, api:data
+
+      paper = Paper.for_uri(paper_uri)
+      assert_equal user.audit_log_entries.count,  0
+      assert_equal AuditLogEntry.count, 0
+    end
+
     test "It should create the paper's records" do
       post :create, api:metadata(paper_uri)
 
