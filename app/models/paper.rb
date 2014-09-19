@@ -7,6 +7,7 @@ class Paper < ActiveRecord::Base
   has_many :referenced_by,  foreign_key: :cited_paper_id,   class: Reference, inverse_of: :cited_paper
   has_many :cited_papers,   through:     :references,       class: Paper
   has_many :citing_papers,  through:     :referenced_by,    class: Paper
+  has_many :audit_log_entries
 
   # validations
   validates :uri, presence: true

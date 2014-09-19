@@ -27,6 +27,14 @@ class UserTest < ActiveSupport::TestCase
     assert u.errors.include?(:email)
   end
 
+  test 'should have a list of audit log entries' do
+    u = User.new(full_name:'Smith, Just call me Smith')
+    p = Paper.new(uri: "http://example.org/a")
+    u.audit_log_entries << AuditLogEntry.new(paper:p)
+    u.save
+    assert_equal(u.audit_log_entries[0].paper, p)
+  end
+
   test "should find a user by api_key" do
     u = User.create!(full_name:'Fred Flintstone' )
     assert_not_nil User.for_key( u.api_key)

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917173105) do
+ActiveRecord::Schema.define(version: 20140918224400) do
+
+  create_table "audit_log_entries", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "paper_id",   null: false
+    t.datetime "created_at", null: false
+  end
+
+  add_index "audit_log_entries", ["paper_id"], name: "index_audit_log_entries_on_paper_id"
+  add_index "audit_log_entries", ["user_id"], name: "index_audit_log_entries_on_user_id"
 
   create_table "papers", force: true do |t|
     t.string   "uri"

@@ -48,6 +48,14 @@ class PaperTest < ActiveSupport::TestCase
     assert_equal(a.cited_papers(true), [b, c])
   end
 
+  test 'should have a list of audit log entries' do
+    u = User.new(full_name:'Smith, Just call me Smith')
+    p = Paper.new(uri: "http://example.org/a")
+    p.audit_log_entries << AuditLogEntry.new(user:u)
+    p.save
+    assert_equal(p.audit_log_entries[0].user, u)
+  end
+
   test 'should round trip bibliographic json' do
     a = Paper.create(uri: "http://example.org/a", bibliographic: { 'red' => [1,2] } )
     assert_equal(a.bibliographic, { 'red' => [1,2] })
