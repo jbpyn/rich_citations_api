@@ -16,9 +16,9 @@ class ActiveSupport::TestCase
       options[:uri] = options[:cited_paper].uri
     end
 
-    if options[:index]
-      options[:uri] = "http://example.org/#{options[:index]}" unless options.has_key?(:uri)
-      options[:ref] = "ref.#{options[:index]}"                unless options.has_key?(:ref)
+    if options[:number]
+      options[:uri]    = "http://example.org/#{options[:number]}" unless options.has_key?(:uri)
+      options[:ref_id] = "ref.#{options[:number]}"                unless options.has_key?(:ref_id)
     end
 
     if !options.has_key?(:cited_paper)

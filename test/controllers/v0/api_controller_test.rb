@@ -10,9 +10,9 @@ class ApiControllerTest < ActionController::TestCase
     { 'uri'           => paper_uri,
       'bibliographic' => { 'title' => 'Title' },
       'more_stuff'    => 'Was here!',
-      'references'    => {
-          'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title' => 'Title'}, 'index' => 1 },
-      }
+      'references'    => [
+          { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title' => 'Title'}, 'number' => 1 },
+      ]
     }
   end
 
@@ -38,9 +38,9 @@ class ApiControllerTest < ActionController::TestCase
                      { 'uri'           => paper_uri,
                        'bibliographic' => { 'title' => 'Title' },
                        'more_stuff'    => 'Was here!',
-                       'references'    => {
-                           'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'index' => 1 },
-                       }
+                       'references'    => [
+                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1 },
+                       ]
                      }
     end
 
@@ -56,9 +56,9 @@ class ApiControllerTest < ActionController::TestCase
           { 'uri'           => paper_uri,
             'bibliographic' => { 'title' => 'Title' },
             'more_stuff'    => 'Was here!',
-            'references'    => {
-                'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title' => 'Title'}, 'index' => 1 },
-            }
+            'references'    => [
+                { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title' => 'Title'}, 'number' => 1 },
+            ]
           }
     end
 

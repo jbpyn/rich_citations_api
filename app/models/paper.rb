@@ -74,14 +74,14 @@ class Paper < ActiveRecord::Base
   def references_metadata(include_cited_papers=false)
     return nil if references.empty?
 
-    references.map { |r| [r.ref, r.metadata(include_cited_papers)] }.to_h
+    references.map { |r| r.metadata(include_cited_papers) }
   end
 
   def create_references_from_metadata(metadata)
-    metadata && metadata.each do |ref, metadata|
+    metadata && metadata.each do |metadata|
       reference = Reference.new
-      reference.assign_metadata(ref, metadata)
-      references <<  reference
+      reference.assign_metadata(metadata)
+      references << reference
     end
   end
 

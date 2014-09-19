@@ -17,16 +17,16 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should create References" do
     p = Paper.new
-    p.assign_metadata('references' => {
-                          'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} },
-                          'ref.2' => { 'ref' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'} },
-                      } )
+    p.assign_metadata('references' => [
+                          { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} },
+                          { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'} },
+                      ] )
 
     assert_equal p.references.length, 2
-    assert_equal p.references[0].ref, 'ref.1'
-    assert_equal p.references[0].uri, 'http://example.com/c1'
-    assert_equal p.references[1].ref, 'ref.2'
-    assert_equal p.references[1].uri, 'http://example.com/c2'
+    assert_equal p.references[0].ref_id, 'ref.1'
+    assert_equal p.references[0].uri,   'http://example.com/c1'
+    assert_equal p.references[1].ref_id, 'ref.2'
+    assert_equal p.references[1].uri,   'http://example.com/c2'
   end
 
   test "it should not create anything if it there is an error in a Reference" do
@@ -34,9 +34,9 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal Reference.count, 0
 
     p = Paper.new
-    p.assign_metadata('references' => {
-                'ref.1' => { 'ref' => 'ref.1', 'uri' => 'bad_uri', 'bibliographic' => {'title'=>'1'} },
-            } )
+    p.assign_metadata('references' => [
+                { 'id' => 'ref.1', 'uri' => 'bad_uri', 'bibliographic' => {'title'=>'1'} },
+            ] )
 
     assert_equal p.save, false
 
@@ -52,10 +52,10 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     metadata = { 'uri'           => 'http://example.com/a',
                  'bibliographic' => { 'title' => 'Title' },
                  'more_stuff'    => 'Was here!',
-                 'references'    => {
-                    'ref.1' => { 'ref' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'}, 'index' => 1 },
-                    'ref.2' => { 'ref' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'2'}, 'index' => 2 },
-                 }
+                 'references'    => [
+                    { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'}, 'number' => 1 },
+                    { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'2'}, 'number' => 2 },
+                 ]
                }
 
     p = Paper.new
