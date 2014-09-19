@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918202453) do
+ActiveRecord::Schema.define(version: 20140918224400) do
+
+  create_table "audit_log_entries", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "paper_id",   null: false
+    t.datetime "created_at", null: false
+  end
+
+  add_index "audit_log_entries", ["paper_id"], name: "index_audit_log_entries_on_paper_id"
+  add_index "audit_log_entries", ["user_id"], name: "index_audit_log_entries_on_user_id"
 
   create_table "citation_group_references", force: true do |t|
     t.integer "citation_group_id"
@@ -48,5 +57,15 @@ ActiveRecord::Schema.define(version: 20140918202453) do
     t.datetime "updated_at"
     t.string   "ref",             null: false
   end
+
+  create_table "users", force: true do |t|
+    t.string   "api_key",    limit: 36, null: false
+    t.string   "full_name"
+    t.string   "email"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
 
 end

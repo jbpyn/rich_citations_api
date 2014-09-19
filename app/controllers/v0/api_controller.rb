@@ -1,8 +1,10 @@
 module V0
-  class ApiController < ::ActionController::Base
+  class ApiController < ::ApiController
 
     respond_to :json
-    before_filter :paper_required, except: [:create]
+
+    before_action :authentication_required!, :except => [ :show ]
+    before_action :paper_required, except: [:create]
 
     def create
       metadata = uploaded_metadata
@@ -11,9 +13,8 @@ module V0
       render status: :forbidden,      text:'Paper already exists' and return if Paper.exists?(uri: uri)
 
       paper = Paper.new
-      paper.assign_metadata(metadata)
 
-      if paper.save
+      if paper.update_metadata( metadata, authenticated_user )
         render text:'Document Created', status: :created
       else
         render text:'Invalid Metadata', status: :unprocessable_entity

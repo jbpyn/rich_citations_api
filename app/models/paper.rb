@@ -7,6 +7,7 @@ class Paper < ActiveRecord::Base
   has_many :referenced_by,  foreign_key: :cited_paper_id,   class: Reference, inverse_of: :cited_paper
   has_many :cited_papers,   through:     :references,       class: Paper
   has_many :citing_papers,  through:     :referenced_by,    class: Paper
+  has_many :audit_log_entries
 
   # validations
   validates :uri, presence: true
@@ -54,6 +55,13 @@ class Paper < ActiveRecord::Base
     self.uri           = metadata.delete('uri')
     self.bibliographic = metadata.delete('bibliographic')
     self.extended      = metadata
+  end
+
+  def update_metadata(metadata, updating_user)
+    assign_metadata(metadata)
+    saved = self.save
+    AuditLogEntry.create(paper:self, user:updating_user) if saved
+    saved
   end
 
   def reload
