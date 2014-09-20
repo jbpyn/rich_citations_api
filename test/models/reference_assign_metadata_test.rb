@@ -6,16 +6,15 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new
-    c.assign_metadata('ref.x',
-                      'ref'      => 'ref.x',
-                      'index'    => 2,
+    c.assign_metadata('id'       => 'ref.x',
+                      'number'   => 2,
                       'uri'      => 'http://example.org/a',
                       'mentions' => 2                   )
 
-    assert_equal c.uri,   'http://example.org/a'
-    assert_equal c.ref,   'ref.x'
-    assert_equal c.index, 2
-    assert_equal c.text,  { 'mentions' => 2 }
+    assert_equal c.uri,    'http://example.org/a'
+    assert_equal c.ref_id, 'ref.x'
+    assert_equal c.number,  2
+    assert_equal c.text,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
     p.reload
@@ -28,18 +27,17 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('ref.x',
-                      'ref'           => 'ref.x',
-                      'index'         => 2,
+    c.assign_metadata('id'            => 'ref.x',
+                      'number'        => 2,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Updated Title'},
                       'mentions'      => 2                               )
     c.save!
 
-    assert_equal c.uri,   'http://example.org/a'
-    assert_equal c.ref,   'ref.x'
-    assert_equal c.index, 2
-    assert_equal c.text,  { 'mentions' => 2 }
+    assert_equal c.uri,    'http://example.org/a'
+    assert_equal c.ref_id, 'ref.x'
+    assert_equal c.number,  2
+    assert_equal c.text,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
     p.reload
@@ -57,18 +55,17 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_nil(p)
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('ref.x',
-                      'ref'           => 'ref.x',
-                      'index'         => 2,
+    c.assign_metadata('id'            => 'ref.x',
+                      'number'        => 2,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Title'},
                       'mentions'      => 2                               )
     c.save!
 
-    assert_equal c.uri,   'http://example.org/a'
-    assert_equal c.ref,   'ref.x'
-    assert_equal c.index, 2
-    assert_equal c.text,  { 'mentions' => 2 }
+    assert_equal c.uri,    'http://example.org/a'
+    assert_equal c.ref_id, 'ref.x'
+    assert_equal c.number, 2
+    assert_equal c.text,   { 'mentions' => 2 }
 
     p = Paper.for_uri('http://example.org/a')
     assert_equal c.cited_paper, p
@@ -79,18 +76,17 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     citing = Paper.create!(uri:'http://example.org/citing')
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('ref.x',
-                      'ref'           => 'ref.x',
-                      'index'         => 2,
+    c.assign_metadata('id'            => 'ref.x',
+                      'number'        => 2,
                       # 'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Title'},
                       'mentions'      => 2                               )
     c.save!
 
     assert_equal c.is_random_uri?, true
-    assert_equal c.ref,   'ref.x'
-    assert_equal c.index, 2
-    assert_equal c.text,  { 'mentions' => 2 }
+    assert_equal c.ref_id, 'ref.x'
+    assert_equal c.number, 2
+    assert_equal c.text,   { 'mentions' => 2 }
 
     p = Paper.for_uri(c.uri)
     assert_equal c.cited_paper, p
@@ -104,9 +100,8 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_nil(p)
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('ref.x',
-                      'ref'           => 'ref.x',
-                      'index'         => 2,
+    c.assign_metadata('id'            => 'ref.x',
+                      'number'        => 2,
                       'uri'           => 'bad_uri',
                       'bibliographic' => {'title' => 'Title'},
                       'mentions'      => 2                               )
@@ -120,14 +115,14 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   test "it should round-trip the metadata" do
     p1 = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    metadata = { 'ref'           => 'ref.x',
-                 'index'         => 2,
+    metadata = { 'id'             => 'ref.x',
+                 'number'         => 2,
                  'uri'           => 'http://example.org/a',
                  'bibliographic' => {'title' => 'Updated Title'},
                  'mentions'      => 2                              }
 
     c = Reference.new
-    c.assign_metadata('ref.x', metadata)
+    c.assign_metadata(metadata)
 
     assert_equal(c.metadata(true), metadata)
   end
@@ -138,26 +133,11 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
     c = Reference.new
     assert_raises(RuntimeError) {
-      c.assign_metadata('ref.x',
-                        'ref'           => 'ref.x',
-                        'index'         => 2,
+      c.assign_metadata('id'            => 'ref.x',
+                        'number'        => 2,
                         'uri'           => 'http://example.org/a',
                         'mentions'      => 2                               )
     }
-  end
-
-  test "it should raise an exception if the provided ref and metadata ref do not match" do
-    p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
-
-    c = Reference.new
-    assert_raise(RuntimeError) {
-      c.assign_metadata('ref.x',
-                        'ref'      => 'ref.y',
-                        'index'    => 2,
-                        'uri'      => 'http://example.org/a',
-                        'mentions' => 2                   )
-    }
-
   end
 
 end
