@@ -51,12 +51,12 @@ ActiveRecord::Schema.define(version: 20140919214920) do
   create_table "references", force: true do |t|
     t.string   "uri"
     t.text     "text"
-    t.integer  "index"
+    t.integer  "number"
     t.integer  "citing_paper_id"
     t.integer  "cited_paper_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ref",             null: false
+    t.string   "ref_id",          null: false
   end
 
   create_table "users", force: true do |t|

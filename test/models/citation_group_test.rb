@@ -2,8 +2,8 @@ require 'test_helper'
 
 class CitationGroupTest < ActiveSupport::TestCase
   test 'can create a citation group' do
-    r1 = Reference.new(text: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref:'ref-1', index: 1, uri:'uri://1')
-    r2 = Reference.new(text: 'bar', citing_paper: papers(:d), cited_paper: papers(:f), ref:'ref-1', index: 2, uri:'uri://2')
+    r1 = Reference.new(text: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r2 = Reference.new(text: 'bar', citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-1', number: 2, uri:'uri://2')
 
     g = CitationGroup.new(citing_paper: papers(:d),
                           section: 'Foo',
@@ -19,8 +19,8 @@ class CitationGroupTest < ActiveSupport::TestCase
   end
 
   test 'ordering is added for references' do
-    r1 = Reference.new(text: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref:'ref-1', index: 1, uri:'uri://1')
-    r2 = Reference.new(text: 'bar', citing_paper: papers(:d), cited_paper: papers(:f), ref:'ref-1', index: 2, uri:'uri://2')
+    r1 = Reference.new(text: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r2 = Reference.new(text: 'bar', citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-1', number: 2, uri:'uri://2')
     g = CitationGroup.new(citing_paper: papers(:d),
                           references: [r1, r2])
     assert(g.save)
@@ -30,14 +30,14 @@ class CitationGroupTest < ActiveSupport::TestCase
 
   test 'references are ordered by ordering' do
     g = CitationGroup.new(citing_paper: papers(:d))
-    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_1), position: 1)
-    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_2), position: 0)
+    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_1), position: 2)
+    g.citation_group_references << CitationGroupReference.new(reference: references(:ref_2), position: 1)
     assert(g.save)
     assert_equal([references(:ref_2), references(:ref_1)], g.references)
   end
 
   test 'citation_group destroys citation_group_references, but not references ' do
-    r1 = Reference.new(text: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref:'ref-1', index: 1, uri:'uri://1')
+    r1 = Reference.new(text: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
     g = CitationGroup.new(citing_paper: papers(:d),
                           references: [r1])
     g.save
