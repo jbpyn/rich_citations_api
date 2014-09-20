@@ -1,5 +1,3 @@
-require 'uri'
-
 class Paper < ActiveRecord::Base
 
   # relationships
@@ -11,8 +9,7 @@ class Paper < ActiveRecord::Base
   has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy
 
   # validations
-  validates :uri, presence: true
-  validate :valid_uri
+  validates :uri, presence:true, uri:true
 
   def self.for_uri(uri)
     where(uri:uri).first
@@ -72,13 +69,6 @@ class Paper < ActiveRecord::Base
   end
 
   private
-
-  def valid_uri
-    parsed = URI.parse(uri)
-    errors.add(:uri, 'must be a URI') if parsed.scheme.nil?
-  rescue URI::InvalidURIError
-    errors.add(:uri, 'must be a URI')
-  end
 
   def references_metadata(include_cited_papers=false)
     return nil if references.empty?

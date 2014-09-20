@@ -8,9 +8,8 @@ class Reference < ActiveRecord::Base
   validates  :citing_paper, presence:true
   validates  :cited_paper,                 uniqueness: {scope: :citing_paper}
   validates  :number,       presence:true, uniqueness: {scope: :citing_paper}
-  validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}
+  validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}, uri:true
   validates  :ref_id,       presence:true, uniqueness: {scope: :citing_paper}
-  validate   :valid_uri
 
   default_scope -> { order(:number) }
 
@@ -81,11 +80,5 @@ class Reference < ActiveRecord::Base
     "cited:#{SecureRandom.uuid}"
   end
 
-  def valid_uri
-    parsed = URI.parse(uri)
-    errors.add(:uri, 'must be a URI') if parsed.scheme.nil?
-  rescue URI::InvalidURIError
-    errors.add(:uri, 'must be a URI')
-  end
 
 end
