@@ -9,10 +9,13 @@ gem 'jquery-rails'
 gem 'multi_json'
 gem 'oj'
 
+gem 'acts_as_list'
+
 group :production do
   gem 'rails_12factor'
 end
 
 group :test do
   gem 'rake'
+  gem "mocha"
 end

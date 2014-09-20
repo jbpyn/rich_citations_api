@@ -1,12 +1,10 @@
 Todos
 ==============
+* Ad copyright text
 * Upgrade to Rails 4.2
 * Add API versioining
   - Make sure that Vary header includes whatever we choose
-* POST a document
-* GET a document
-* GET only biblio or biblio+extended metadata
-* GET including cited biblio metadata
+  - Add version as a response header
 * PUT changes
 * PUT/GET with a path
 * Handle paths with an id section (#ref)
@@ -19,20 +17,19 @@ Todos
 * Make sure that invalid content and accept types return errors
 * Handle JSON parser failures on post/put (This is in the middleware stack)
 * Provide CORS support
-* Caching support If-Modified-Since/etag+If-None-Match
-
+* Optimize caching support If-Modified-Since/etag+If-None-Match
 * Add a 'plugin' system to allow processors (for ex NLM to JSON)
 * Do NLM to JSON conversion
-* Add user authentication and authorization
-* Add audit log
+* Audit Logging: Add details of changes (diff)
 * Extract URI validator into a validation class
 * Web/Test interface
-* Filter logging of API keys
 * Add routing tests
+* Add ?pretty=true option
 
-Low Priority
-===============
+Future/Low Priority
+=====================
 * Handle JSON Patch format
+* Rate limiting
 
 Open Questions
 ===============

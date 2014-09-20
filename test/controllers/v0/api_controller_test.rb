@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApiControllerTest < ActionController::TestCase
+class ::V0::ApiControllerTest < ActionController::TestCase
 
   def setup
     @controller = V0::ApiController.new
@@ -16,7 +16,7 @@ class ApiControllerTest < ActionController::TestCase
     }
   end
 
-  class ApiControlerGetTest < ApiControllerTest
+  class ::V0::ApiControlerGetTest < ::V0::ApiControllerTest
 
     paper_uri = 'http://example.com/a'
 
@@ -24,6 +24,11 @@ class ApiControllerTest < ActionController::TestCase
       p = Paper.new
       p.assign_metadata( metadata(paper_uri) )
       p.save!
+    end
+
+    test "It should not authenticate the user" do
+      @controller.expects(:authentication_required!).never
+      get :show, id:'123'
     end
 
     test "It should GET a paper" do
@@ -62,7 +67,7 @@ class ApiControllerTest < ActionController::TestCase
           }
     end
 
-    test "It should reneder a 404 if you GET a paper that doesn't exist" do
+    test "It should render a 404 if you GET a paper that doesn't exist" do
       id = URI.encode_www_form_component(paper_uri)
       get :show, id:id, include:'cited'
 
@@ -71,13 +76,48 @@ class ApiControllerTest < ActionController::TestCase
 
   end
 
-  class ApiControlerPostTest < ApiControllerTest
+  class ::V0::ApiControlerPostTest < ::V0::ApiControllerTest
 
     paper_uri = 'http://example.com/a'
+
+    def setup
+      super
+      @controller.stubs :authentication_required!
+    end
+
+    test "It should require authentication" do
+      @controller.expects :authentication_required!
+      post :create, api:metadata(paper_uri)
+    end
 
     test "It should POST a new paper" do
       post :create, api:metadata(paper_uri)
       assert_response :created
+    end
+
+    test "It should create an audit log entry" do
+      user = User.create(full_name:'A User')
+      @controller.stubs authenticated_user:user
+
+      post :create, api:metadata(paper_uri)
+
+      paper = Paper.for_uri(paper_uri)
+      assert_equal paper.audit_log_entries.count, 1
+      assert_equal user.audit_log_entries.count,  1
+      assert_equal AuditLogEntry.count, 1
+    end
+
+    test "It should not create an audit log entry if the metadata is invalid" do
+      user = User.create(full_name:'A User')
+      @controller.stubs authenticated_user:user
+
+      data = metadata(paper_uri)
+      data.delete('uri')
+      post :create, api:data
+
+      paper = Paper.for_uri(paper_uri)
+      assert_equal user.audit_log_entries.count,  0
+      assert_equal AuditLogEntry.count, 0
     end
 
     test "It should create the paper's records" do
