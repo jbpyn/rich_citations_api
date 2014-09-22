@@ -31,13 +31,13 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                       'number'        => 2,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Updated Title'},
-                      'mentions'      => 2                               )
+                      'mentions'      => 3                               )
     c.save!
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
-    assert_equal c.extra,   { 'mentions' => 2 }
+    assert_equal c.extra,   { 'mentions' => 3 }
 
     assert_equal c.cited_paper, p
     p.reload

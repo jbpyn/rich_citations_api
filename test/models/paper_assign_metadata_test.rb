@@ -12,7 +12,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
     assert_equal p.uri,           'http://example.com/a'
     assert_equal p.bibliographic, { 'title' => 'Title' }
-    assert_equal p.extended,      { 'more_stuff' => 'Was here!' }
+    assert_equal p.extra,         { 'more_stuff' => 'Was here!' }
   end
 
   test "it should create References" do

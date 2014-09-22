@@ -9,37 +9,18 @@ class Paper < ActiveRecord::Base
   has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy
 
   # validations
-  validates :uri, presence:true, uri:true
+  validates :uri, presence:true, uri:true, uniqueness:true
+
 
   json_attribute :bibliographic
-  json_attribute :extended
+  json_attribute :extra, :foo
 
   def self.for_uri(uri)
     where(uri:uri).first
   end
 
-  def bibliographic
-    raw = read_attribute('bibliographic')
-    @bibliographic ||= raw && MultiJson.load(raw)
-  end
-
-  def bibliographic= value
-    @bibliographic = nil
-    write_attribute('bibliographic', value && MultiJson.dump(value) )
-  end
-
-  def extended
-    raw = read_attribute('extended')
-    @extended ||= raw && MultiJson.load(raw)
-  end
-
-  def extended= value
-    @extended = nil
-    write_attribute('extended', value && MultiJson.dump(value) )
-  end
-
   def metadata(include_cited_paper=false)
-    (extended || {}).merge(
+    (extra || {}).merge(
       'uri'           => uri,
       'bibliographic' => bibliographic,
       'references'    => references_metadata(include_cited_paper)
@@ -55,7 +36,7 @@ class Paper < ActiveRecord::Base
 
     self.uri           = metadata.delete('uri')
     self.bibliographic = metadata.delete('bibliographic')
-    self.extended      = metadata
+    self.extra         = metadata
   end
 
   def update_metadata(metadata, updating_user)
@@ -63,12 +44,6 @@ class Paper < ActiveRecord::Base
     saved = self.save
     AuditLogEntry.create(paper:self, user:updating_user) if saved
     saved
-  end
-
-  def reload
-    super
-    @bibliographic = nil
-    @extended = nil
   end
 
   private
