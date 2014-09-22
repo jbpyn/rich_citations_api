@@ -16,23 +16,23 @@ class PaperTest < ActiveSupport::TestCase
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    a.references += [ new_reference( number:0, cited_paper:b, text: { 'blue' => 2 } ),
-                      new_reference( number:1, cited_paper:c, text: { 'red' =>  1 } ) ]
+    a.references += [ new_reference( number:0, cited_paper:b, extra: { 'blue' => 2 } ),
+                      new_reference( number:1, cited_paper:c, extra: { 'red' =>  1 } ) ]
     a.save
     assert_equal(a.references[0].cited_paper, b)
     assert_equal(a.references[0].citing_paper, a)
-    assert_equal(a.references[0].text, { 'blue' =>  2 })
+    assert_equal(a.references[0].extra, { 'blue' =>  2 })
     assert_equal(a.references[1].cited_paper, c)
     assert_equal(a.references[1].citing_paper, a)
-    assert_equal(a.references[1].text, { 'red' =>  1 })
+    assert_equal(a.references[1].extra, { 'red' =>  1 })
   end
 
   test 'should have CITING papers' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    new_reference( number:0, citing_paper:a, cited_paper:c, text: { 'blue' => 2 }, save:true )
-    new_reference( number:0, citing_paper:b, cited_paper:c, text: { 'red'  => 3 }, save:true )
+    new_reference( number:0, citing_paper:a, cited_paper:c, extra: { 'blue' => 2 }, save:true )
+    new_reference( number:0, citing_paper:b, cited_paper:c, extra: { 'red'  => 3 }, save:true )
 
     assert_equal(c.citing_papers, [a, b])
   end    
@@ -41,8 +41,8 @@ class PaperTest < ActiveSupport::TestCase
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    a.references += [ new_reference( number:0, cited_paper:b, text: { 'blue' => 2 } ),
-                      new_reference( number:1, cited_paper:c, text: { 'red'  =>  1 } ) ]
+    a.references += [ new_reference( number:0, cited_paper:b, extra: { 'blue' => 2 } ),
+                      new_reference( number:1, cited_paper:c, extra: { 'red'  =>  1 } ) ]
     a.save
 
     assert_equal(a.cited_papers(true), [b, c])
@@ -99,8 +99,8 @@ class PaperTest < ActiveSupport::TestCase
                   bibliographic: {'title' => 'Citing 1'},
                   extended:      { 'groups' => [1,2] }              )
 
-    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
 
     assert_equal(p.metadata, {
                                  'uri'           => 'http://example.org/a',
@@ -118,8 +118,8 @@ class PaperTest < ActiveSupport::TestCase
                   bibliographic: {'title' => 'Citing 1'},
                   extended:      { 'groups' => [1,2] }              )
 
-    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
 
     assert_equal(p.metadata(true), {
                                  'uri'           => 'http://example.org/a',
@@ -135,8 +135,8 @@ class PaperTest < ActiveSupport::TestCase
   end
 
   test 'Can add citation groups to a paper' do
-    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: { 'title' => 'Citing 1' },
                   references: [r1, r2],
@@ -146,8 +146,8 @@ class PaperTest < ActiveSupport::TestCase
   end
 
   test 'Citation groups are ordered in a paper' do
-    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
     g1 = CitationGroup.new(references: [r2])
     g2 = CitationGroup.new(references: [r1])
     p = Paper.new(uri: 'http://example.org/a',

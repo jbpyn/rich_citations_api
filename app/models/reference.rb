@@ -13,12 +13,12 @@ class Reference < ActiveRecord::Base
 
   default_scope -> { order(:number) }
 
-  json_attribute :text
+  json_attribute :extra
 
   def metadata(include_cited_paper=false)
-    result = (text || {}).merge( 'number' => number,
-                                 'uri'   => uri,
-                                 'id'    => ref_id         )
+    result = (extra || {}).merge( 'number' => number,
+                                  'uri'   => uri,
+                                  'id'    => ref_id         )
 
     if include_cited_paper && cited_paper
       result['bibliographic'] = cited_paper.bibliographic
@@ -53,7 +53,7 @@ class Reference < ActiveRecord::Base
     self.uri         = uri
     self.ref_id      = ref_id
     self.number      = metadata.delete('number')
-    self.text        = metadata
+    self.extra       = metadata
     self.cited_paper = cited_paper
   end
 

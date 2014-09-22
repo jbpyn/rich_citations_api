@@ -14,7 +14,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
-    assert_equal c.text,   { 'mentions' => 2 }
+    assert_equal c.extra,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
     p.reload
@@ -37,7 +37,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
-    assert_equal c.text,   { 'mentions' => 2 }
+    assert_equal c.extra,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
     p.reload
@@ -65,7 +65,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number, 2
-    assert_equal c.text,   { 'mentions' => 2 }
+    assert_equal c.extra,   { 'mentions' => 2 }
 
     p = Paper.for_uri('http://example.org/a')
     assert_equal c.cited_paper, p
@@ -86,7 +86,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.is_random_uri?, true
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number, 2
-    assert_equal c.text,   { 'mentions' => 2 }
+    assert_equal c.extra,   { 'mentions' => 2 }
 
     p = Paper.for_uri(c.uri)
     assert_equal c.cited_paper, p

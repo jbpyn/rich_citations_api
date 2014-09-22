@@ -25,6 +25,20 @@ class JsonAttributesTest < ActiveSupport::TestCase
     assert_equal q.bibliographic, { 'a' => 1 }
   end
 
+  test "it should the attribute to nil" do
+    p = Paper.new('http://example.com/a')
+    p.bibliographic = { 'a' => 1 }
+    assert_equal p.bibliographic, { 'a' => 1 }
+    p.save!
+
+    p.bibliographic = nil
+    assert_nil p.bibliographic
+    p.save!
+
+    q = Paper.find(p.id)
+    assert_nil q.bibliographic
+  end
+
   test "it should reload JSON" do
     p = Paper.new('http://example.com/a')
     p.bibliographic = { 'a' => 1 }

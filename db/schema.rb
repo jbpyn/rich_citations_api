@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919214920) do
+ActiveRecord::Schema.define(version: 20140922184922) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -41,23 +41,28 @@ ActiveRecord::Schema.define(version: 20140919214920) do
   end
 
   create_table "papers", force: true do |t|
-    t.string   "uri"
+    t.string   "uri",           null: false
     t.text     "bibliographic"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "extended"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.text     "extra"
   end
 
+  add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
+
   create_table "references", force: true do |t|
-    t.string   "uri"
-    t.text     "text"
-    t.integer  "number"
-    t.integer  "citing_paper_id"
+    t.string   "uri",             null: false
+    t.text     "extra"
+    t.integer  "number",          null: false
+    t.integer  "citing_paper_id", null: false
     t.integer  "cited_paper_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "ref_id",          null: false
   end
+
+  add_index "references", ["cited_paper_id", "number"], name: "index_references_on_cited_paper_id_and_number", unique: true
+  add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id"
 
   create_table "users", force: true do |t|
     t.string   "api_key",    limit: 36, null: false
