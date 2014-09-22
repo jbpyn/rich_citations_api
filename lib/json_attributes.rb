@@ -2,20 +2,24 @@
 
 module JsonAttributes
 
-  def json_attribute(*names)
+  # def extended(klass)
+  #   puts "--- extended"
+  #   klass.cattr_accessor :json_attribute_fields # unless defined?(:json_attribute_fields)
+  # end
 
-    if ! defined? @@json_attributes
-      @@json_attributes = []
+  def json_attribute(*names)
+    if ! defined? json_attribute_fields
+      cattr_accessor(:json_attribute_fields) { [] }
 
       define_method :reload do
-        @@json_attributes.each do
+        json_attribute_fields.each do
           |name| remove_instance_variable( "@#{name}") if instance_variable_defined?("@#{name}")
         end
         super()
       end
     end
 
-    @@json_attributes += names
+    self.json_attribute_fields += names
 
     # Define accessors for each name
 
