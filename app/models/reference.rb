@@ -13,20 +13,7 @@ class Reference < ActiveRecord::Base
 
   default_scope -> { order(:number) }
 
-  def text
-    raw = read_attribute('text')
-    @text ||= raw && MultiJson.load(raw)
-  end
-
-  def text= value
-    @text = nil
-    write_attribute('text', value && MultiJson.dump(value) )
-  end
-
-  def reload
-    super
-    @text = nil
-  end
+  json_attribute :text
 
   def metadata(include_cited_paper=false)
     result = (text || {}).merge( 'number' => number,

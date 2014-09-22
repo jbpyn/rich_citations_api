@@ -11,6 +11,9 @@ class Paper < ActiveRecord::Base
   # validations
   validates :uri, presence:true, uri:true
 
+  json_attribute :bibliographic
+  json_attribute :extended
+
   def self.for_uri(uri)
     where(uri:uri).first
   end
