@@ -1,8 +1,15 @@
 class Reference < ActiveRecord::Base
 
   # relationships
-  belongs_to :cited_paper,  class: Paper, validate:true, autosave:true
-  belongs_to :citing_paper, class: Paper
+  belongs_to :cited_paper,  class: Paper, inverse_of: :referenced_by, validate:true, autosave:true
+  belongs_to :citing_paper, class: Paper, inverse_of: :references
+
+  has_many   :citation_group_references, -> { order(:position) },
+             inverse_of: :reference, dependent: :destroy
+  has_many   :citation_groups,
+             through: :citation_group_references, class: CitationGroup,
+             inverse_of: :references
+
 
   # validations
   validates  :citing_paper, presence:true

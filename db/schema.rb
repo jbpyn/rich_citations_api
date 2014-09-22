@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922184922) do
+ActiveRecord::Schema.define(version: 20140922221419) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -23,10 +23,13 @@ ActiveRecord::Schema.define(version: 20140922184922) do
   add_index "audit_log_entries", ["user_id"], name: "index_audit_log_entries_on_user_id"
 
   create_table "citation_group_references", force: true do |t|
-    t.integer "citation_group_id"
-    t.integer "reference_id"
-    t.integer "position"
+    t.integer "citation_group_id", null: false
+    t.integer "reference_id",      null: false
+    t.integer "position",          null: false
   end
+
+  add_index "citation_group_references", ["citation_group_id", "position"], name: "index_citation_group_references_on_group_id_and_position"
+  add_index "citation_group_references", ["reference_id"], name: "index_citation_group_references_on_reference_id"
 
   create_table "citation_groups", force: true do |t|
     t.boolean "ellipses_before"
@@ -36,9 +39,11 @@ ActiveRecord::Schema.define(version: 20140922184922) do
     t.boolean "ellipses_after"
     t.integer "word_position"
     t.text    "section"
-    t.integer "citing_paper_id"
-    t.integer "position"
+    t.integer "citing_paper_id", null: false
+    t.integer "position",        null: false
   end
+
+  add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position"
 
   create_table "papers", force: true do |t|
     t.string   "uri",           null: false

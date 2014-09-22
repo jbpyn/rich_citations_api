@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_many :audit_log_entries
+  has_many :audit_log_entries, inverse_of: :user
 
   before_validation :set_api_key
   validates :api_key, presence:true, uniqueness:true

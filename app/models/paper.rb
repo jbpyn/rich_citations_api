@@ -3,10 +3,10 @@ class Paper < ActiveRecord::Base
   # relationships
   has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper
   has_many :referenced_by,  foreign_key: :cited_paper_id,   class: Reference, inverse_of: :cited_paper
-  has_many :cited_papers,   through:     :references,       class: Paper
-  has_many :citing_papers,  through:     :referenced_by,    class: Paper
-  has_many :audit_log_entries
-  has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy
+  has_many :cited_papers,   through:     :references,       class: Paper,     inverse_of:  :citing_papers
+  has_many :citing_papers,  through:     :referenced_by,    class: Paper,     inverse_of:  :cited_papers
+  has_many :audit_log_entries, inverse_of: :paper
+  has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy, inverse_of: :citing_paper
 
   # validations
   validates :uri, presence:true, uri:true, uniqueness:true
