@@ -1,38 +1,33 @@
 class Reference < ActiveRecord::Base
 
   # relationships
-  belongs_to :cited_paper,  class: Paper, validate:true, autosave:true
-  belongs_to :citing_paper, class: Paper
+  belongs_to :cited_paper,  class: Paper, inverse_of: :referenced_by, validate:true, autosave:true
+  belongs_to :citing_paper, class: Paper, inverse_of: :references
+
+  has_many   :citation_group_references, -> { order(:position) },
+             inverse_of: :reference, dependent: :destroy
+  has_many   :citation_groups, -> { order('citation_groups.position') },
+             through: :citation_group_references, class: CitationGroup,
+             inverse_of: :references
+
 
   # validations
   validates  :citing_paper, presence:true
   validates  :cited_paper,                 uniqueness: {scope: :citing_paper}
   validates  :number,       presence:true, uniqueness: {scope: :citing_paper}
-  validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}
+  validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}, uri:true
   validates  :ref_id,       presence:true, uniqueness: {scope: :citing_paper}
-  validate   :valid_uri
 
   default_scope -> { order(:number) }
 
-  def text
-    raw = read_attribute('text')
-    @text ||= raw && MultiJson.load(raw)
-  end
-
-  def text= value
-    @text = nil
-    write_attribute('text', value && MultiJson.dump(value) )
-  end
-
-  def reload
-    super
-    @text = nil
-  end
+  json_attribute :extra
 
   def metadata(include_cited_paper=false)
-    result = (text || {}).merge( 'number' => number,
-                                 'uri'   => uri,
-                                 'id'    => ref_id         )
+    result = (extra || {}).merge( 'number'          => number,
+                                  'uri'             => uri,
+                                  'id'              => ref_id,
+                                  'citation_groups' => citation_groups.map { |g| g.group_id }.presence
+                                ).compact
 
     if include_cited_paper && cited_paper
       result['bibliographic'] = cited_paper.bibliographic
@@ -40,7 +35,7 @@ class Reference < ActiveRecord::Base
 
     result
   end
-  alias :to_json metadata
+  alias to_json metadata
 
   #@todo: This method needs to make sure that it doesn't leave orphan
   #       Cited records when they are automatically generated (Have a random_citation_uri)
@@ -49,8 +44,10 @@ class Reference < ActiveRecord::Base
     uri      = metadata.delete('uri') || random_citation_uri
     ref_id   = metadata.delete('id')
 
-    bibliographic = metadata.delete('bibliographic')
-    cited_paper   = Paper.for_uri(uri)
+    bibliographic   = metadata.delete('bibliographic')
+    #@todo We ignore this data for now but should really validate it against paper/citation_groups/references
+    citation_groups = metadata.delete('citation_groups')
+    cited_paper     = Paper.for_uri(uri)
 
     unless cited_paper || bibliographic
       raise "Cannot assign metadata unless the paper exists or bibliographic metadata is provided for #{ref_id}" #@todo
@@ -67,7 +64,7 @@ class Reference < ActiveRecord::Base
     self.uri         = uri
     self.ref_id      = ref_id
     self.number      = metadata.delete('number')
-    self.text        = metadata
+    self.extra       = metadata
     self.cited_paper = cited_paper
   end
 
@@ -81,11 +78,5 @@ class Reference < ActiveRecord::Base
     "cited:#{SecureRandom.uuid}"
   end
 
-  def valid_uri
-    parsed = URI.parse(uri)
-    errors.add(:uri, 'must be a URI') if parsed.scheme.nil?
-  rescue URI::InvalidURIError
-    errors.add(:uri, 'must be a URI')
-  end
 
 end

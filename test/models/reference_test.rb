@@ -5,7 +5,7 @@ class ReferenceTest < ActiveSupport::TestCase
   test 'can create a Reference' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
-    reference = Reference.new(text: 'xyz', citing_paper: a, cited_paper: b, ref_id:'ref-1', number:3, uri:'uri://1')
+    reference = Reference.new(extra: 'xyz', citing_paper: a, cited_paper: b, ref_id:'ref-1', number:3, uri:'uri://1')
     assert reference.save
   end
 
@@ -14,43 +14,43 @@ class ReferenceTest < ActiveSupport::TestCase
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
 
-    assert     new_reference(number:0, text: 'foo', citing_paper: a, cited_paper: b).save
-    assert     new_reference(number:1, text: 'bar', citing_paper: a, cited_paper: c).save
-    assert_not new_reference(number:2, text: 'baz', citing_paper: a, cited_paper: b).save
+    assert     new_reference(number:0, extra: 'foo', citing_paper: a, cited_paper: b).save
+    assert     new_reference(number:1, extra: 'bar', citing_paper: a, cited_paper: c).save
+    assert_not new_reference(number:2, extra: 'baz', citing_paper: a, cited_paper: b).save
   end
 
   test 'References numbers are unique for a paper combination' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
-    assert     Reference.new(text: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
-    assert_not Reference.new(text: 'baz', citing_paper: a, cited_paper: c, number:1, uri:'uri://3', ref_id:'ref.2').save
+    assert     Reference.new(extra: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
+    assert_not Reference.new(extra: 'baz', citing_paper: a, cited_paper: c, number:1, uri:'uri://3', ref_id:'ref.2').save
   end
 
   test 'References URIs are unique for a paper combination' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
-    assert     Reference.new(text: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
-    assert_not Reference.new(text: 'baz', citing_paper: a, cited_paper: c, number:3, uri:'uri://1', ref_id:'ref.3').save
+    assert     Reference.new(extra: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
+    assert_not Reference.new(extra: 'baz', citing_paper: a, cited_paper: c, number:3, uri:'uri://1', ref_id:'ref.3').save
   end
 
   test 'References Refs are unique for a paper combination' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
-    r =     Reference.new(text: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1')
+    r =     Reference.new(extra: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1')
     r.save
     puts r.errors.full_messages
     assert r.save
-    assert_not Reference.new(text: 'baz', citing_paper: a, cited_paper: c, number:3, uri:'uri://2', ref_id:'ref.1').save
+    assert_not Reference.new(extra: 'baz', citing_paper: a, cited_paper: c, number:3, uri:'uri://2', ref_id:'ref.1').save
   end
 
   test 'should not save Reference without URI' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
 
-    c = Reference.new(text: 'baz', citing_paper: a, cited_paper: b, number:3, ref_id:'ref.1')
+    c = Reference.new(extra: 'baz', citing_paper: a, cited_paper: b, number:3, ref_id:'ref.1')
     assert_not c.valid?
   end
 
@@ -58,36 +58,36 @@ class ReferenceTest < ActiveSupport::TestCase
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
 
-    c = Reference.new(text: 'baz', citing_paper: a, cited_paper: b, number:3, ref_id:'ref.1', uri:'x')
+    c = Reference.new(extra: 'baz', citing_paper: a, cited_paper: b, number:3, ref_id:'ref.1', uri:'x')
     assert_not c.valid?
   end
 
-  test 'should round trip text json' do
+  test 'should round trip extra json' do
     p = Paper.new(uri: 'http://example.org/a')
 
-    a = new_reference(number:0, citing_paper:p, text: { 'red' => [1,2] }, save:true )
-    assert_equal(a.text, { 'red' => [1,2] })
+    a = new_reference(number:0, citing_paper:p, extra: { 'red' => [1,2] }, save:true )
+    assert_equal(a.extra, { 'red' => [1,2] })
 
     a.reload
-    assert_equal(a.text, { 'red' => [1,2] } )
+    assert_equal(a.extra, { 'red' => [1,2] } )
 
     b = Reference.find(a.id)
-    assert_equal(b.text, { 'red' => [1,2] } )
+    assert_equal(b.extra, { 'red' => [1,2] } )
   end
 
-  test 'can set text to nil' do
+  test 'can set extra to nil' do
     p = Paper.new(uri: 'http://example.org/a')
 
-    a = new_reference(number:0, citing_paper:p, text: nil, save:true)
-    assert_nil(a.text)
+    a = new_reference(number:0, citing_paper:p, extra: nil, save:true)
+    assert_nil(a.extra)
 
     b = Reference.find(a.id)
-    assert_nil(b.text)
+    assert_nil(b.extra)
   end
 
   test 'References should be able to return their metadata' do
     p  = Paper.new(uri: 'http://example.org/a')
-    c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p, text:{ 'word_count' => 42})
+    c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p, extra:{ 'word_count' => 42})
 
     assert_equal(c1.metadata, {
                                   'uri'        => 'http://example.org/3',
@@ -99,7 +99,7 @@ class ReferenceTest < ActiveSupport::TestCase
 
   test 'References should be able to return their metadata including cited metadata' do
     p  = Paper.new(uri: 'http://example.org/a')
-    c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p, text:{ 'word_count' => 42})
+    c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p, extra:{ 'word_count' => 42})
 
     assert_equal(c1.metadata(true), {
                                        'uri'           => 'http://example.org/3',

@@ -16,23 +16,23 @@ class PaperTest < ActiveSupport::TestCase
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    a.references += [ new_reference( number:0, cited_paper:b, text: { 'blue' => 2 } ),
-                      new_reference( number:1, cited_paper:c, text: { 'red' =>  1 } ) ]
+    a.references += [ new_reference( number:0, cited_paper:b, extra: { 'blue' => 2 } ),
+                      new_reference( number:1, cited_paper:c, extra: { 'red' =>  1 } ) ]
     a.save
     assert_equal(a.references[0].cited_paper, b)
     assert_equal(a.references[0].citing_paper, a)
-    assert_equal(a.references[0].text, { 'blue' =>  2 })
+    assert_equal(a.references[0].extra, { 'blue' =>  2 })
     assert_equal(a.references[1].cited_paper, c)
     assert_equal(a.references[1].citing_paper, a)
-    assert_equal(a.references[1].text, { 'red' =>  1 })
+    assert_equal(a.references[1].extra, { 'red' =>  1 })
   end
 
   test 'should have CITING papers' do
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    new_reference( number:0, citing_paper:a, cited_paper:c, text: { 'blue' => 2 }, save:true )
-    new_reference( number:0, citing_paper:b, cited_paper:c, text: { 'red'  => 3 }, save:true )
+    new_reference( number:0, citing_paper:a, cited_paper:c, extra: { 'blue' => 2 }, save:true )
+    new_reference( number:1, citing_paper:b, cited_paper:c, extra: { 'red'  => 3 }, save:true )
 
     assert_equal(c.citing_papers, [a, b])
   end    
@@ -41,8 +41,8 @@ class PaperTest < ActiveSupport::TestCase
     a = Paper.new(uri: "http://example.org/a")
     b = Paper.new(uri: "http://example.org/b")
     c = Paper.new(uri: "http://example.org/c")
-    a.references += [ new_reference( number:0, cited_paper:b, text: { 'blue' => 2 } ),
-                      new_reference( number:1, cited_paper:c, text: { 'red'  =>  1 } ) ]
+    a.references += [ new_reference( number:0, cited_paper:b, extra: { 'blue' => 2 } ),
+                      new_reference( number:1, cited_paper:c, extra: { 'red'  =>  1 } ) ]
     a.save
 
     assert_equal(a.cited_papers(true), [b, c])
@@ -75,32 +75,32 @@ class PaperTest < ActiveSupport::TestCase
     assert_nil(b.bibliographic)
   end
 
-  test 'should round trip extended json' do
-    a = Paper.create(uri: "http://example.org/a", extended: { 'red' => [1,2] } )
-    assert_equal(a.extended, { 'red' => [1,2] })
+  test 'should round trip extra json' do
+    a = Paper.create(uri: "http://example.org/a", extra: { 'red' => [1,2] } )
+    assert_equal(a.extra, { 'red' => [1,2] })
 
     a.reload
-    assert_equal(a.extended, { 'red' => [1,2] } )
+    assert_equal(a.extra, { 'red' => [1,2] } )
 
     b = Paper.find(a.id)
-    assert_equal(b.extended, { 'red' => [1,2] } )
+    assert_equal(b.extra, { 'red' => [1,2] } )
   end
 
-  test 'can set extended to nil' do
-    a = Paper.create(uri: "http://example.org/a", extended: nil )
-    assert_nil(a.extended)
+  test 'can set extra to nil' do
+    a = Paper.create(uri: "http://example.org/a", extra: nil )
+    assert_nil(a.extra)
 
     b = Paper.find(a.id)
-    assert_nil(b.extended)
+    assert_nil(b.extra)
   end
 
   test 'Papers should be able to return their metadata' do
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: {'title' => 'Citing 1'},
-                  extended:      { 'groups' => [1,2] }              )
+                  extra:         { 'groups' => [1,2] }              )
 
-    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
 
     assert_equal(p.metadata, {
                                  'uri'           => 'http://example.org/a',
@@ -116,10 +116,10 @@ class PaperTest < ActiveSupport::TestCase
   test 'Papers should be able to return their metadata including cited paper metadata' do
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: {'title' => 'Citing 1'},
-                  extended:      { 'groups' => [1,2] }              )
+                  extra:         { 'groups' => [1,2] }              )
 
-    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
 
     assert_equal(p.metadata(true), {
                                  'uri'           => 'http://example.org/a',
@@ -135,26 +135,26 @@ class PaperTest < ActiveSupport::TestCase
   end
 
   test 'Can add citation groups to a paper' do
-    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
+    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: { 'title' => 'Citing 1' },
                   references: [r1, r2],
-                  citation_groups: [CitationGroup.new(references: [r1]),
-                                    CitationGroup.new(references: [r2])])
-    assert(p.save!)
+                  citation_groups: [CitationGroup.new(references: [r1], group_id:'g1'),
+                                    CitationGroup.new(references: [r2], group_id:'g2' )])
+    assert(p.save)
   end
 
   test 'Citation groups are ordered in a paper' do
-    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, text:{ 'word_count' => 42} )
-    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, text:{ 'word_count' => 24} )
-    g1 = CitationGroup.new(references: [r2])
-    g2 = CitationGroup.new(references: [r1])
+    r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
+    r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
+    g1 = CitationGroup.new(references: [r2], group_id:'g1')
+    g2 = CitationGroup.new(references: [r1], group_id:'g12' )
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: { 'title' => 'Citing 1' },
                   references: [r1, r2],
                   citation_groups: [g2, g1])
-    assert(p.save!)
+    assert(p.save)
     assert_equal(1, p.citation_groups[0].position)
     assert_equal(2, p.citation_groups[1].position)
     assert_equal([g2, g1], p.citation_groups)

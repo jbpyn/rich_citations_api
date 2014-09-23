@@ -1,5 +1,5 @@
 ref_1:
-  text: 'foo'
+  extra: 'foo'
   citing_paper: a
   cited_paper: b
   ref_id: 'ref-1'
@@ -7,9 +7,9 @@ ref_1:
   uri: 'uri://foo'
 
 ref_2:
-  text: 'bar'
+  extra: 'bar'
   citing_paper: a
   cited_paper: c
-  ref_id: 'ref-1'
+  ref_id: 'ref-2'
   number: 2
   uri: 'uri://bar'
