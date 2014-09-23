@@ -45,7 +45,20 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not update an existing paper if there is an error" do
-    skip "Write this test when there are some validations that would cause saving to fail"
+    citing = Paper.create!(uri:'http://example.org/citing')
+
+    p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
+
+    c = Reference.new(citing_paper:citing)
+    c.assign_metadata('id'            => 'ref.x',
+                      'number'        => nil,
+                      'uri'           => 'http://example.org/a',
+                      'bibliographic' => {'title' => 'Updated Title'},
+                      'mentions'      => 3                               )
+    assert !c.save
+
+    p.reload
+    assert_equal(p.bibliographic, {'title' => 'Original Title'})
   end
 
   test "it should create a cited paper if necessary" do

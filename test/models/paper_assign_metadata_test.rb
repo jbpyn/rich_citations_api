@@ -39,7 +39,15 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not update a cited paper if there is an error in a Reference" do
-    skip "Write this test when there are validations that can fail"
+    cited = papers(:a)
+    paper = Paper.new
+    paper.assign_metadata('references' => [
+                { 'id' => 'ref.1', 'uri' => cited.uri, 'bibliographic' => {'title'=>'1'} },
+            ] )
+
+
+    cited.reload
+    assert_equal cited.bibliographic, {}
   end
 
   test "it should create Citation Groups" do
@@ -74,7 +82,20 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not update a cited paper if there is an error in a Citation Group" do
-    skip "Write this test when there are validations that can fail"
+    cited = papers(:a)
+    paper = Paper.new
+    paper.assign_metadata(
+            'references' => [
+                { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} },
+            ],
+            'citation_groups' => [
+                { 'text' => '[1]', 'section' => 'First',  'references' => ['ref.1'] },
+            ])
+
+    assert_equal paper.save, false
+
+    cited.reload
+    assert_equal cited.bibliographic, {}
   end
 
   test "it should round trip metadata" do
