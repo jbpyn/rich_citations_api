@@ -128,16 +128,18 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   test "it should round-trip the metadata" do
     p1 = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    metadata = { 'id'             => 'ref.x',
-                 'number'         => 2,
-                 'uri'           => 'http://example.org/a',
-                 'bibliographic' => {'title' => 'Updated Title'},
-                 'mentions'      => 2                              }
+    metadata = { 'id'              => 'ref.x',
+                 'number'          => 2,
+                 'uri'             => 'http://example.org/a',
+                 'bibliographic'   => {'title' => 'Updated Title'},
+                 'citation_groups' => ['group-2', 'group-1' ],
+                 'mentions'        => 2                              }
 
-    c = Reference.new
-    c.assign_metadata(metadata)
+    r = Reference.new
+    r.assign_metadata(metadata)
+    r.citation_groups << [ CitationGroup.new(group_id:'group-2'), CitationGroup.new(group_id:'group-1') ]
 
-    assert_equal(c.metadata(true), metadata)
+    assert_equal(r.metadata(true), metadata)
   end
 
   test "it should raise an exception if the cited paper does not exist and no bibliographic data is provided" do

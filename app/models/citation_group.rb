@@ -27,6 +27,7 @@ class CitationGroup < ActiveRecord::Base
             'references'      => references.map { |r| r.ref_id }.presence
         ).compact
   end
+  alias to_json metadata
 
   def assign_metadata(metadata)
     metadata = metadata.dup

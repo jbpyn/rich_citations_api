@@ -103,8 +103,12 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                  'bibliographic' => { 'title' => 'Title' },
                  'more_stuff'    => 'Was here!',
                  'references'    => [
-                    { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'}, 'number' => 1 },
-                    { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'2'}, 'number' => 2 },
+                    { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1,
+                      'bibliographic'   => {'title'=>'1'},
+                      'citation_groups' => ['group-1']               },
+                    { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'number' => 2,
+                      'bibliographic'   => {'title'=>'2'},
+                      'citation_groups' => ['group-1', 'group-2']               }
                  ],
                  'citation_groups' => [
                     { 'id' => 'group-1', 'text' => '[1],[2]', 'section' => 'First',  'references' => ['ref.1','ref.2'] },
@@ -114,6 +118,8 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
     p = Paper.new
     p.assign_metadata(metadata)
+    p.save!
+    p.reload
 
     assert_equal(p.metadata(true), metadata)
   end

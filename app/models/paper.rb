@@ -31,7 +31,7 @@ class Paper < ActiveRecord::Base
       'citation_groups' => citation_groups_metadata
     ).compact
   end
-  alias :to_json metadata
+  alias to_json metadata
 
   def assign_metadata(metadata)
     metadata = metadata.dup

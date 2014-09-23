@@ -6,7 +6,7 @@ class Reference < ActiveRecord::Base
 
   has_many   :citation_group_references, -> { order(:position) },
              inverse_of: :reference, dependent: :destroy
-  has_many   :citation_groups,
+  has_many   :citation_groups, -> { order('citation_groups.position') },
              through: :citation_group_references, class: CitationGroup,
              inverse_of: :references
 
@@ -23,9 +23,11 @@ class Reference < ActiveRecord::Base
   json_attribute :extra
 
   def metadata(include_cited_paper=false)
-    result = (extra || {}).merge( 'number' => number,
-                                  'uri'   => uri,
-                                  'id'    => ref_id         )
+    result = (extra || {}).merge( 'number'          => number,
+                                  'uri'             => uri,
+                                  'id'              => ref_id,
+                                  'citation_groups' => citation_groups.map { |g| g.group_id }.presence
+                                ).compact
 
     if include_cited_paper && cited_paper
       result['bibliographic'] = cited_paper.bibliographic
@@ -33,7 +35,7 @@ class Reference < ActiveRecord::Base
 
     result
   end
-  alias :to_json metadata
+  alias to_json metadata
 
   #@todo: This method needs to make sure that it doesn't leave orphan
   #       Cited records when they are automatically generated (Have a random_citation_uri)
@@ -42,8 +44,10 @@ class Reference < ActiveRecord::Base
     uri      = metadata.delete('uri') || random_citation_uri
     ref_id   = metadata.delete('id')
 
-    bibliographic = metadata.delete('bibliographic')
-    cited_paper   = Paper.for_uri(uri)
+    bibliographic   = metadata.delete('bibliographic')
+    #@todo We ignore this data for now but should really validate it against paper/citation_groups/references
+    citation_groups = metadata.delete('citation_groups')
+    cited_paper     = Paper.for_uri(uri)
 
     unless cited_paper || bibliographic
       raise "Cannot assign metadata unless the paper exists or bibliographic metadata is provided for #{ref_id}" #@todo
