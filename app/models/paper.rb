@@ -19,11 +19,16 @@ class Paper < ActiveRecord::Base
     where(uri:uri).first
   end
 
+  def reference_for_id(ref_id)
+    references.detect{ |ref| ref.ref_id == ref_id }
+  end
+
   def metadata(include_cited_paper=false)
     (extra || {}).merge(
-      'uri'           => uri,
-      'bibliographic' => bibliographic,
-      'references'    => references_metadata(include_cited_paper)
+      'uri'             => uri,
+      'bibliographic'   => bibliographic,
+      'references'      => references_metadata(include_cited_paper),
+      'citation_groups' => citation_groups_metadata
     ).compact
   end
   alias :to_json metadata
@@ -31,8 +36,13 @@ class Paper < ActiveRecord::Base
   def assign_metadata(metadata)
     metadata = metadata.dup
 
+    # This is order dependent
+
     references = metadata.delete('references')
     create_references_from_metadata(references) if references.present?
+
+    citation_groups = metadata.delete('citation_groups')
+    create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
 
     self.uri           = metadata.delete('uri')
     self.bibliographic = metadata.delete('bibliographic')
@@ -54,11 +64,25 @@ class Paper < ActiveRecord::Base
     references.map { |r| r.metadata(include_cited_papers) }
   end
 
+  def citation_groups_metadata
+    return nil if citation_groups.empty?
+
+    citation_groups.map { |g| g.metadata }
+  end
+
   def create_references_from_metadata(metadata)
     metadata && metadata.each do |metadata|
       reference = Reference.new
-      reference.assign_metadata(metadata)
       references << reference
+      reference.assign_metadata(metadata)
+    end
+  end
+
+  def create_citation_groups_from_metadata(metadata)
+    metadata && metadata.each do |metadata|
+      citation_group = CitationGroup.new
+      citation_groups << citation_group
+      citation_group.assign_metadata(metadata)
     end
   end
 

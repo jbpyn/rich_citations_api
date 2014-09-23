@@ -10,6 +10,6 @@ ref_2:
   extra: 'bar'
   citing_paper: a
   cited_paper: c
-  ref_id: 'ref-1'
+  ref_id: 'ref-2'
   number: 2
   uri: 'uri://bar'

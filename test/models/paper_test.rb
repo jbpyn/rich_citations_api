@@ -140,16 +140,16 @@ class PaperTest < ActiveSupport::TestCase
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: { 'title' => 'Citing 1' },
                   references: [r1, r2],
-                  citation_groups: [CitationGroup.new(references: [r1]),
-                                    CitationGroup.new(references: [r2])])
+                  citation_groups: [CitationGroup.new(references: [r1], group_id:'g1'),
+                                    CitationGroup.new(references: [r2], group_id:'g2' )])
     assert(p.save)
   end
 
   test 'Citation groups are ordered in a paper' do
     r1 = new_reference(number:0, bibliographic: {'title' => 'cited 1'}, extra:{ 'word_count' => 42} )
     r2 = new_reference(number:1, bibliographic: {'title' => 'cited 2'}, extra:{ 'word_count' => 24} )
-    g1 = CitationGroup.new(references: [r2])
-    g2 = CitationGroup.new(references: [r1])
+    g1 = CitationGroup.new(references: [r2], group_id:'g1')
+    g2 = CitationGroup.new(references: [r1], group_id:'g12' )
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: { 'title' => 'Citing 1' },
                   references: [r1, r2],
