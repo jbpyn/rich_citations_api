@@ -87,11 +87,11 @@ class ::V0::ApiControllerTest < ActionController::TestCase
 
     test "It should require authentication" do
       @controller.expects :authentication_required!
-      post :create, api:metadata(paper_uri)
+      post :create, metadata(paper_uri).to_json
     end
 
     test "It should POST a new paper" do
-      post :create, api:metadata(paper_uri)
+      post :create, metadata(paper_uri).to_json
       assert_response :created
     end
 
@@ -99,7 +99,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
       user = User.create(full_name:'A User')
       @controller.stubs authenticated_user:user
 
-      post :create, api:metadata(paper_uri)
+      post :create, metadata(paper_uri).to_json
 
       paper = Paper.for_uri(paper_uri)
       assert_equal paper.audit_log_entries.count, 1
@@ -113,7 +113,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
 
       data = metadata(paper_uri)
       data.delete('uri')
-      post :create, api:data
+      post :create, data.to_json
 
       paper = Paper.for_uri(paper_uri)
       assert_equal user.audit_log_entries.count,  0
@@ -121,7 +121,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     end
 
     test "It should create the paper's records" do
-      post :create, api:metadata(paper_uri)
+      post :create, metadata(paper_uri).to_json
 
       paper = Paper.for_uri(paper_uri)
       assert_not_nil paper
@@ -130,17 +130,17 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     end
 
     test "It should fail if the paper already exists" do
-      post :create, api:metadata(paper_uri)
+      post :create, metadata(paper_uri).to_json
       assert_response :created
 
-      post :create, api:metadata(paper_uri)
+      post :create, metadata(paper_uri).to_json
       assert_response :forbidden
     end
 
     test "It should fail for missing metadata" do
       data = metadata(paper_uri)
       data.delete('uri')
-      post :create, api:data
+      post :create, data.to_json
 
       assert_response :unprocessable_entity
     end
