@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   concern :v0_routes  do
     scope module:'v0', controller:'api', constraints: { id:/[^\/]+/ }  do
       # Implement a standard rest API
-      post '/',     action:'create'
-      get  '/:id',  action:'show'
+      post '/papers', action:'create'
+      get  '/papers', action:'show'
     end
   end
 
