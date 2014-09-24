@@ -5,6 +5,7 @@ module V0
 
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
+    protect_from_forgery with: :null_session
 
     def create
       metadata = uploaded_metadata
@@ -40,7 +41,7 @@ module V0
     end
 
     def uploaded_metadata
-      request.request_parameters[:api]
+      JSON.parse(request.body.read)
     end
 
   end
