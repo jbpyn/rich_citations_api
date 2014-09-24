@@ -5,6 +5,7 @@ module V0
 
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
+    protect_from_forgery with: :null_session
 
     def create
       metadata = uploaded_metadata
