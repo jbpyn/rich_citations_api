@@ -15,6 +15,10 @@ class Paper < ActiveRecord::Base
   json_attribute :bibliographic
   json_attribute :extra, :foo
 
+  def to_param
+    "?id=#{URI.encode_www_form_component(uri)}"
+  end
+  
   def self.for_uri(uri)
     where(uri:uri).first
   end
