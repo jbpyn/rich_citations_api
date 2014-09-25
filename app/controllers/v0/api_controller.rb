@@ -21,30 +21,36 @@
 module V0
   class ApiController < ::ApiController
 
-    respond_to :json
-
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     protect_from_forgery with: :null_session
 
     def create
-      metadata = uploaded_metadata
-      uri      = metadata['uri']
+      respond_to do |format|
+        format.json do
+          metadata = uploaded_metadata
+          uri      = metadata['uri']
 
-      render status: :forbidden,      text:'Paper already exists' and return if Paper.exists?(uri: uri)
+          render status: :forbidden,      text:'Paper already exists' and return if Paper.exists?(uri: uri)
 
-      paper = Paper.new
+          paper = Paper.new
 
-      if paper.update_metadata( metadata, authenticated_user )
-        render text:'Document Created', status: :created
-      else
-        render text:'Invalid Metadata', status: :unprocessable_entity
+          if paper.update_metadata( metadata, authenticated_user )
+            render text:'Document Created', status: :created
+          else
+            render text:'Invalid Metadata', status: :unprocessable_entity
+          end
+        end
       end
     end
 
     def show
-      include_cited = 'cited'.in?(includes)
-      render  json: @paper.metadata(include_cited)
+      respond_to do |format|
+        format.json do
+          include_cited = 'cited'.in?(includes)
+          render  json: @paper.metadata(include_cited)
+        end
+      end
     end
 
     private
