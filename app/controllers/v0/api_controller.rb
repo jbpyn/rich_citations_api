@@ -36,6 +36,7 @@ module V0
           paper = Paper.new
 
           if paper.update_metadata( metadata, authenticated_user )
+            response.location = "#{request.url}#{paper.to_param}"
             render text:'Document Created', status: :created
           else
             render text:'Invalid Metadata', status: :unprocessable_entity
