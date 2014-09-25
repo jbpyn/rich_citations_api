@@ -115,6 +115,20 @@ class ::V0::ApiControllerTest < ActionController::TestCase
       assert_response :created
     end
 
+    test "It should round trip data via the Location header" do
+      id = URI.encode_www_form_component(paper_uri)
+      post :create, metadata(paper_uri).to_json
+      assert_equal("http://test.host/papers?id=#{id}", response.headers['Location'])
+      route = Rails.application.routes.recognize_path(response.headers['Location'])
+      assert_equal('show', route[:action])
+      assert_equal('v0/api', route[:controller])
+      assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['id'])
+                   
+      get :show, id: paper_uri
+      assert_response :success
+      assert_equal @response.content_type, Mime::JSON
+    end
+
     test "It should create an audit log entry" do
       user = User.create(full_name:'A User')
       @controller.stubs authenticated_user:user
@@ -142,7 +156,6 @@ class ::V0::ApiControllerTest < ActionController::TestCase
 
     test "It should create the paper's records" do
       post :create, metadata(paper_uri).to_json
-
       paper = Paper.for_uri(paper_uri)
       assert_not_nil paper
       assert_equal   paper.references.length, 1
