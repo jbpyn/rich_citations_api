@@ -1,6 +1,5 @@
 Todos
 ==============
-* Ad copyright text
 * Upgrade to Rails 4.2
 * Add API versioining
   - Make sure that Vary header includes whatever we choose
