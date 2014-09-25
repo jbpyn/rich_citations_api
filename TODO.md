@@ -20,7 +20,6 @@ Todos
 * Add a 'plugin' system to allow processors (for ex NLM to JSON)
 * Do NLM to JSON conversion
 * Audit Logging: Add details of changes (diff)
-* Extract URI validator into a validation class
 * Web/Test interface
 * Add routing tests
 * Add ?pretty=true option
