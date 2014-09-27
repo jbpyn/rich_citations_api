@@ -37,8 +37,13 @@ class ::V0::ApiControllerTest < ActionController::TestCase
   end
 
   class ::V0::ApiControlerGetTest < ::V0::ApiControllerTest
-
     paper_uri = 'http://example.com/a'
+
+    def setup
+      super
+      @request.headers['Accept'] = Mime::JSON
+      @request.headers['Content-Type'] = Mime::JSON
+    end
 
     def create_paper(paper_uri)
       p = Paper.new
@@ -103,6 +108,8 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     def setup
       super
       @controller.stubs :authentication_required!
+      @request.headers['Accept'] = Mime::JSON
+      @request.headers['Content-Type'] = Mime::JSON
     end
 
     test "It should require authentication" do
