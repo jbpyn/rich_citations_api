@@ -122,6 +122,11 @@ class ::V0::ApiControllerTest < ActionController::TestCase
       assert_response :created
     end
 
+    test "It should reject invalid JSON" do
+      post :create, ({'foo' => 'bar'}).to_json
+      assert_response(:unprocessable_entity)
+    end
+    
     test "It should round trip data via the Location header" do
       id = URI.encode_www_form_component(paper_uri)
       post :create, metadata(paper_uri).to_json

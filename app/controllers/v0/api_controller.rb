@@ -24,6 +24,9 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     protect_from_forgery with: :null_session
+    before_action :validate_schema, only: [:create]
+    
+    POST_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
 
     def create
       respond_to do |format|
@@ -71,5 +74,14 @@ module V0
       JSON.parse(request.body.read)
     end
 
+    def validate_schema
+      unless JSON::Validator.validate(POST_SCHEMA, uploaded_metadata, strict: true)
+        msg = "JSON Validation errors:\n"
+        JSON::Validator.fully_validate(POST_SCHEMA, uploaded_metadata, strict: true, errors_as_objects: true).each do |err|
+          msg << "- #{err[:message]}\n"
+        end
+        render(status: :unprocessable_entity, text: msg)
+      end
+    end
   end
 end

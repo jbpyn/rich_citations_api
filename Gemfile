@@ -9,6 +9,7 @@ gem 'multi_json'
 gem 'oj'
 
 gem 'acts_as_list'
+gem 'json-schema'
 
 group :production do
   gem 'rails_12factor'

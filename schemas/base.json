@@ -1,0 +1,42 @@
+{
+    "title": "Rich Citations API Schema",
+    "id": "http://api.richcitations.org/schema",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "uri": {
+            "type": "string",
+            "minimum": 1
+        },
+        "more_stuff": {
+            "type": "string"
+        },
+        "references": {
+            "type": "array",
+            "minimum": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "uri": {
+                        "type": "string"
+                    },
+                    "bibliographic": {
+                        "type": "object",
+                        "additionalProperties": true
+                        },
+                    "number": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "bibliographic": {
+            "type": "object",
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": false
+}
