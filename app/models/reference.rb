@@ -46,6 +46,7 @@ class Reference < ActiveRecord::Base
     result = (extra || {}).merge( 'number'          => number,
                                   'uri'             => uri,
                                   'id'              => ref_id,
+                                  'accessed_at'     => accessed_at,
                                   'citation_groups' => citation_groups.map { |g| g.group_id }.presence
                                 ).compact
 
@@ -84,6 +85,7 @@ class Reference < ActiveRecord::Base
     self.uri         = uri
     self.ref_id      = ref_id
     self.number      = metadata.delete('number')
+    self.accessed_at = metadata.delete('accessed_at')
     self.extra       = metadata
     self.cited_paper = cited_paper
   end
