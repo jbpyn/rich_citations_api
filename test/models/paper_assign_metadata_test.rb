@@ -39,8 +39,8 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     p.assign_metadata('uri' => 'http://example.com/a',
                       'references' => [
-                          { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'}, number: 1 },
-                          { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'}, number: 2 },
+                          { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'}, 'number' => 1 },
+                          { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'}, 'number' => 2 },
                       ] )
 
     assert_equal p.references.size, 2

@@ -4,6 +4,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "required": ["uri"],
+    "additionalProperties": false,
     "properties": {
         "uri": {
             "type": "string"
@@ -16,6 +17,7 @@
             "items": {
                 "type": "object",
                 "required": ["id", "uri", "number"],
+                "additionalProperties": false,
                 "properties": {
                     "id": {
                         "type": "string"
@@ -43,6 +45,7 @@
             "type": "array",
             "items": {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                     "id": {"type": "string"},
                     "text": {"type": "string"},
@@ -60,6 +63,5 @@
             "type": "object",
             "additionalProperties": true
         }
-    },
-    "additionalProperties": false
+    }
 }
