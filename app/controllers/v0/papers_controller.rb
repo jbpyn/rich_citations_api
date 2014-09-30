@@ -19,7 +19,7 @@
 # THE SOFTWARE.
 
 module V0
-  class ApiController < ::ApiController
+  class PapersController < ::ApiController
 
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]

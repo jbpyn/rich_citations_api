@@ -20,10 +20,10 @@
 
 require 'test_helper'
 
-class ::V0::ApiControllerTest < ActionController::TestCase
+class ::V0::PapersControllerTest < ActionController::TestCase
 
   def setup
-    @controller = V0::ApiController.new
+    @controller = V0::PapersController.new
   end
 
   def metadata(paper_uri)
@@ -36,7 +36,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     }
   end
 
-  class ::V0::ApiControlerGetTest < ::V0::ApiControllerTest
+  class ::V0::PapersControlerGetTest < ::V0::PapersControllerTest
     paper_uri = 'http://example.com/a'
 
     def setup
@@ -108,7 +108,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
 
   end
 
-  class ::V0::ApiControlerPostTest < ::V0::ApiControllerTest
+  class ::V0::PapersControlerPostTest < ::V0::PapersControllerTest
 
     paper_uri = 'http://example.com/a'
 
@@ -140,7 +140,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
       assert_equal("http://test.host/papers?uri=#{uri}", response.headers['Location'])
       route = Rails.application.routes.recognize_path(response.headers['Location'])
       assert_equal('show', route[:action])
-      assert_equal('v0/api', route[:controller])
+      assert_equal('v0/papers', route[:controller])
       assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['uri'])
                    
       get :show, uri: paper_uri

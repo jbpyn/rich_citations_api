@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   #@note simple versioning. Add something more robust later.
 
   version0_api = lambda do
-    scope controller:'api' do
+    scope controller:'papers' do
       post '/papers', action:'create'
       get  '/papers', action:'show'
     end

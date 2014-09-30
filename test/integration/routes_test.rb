@@ -25,14 +25,14 @@ class RoutesTest < ActionDispatch::IntegrationTest
   class DefaultRoutesTest < RoutesTest
 
     test 'GET request' do
-      assert_recognizes({ controller: 'v0/api', action: 'show', uri:'test' },
-                        { path: 'http://test.host/papers', method: :get },
+      assert_recognizes({ controller: 'v0/papers', action: 'show', uri:'test' },
+                        { path: '/papers', method: :get },
                         { uri: 'test'  })
     end
 
     test 'POST request' do
-      assert_recognizes({ controller: 'v0/api', action: 'create' },
-                        { path: 'http://test.host/papers', method: :post })
+      assert_recognizes({ controller: 'v0/papers', action: 'create' },
+                        { path: '/papers', method: :post })
     end
 
   end
@@ -40,14 +40,14 @@ class RoutesTest < ActionDispatch::IntegrationTest
   class V0RoutesTest < RoutesTest
 
     test 'GET request' do
-      assert_recognizes({ controller: 'v0/api', action: 'show', uri:'test' },
-                        { path: 'http://test.host/v0/papers', method: :get },
+      assert_recognizes({ controller: 'v0/papers', action: 'show', uri:'test' },
+                        { path: '/v0/papers', method: :get },
                         { uri: 'test'  })
     end
 
     test 'POST request' do
-      assert_recognizes({ controller: 'v0/api', action: 'create' },
-                        { path: 'http://test.host/v0/papers', method: :post })
+      assert_recognizes({ controller: 'v0/papers', action: 'create' },
+                        { path: '/v0/papers', method: :post })
     end
 
   end
