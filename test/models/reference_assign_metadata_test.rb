@@ -28,12 +28,14 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c = Reference.new
     c.assign_metadata('id'       => 'ref.x',
                       'number'   => 2,
+                      'literal'  => 'Literal Text',
                       'uri'      => 'http://example.org/a',
                       'mentions' => 2                   )
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
+    assert_equal c.literal, 'Literal Text'
     assert_equal c.extra,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
@@ -150,6 +152,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
     metadata = { 'id'              => 'ref.x',
                  'number'          => 2,
+                 'literal'         => 'Literal Text',
                  'uri'             => 'http://example.org/a',
                  'bibliographic'   => {'title' => 'Updated Title'},
                  'citation_groups' => ['group-2', 'group-1' ],

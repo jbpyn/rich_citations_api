@@ -30,6 +30,9 @@
                     "number": {
                         "type": "integer"
                     },
+                    "literal": {
+                      "type": "string"
+                    },
                     "citation_groups": {
                         "type": "array",
                         "items": {
