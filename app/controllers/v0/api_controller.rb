@@ -26,8 +26,6 @@ module V0
     protect_from_forgery with: :null_session
     before_action :validate_schema, only: [:create]
     
-    POST_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
-
     def create
       respond_to do |format|
         format.json do
@@ -75,9 +73,9 @@ module V0
     end
 
     def validate_schema
-      unless JSON::Validator.validate(POST_SCHEMA, uploaded_metadata, strict: true)
+      unless JSON::Validator.validate(Paper::JSON_SCHEMA, uploaded_metadata)
         msg = "JSON Validation errors:\n"
-        JSON::Validator.fully_validate(POST_SCHEMA, uploaded_metadata, strict: true, errors_as_objects: true).each do |err|
+        JSON::Validator.fully_validate(Paper::JSON_SCHEMA, uploaded_metadata, errors_as_objects: true).each do |err|
           msg << "- #{err[:message]}\n"
         end
         render(status: :unprocessable_entity, text: msg)
