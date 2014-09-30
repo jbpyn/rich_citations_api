@@ -69,7 +69,7 @@ module V0
     end
 
     def uploaded_metadata
-      JSON.parse(request.body.read)
+      @uploaded_metadata ||= MultiJson.load(request.body.read)
     end
 
     def validate_schema
