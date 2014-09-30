@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Reference < ActiveRecord::Base
+class Reference < Base
 
   # relationships
   belongs_to :cited_paper,  class: Paper, inverse_of: :referenced_by, validate:true, autosave:true

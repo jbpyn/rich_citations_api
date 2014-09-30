@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class AuditLogEntry < ActiveRecord::Base
+class AuditLogEntry < Base
 
   belongs_to :user,  inverse_of: :audit_log_entries
   belongs_to :paper, inverse_of: :audit_log_entries

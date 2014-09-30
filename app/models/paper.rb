@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Paper < ActiveRecord::Base
+class Paper < Base
 
   # relationships
   has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper
@@ -34,7 +34,7 @@ class Paper < ActiveRecord::Base
   JSON_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
 
   json_attribute :bibliographic
-  json_attribute :extra, :foo
+  json_attribute :extra
 
   def to_param
     "?id=#{URI.encode_www_form_component(uri)}"
