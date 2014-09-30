@@ -59,8 +59,8 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     test "It should GET a paper" do
       create_paper(paper_uri)
 
-      id = URI.encode_www_form_component(paper_uri)
-      get :show, id:id
+      uri = URI.encode_www_form_component(paper_uri)
+      get :show, uri:uri
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
@@ -77,8 +77,8 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     test "It should GET a paper including cited metadata" do
       create_paper(paper_uri)
 
-      id = URI.encode_www_form_component(paper_uri)
-      get :show, id:id, include:'cited'
+      uri = URI.encode_www_form_component(paper_uri)
+      get :show, uri:uri, include:'cited'
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
@@ -92,9 +92,16 @@ class ::V0::ApiControllerTest < ActionController::TestCase
           }
     end
 
-    test "It should render a 404 if you GET a paper that doesn't exist" do
+    test "It should render a 400 if you don't provide the uri param to a GET request" do
       id = URI.encode_www_form_component(paper_uri)
-      get :show, id:id, include:'cited'
+      get :show
+
+      assert_response :bad_request
+    end
+
+    test "It should render a 404 if you GET a paper that doesn't exist" do
+      uri = URI.encode_www_form_component(paper_uri)
+      get :show, uri:uri
 
       assert_response :not_found
     end
@@ -128,15 +135,15 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     end
     
     test "It should round trip data via the Location header" do
-      id = URI.encode_www_form_component(paper_uri)
+      uri = URI.encode_www_form_component(paper_uri)
       post :create, metadata(paper_uri).to_json
-      assert_equal("http://test.host/papers?id=#{id}", response.headers['Location'])
+      assert_equal("http://test.host/papers?uri=#{uri}", response.headers['Location'])
       route = Rails.application.routes.recognize_path(response.headers['Location'])
       assert_equal('show', route[:action])
       assert_equal('v0/api', route[:controller])
-      assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['id'])
+      assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['uri'])
                    
-      get :show, id: paper_uri
+      get :show, uri: paper_uri
       assert_response :success
       assert_equal @response.content_type, Mime::JSON
     end

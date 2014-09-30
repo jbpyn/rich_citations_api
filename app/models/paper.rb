@@ -37,7 +37,7 @@ class Paper < Base
   json_attribute :extra
 
   def to_param
-    "?id=#{URI.encode_www_form_component(uri)}"
+    uri
   end
   
   def self.for_uri(uri)
@@ -80,9 +80,9 @@ class Paper < Base
     if metadata.present?
       metadata = metadata.dup
 
-      metadata['title'] = sanitize_html(metadata['title'] )
+      metadata['title']           = sanitize_html(metadata['title'] )
       metadata['container-title'] = sanitize_html(metadata['container-title'] )
-      metadata['abstract'] = sanitize_html(metadata['abstract'])
+      metadata['abstract']        = sanitize_html(metadata['abstract'])
 
       subtitles = metadata['subtitle']
       if subtitles.present?

@@ -23,7 +23,6 @@ module V0
 
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
-    protect_from_forgery with: :null_session
     before_action :validate_schema, only: [:create]
     
     def create
@@ -37,7 +36,7 @@ module V0
           paper = Paper.new
 
           if paper.update_metadata( metadata, authenticated_user )
-            response.location = "#{request.url}#{paper.to_param}"
+            response.location = papers_url(uri:paper)
             render text:'Document Created', status: :created
           else
             render text:'Invalid Metadata', status: :unprocessable_entity
@@ -62,9 +61,10 @@ module V0
     end
 
     def paper_required
-      uri = URI.decode_www_form_component( params[:id] )
+      render(status: :bad_request, text: 'uri not provided') and return unless params[:uri].present?
+      uri = URI.decode_www_form_component( params[:uri] )
       @paper = Paper.for_uri(uri)
-      render(status: :not_found, text: 'Not Found') unless @paper
+      render(status: :not_found, text: 'Not Found') and return unless @paper
       @paper
     end
 
