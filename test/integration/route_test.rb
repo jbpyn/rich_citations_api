@@ -18,21 +18,38 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-Rails.application.routes.draw do
+require 'test_helper'
 
-  #@note simple versioning. Add something more robust later.
+class RoutesTest < ActionDispatch::IntegrationTest
 
-  version0_api = lambda do
-    scope controller:'api' do
-      post '/papers', action:'create'
-      get  '/papers', action:'show'
+  class DefaultRoutesTest < RoutesTest
+
+    test 'GET request' do
+      assert_recognizes({ controller: 'v0/api', action: 'show', uri:'test' },
+                        { path: 'http://test.host/papers', method: :get },
+                        { uri: 'test'  })
     end
+
+    test 'POST request' do
+      assert_recognizes({ controller: 'v0/api', action: 'create' },
+                        { path: 'http://test.host/papers', method: :post })
+    end
+
   end
 
-  # Specified Version 0
-  namespace 'v0', &version0_api
+  class V0RoutesTest < RoutesTest
 
-  # Default to version 0
-  scope module:'v0', &version0_api
+    test 'GET request' do
+      assert_recognizes({ controller: 'v0/api', action: 'show', uri:'test' },
+                        { path: 'http://test.host/v0/papers', method: :get },
+                        { uri: 'test'  })
+    end
+
+    test 'POST request' do
+      assert_recognizes({ controller: 'v0/api', action: 'create' },
+                        { path: 'http://test.host/v0/papers', method: :post })
+    end
+
+  end
 
 end
