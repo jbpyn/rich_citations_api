@@ -43,6 +43,36 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal(p.bibliographic, {'title' => 'Original Title'})
   end
 
+  test "it should clean unsafe attributes from reference metadata" do
+    p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
+
+    c = Reference.new
+    c.assign_metadata('id'       => 'ref.x',
+                      'number'   => 2,
+                      'uri'      => 'http://example.org/a',
+                      'literal'  => '<span>Literal</span>'   )
+
+    assert_equal c.literal, 'Literal'
+  end
+
+  test "it should clean unsafe attributes from bibliographic metadata" do
+    p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
+
+    c = Reference.new
+    c.assign_metadata('id'       => 'ref.x',
+                      'number'   => 2,
+                      'uri'      => 'http://example.org/a',
+                      'bibliographic' => {
+                          'title'           => '<span>Title</span>',
+                          'container-title' => '<span>Publication</span>',
+                          'abstract'        => '<span>Abstract</span>',
+                          'subtitle'        => ['<span>Subtitle 1</span>', '<span>Subtitle 2</span>']
+                      }                  )
+
+    assert_equal c.bibliographic, { 'title' => 'Title', 'container-title' => 'Publication', 'abstract' => 'Abstract',
+                                    'subtitle' => ['Subtitle 1', 'Subtitle 2'] }
+  end
+
   test "it should update an existing papers metadata if it is provided" do
     citing = Paper.create!(uri:'http://example.org/citing')
 

@@ -35,6 +35,22 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal p.extra,         { 'more_stuff' => 'Was here!' }
   end
 
+  test "it should clean html attributes" do
+    p = Paper.new
+    p.assign_metadata(
+        'uri'           => 'http://example.com/a',
+        'bibliographic' => {
+            'title'           => '<span>Title</span>',
+            'container-title' => '<span>Publication</span>',
+            'abstract'        => '<span>Abstract</span>',
+            'subtitle'        => ['<span>Subtitle 1</span>', '<span>Subtitle 2</span>']
+        },
+    )
+
+    assert_equal p.bibliographic, { 'title' => 'Title', 'container-title' => 'Publication', 'abstract' => 'Abstract',
+                                    'subtitle' => ['Subtitle 1', 'Subtitle 2'] }
+  end
+
   test "it should create References" do
     p = Paper.new
     p.assign_metadata('uri' => 'http://example.com/a',

@@ -64,6 +64,8 @@ class Paper < Base
 
     # This is order dependent
 
+    assign_bibliographic_metadata( metadata.delete('bibliographic') )
+
     references = metadata.delete('references')
     create_references_from_metadata(references) if references.present?
 
@@ -71,8 +73,24 @@ class Paper < Base
     create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
 
     self.uri           = metadata.delete('uri')
-    self.bibliographic = metadata.delete('bibliographic')
     self.extra         = metadata
+  end
+
+  def assign_bibliographic_metadata(metadata)
+    if metadata.present?
+      metadata = metadata.dup
+
+      metadata['title'] = sanitize_html(metadata['title'] )
+      metadata['container-title'] = sanitize_html(metadata['container-title'] )
+      metadata['abstract'] = sanitize_html(metadata['abstract'])
+
+      subtitles = metadata['subtitle']
+      if subtitles.present?
+        subtitles.each_index do |i| subtitles[i] = sanitize_html(subtitles[i]) end
+      end
+    end
+
+    self.bibliographic = metadata && metadata.compact
   end
 
   def update_metadata(metadata, updating_user)

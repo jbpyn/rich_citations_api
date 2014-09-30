@@ -49,6 +49,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     json-schema (2.2.5)
+    loofah (2.0.1)
+      nokogiri (>= 1.5.9)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     metaclass (0.0.4)
@@ -81,6 +83,8 @@ GEM
       activesupport
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
+    rails-html-sanitizer (1.0.1)
+      loofah (~> 2.0)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -122,6 +126,7 @@ DEPENDENCIES
   multi_json
   oj
   rails (= 4.2.0.beta1)
+  rails-html-sanitizer
   rails_12factor
   rake
   sqlite3
