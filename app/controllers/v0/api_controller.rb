@@ -24,7 +24,8 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     protect_from_forgery with: :null_session
-
+    before_action :validate_schema, only: [:create]
+    
     def create
       respond_to do |format|
         format.json do
@@ -71,5 +72,14 @@ module V0
       JSON.parse(request.body.read)
     end
 
+    def validate_schema
+      unless JSON::Validator.validate(Paper::JSON_SCHEMA, uploaded_metadata)
+        msg = "JSON Validation errors:\n"
+        JSON::Validator.fully_validate(Paper::JSON_SCHEMA, uploaded_metadata, errors_as_objects: true).each do |err|
+          msg << "- #{err[:message]}\n"
+        end
+        render(status: :unprocessable_entity, text: msg)
+      end
+    end
   end
 end

@@ -31,6 +31,7 @@ class Paper < ActiveRecord::Base
   # validations
   validates :uri, presence:true, uri:true, uniqueness:true
 
+  JSON_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
 
   json_attribute :bibliographic
   json_attribute :extra, :foo
@@ -58,6 +59,7 @@ class Paper < ActiveRecord::Base
   alias to_json metadata
 
   def assign_metadata(metadata)
+    return false unless JSON::Validator.validate(JSON_SCHEMA, metadata)
     metadata = metadata.dup
 
     # This is order dependent
