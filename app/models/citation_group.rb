@@ -62,9 +62,9 @@ class CitationGroup < Base
 
     self.group_id        = group_id
     self.ellipses_before = metadata.delete('ellipses_before')
-    self.text_before     = metadata.delete('text_before')
-    self.text            = metadata.delete('text')
-    self.text_after      = metadata.delete('text_after')
+    self.text_before     = sanitize_html( metadata.delete('text_before') )
+    self.text            = sanitize_html( metadata.delete('text') )
+    self.text_after      = sanitize_html( metadata.delete('text_after') )
     self.ellipses_after  = metadata.delete('ellipses_after')
     self.word_position   = metadata.delete('word_position')
     self.section         = metadata.delete('section')
