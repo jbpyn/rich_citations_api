@@ -14,7 +14,6 @@
         "type": "object",
         "properties": {
           "id": {"type": "string"},
-          "original_citation": {"type": "string"},
           "section": {"type": "string"},
           "references": {
             "type": "array",
@@ -23,7 +22,7 @@
             }
           }
         },
-        "required": [ "id", "original_citation", "references" ],
+        "required": [ "id", "references" ],
         "additionalProperties": false
       },
       "reference": {

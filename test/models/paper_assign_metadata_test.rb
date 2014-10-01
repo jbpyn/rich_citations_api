@@ -114,8 +114,8 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                 { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'} , 'number' => 2},
             ],
             'citation_groups' => [
-                { 'id' => 'group-1', 'original_citation' => '[1],[2]', 'section' => 'First',  'references' => ['ref.1','ref.2'] },
-                { 'id' => 'group-2', 'original_citation' => '[2]',     'section' => 'Second', 'references' => ['ref.2'] },
+                { 'id' => 'group-1', 'section' => 'First',  'references' => ['ref.1','ref.2'] },
+                { 'id' => 'group-2', 'section' => 'Second', 'references' => ['ref.2'] },
             ])
 
     assert_equal p.citation_groups.size, 2
@@ -167,8 +167,8 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                       'citation_groups' => ['group-1', 'group-2']               }
                  ],
                  'citation_groups' => [
-                    { 'id' => 'group-1', 'original_citation' => '[1],[2]', 'section' => 'First',  'references' => ['ref.1','ref.2'] },
-                    { 'id' => 'group-2', 'original_citation' => '[2]',     'section' => 'Second', 'references' => ['ref.2'] },
+                    { 'id' => 'group-1', 'section' => 'First',  'references' => ['ref.1','ref.2'] },
+                    { 'id' => 'group-2', 'section' => 'Second', 'references' => ['ref.2'] },
                  ]
                }
 
