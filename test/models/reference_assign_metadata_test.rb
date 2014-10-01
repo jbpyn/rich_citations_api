@@ -28,14 +28,14 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c = Reference.new
     c.assign_metadata('id'       => 'ref.x',
                       'number'   => 2,
-                      'literal'  => 'Literal Text',
+                      'original_citation'  => 'Literal Text',
                       'uri'      => 'http://example.org/a',
                       'mentions' => 2                   )
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
-    assert_equal c.literal, 'Literal Text'
+    assert_equal c.original_citation, 'Literal Text'
     assert_equal c.extra,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
@@ -50,9 +50,9 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'       => 'ref.x',
                       'number'   => 2,
                       'uri'      => 'http://example.org/a',
-                      'literal'  => '<span>Literal</span>'   )
+                      'original_citation'  => '<span>Literal</span>'   )
 
-    assert_equal c.literal, 'Literal'
+    assert_equal c.original_citation, 'Literal'
   end
 
   test "it should clean unsafe attributes from bibliographic metadata" do

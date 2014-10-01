@@ -40,7 +40,7 @@
           "number": {
             "type": "integer"
           },
-          "literal": {
+          "original_citation": {
             "type": "string"
           },
           "citation_groups": {

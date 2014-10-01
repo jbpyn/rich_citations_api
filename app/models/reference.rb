@@ -45,11 +45,11 @@ class Reference < Base
            to: :cited_paper
 
   def metadata(include_cited_paper=false)
-    result = (extra || {}).merge( 'number'          => number,
-                                  'uri'             => uri,
-                                  'id'              => ref_id,
-                                  'literal'         => literal,
-                                  'citation_groups' => citation_groups.map { |g| g.group_id }.presence
+    result = (extra || {}).merge( 'number'            => number,
+                                  'uri'               => uri,
+                                  'id'                => ref_id,
+                                  'original_citation' => original_citation,
+                                  'citation_groups'   => citation_groups.map { |g| g.group_id }.presence
                                 ).compact
 
     if include_cited_paper && cited_paper
@@ -81,12 +81,12 @@ class Reference < Base
       cited_paper.assign_bibliographic_metadata(bibliographic)
     end
 
-    self.uri         = uri
-    self.ref_id      = ref_id
-    self.number      = metadata.delete('number')
-    self.literal     = sanitize_html( metadata.delete('literal') )
-    self.extra       = metadata
-    self.cited_paper = cited_paper
+    self.uri               = uri
+    self.ref_id            = ref_id
+    self.number            = metadata.delete('number')
+    self.original_citation = sanitize_html( metadata.delete('original_citation') )
+    self.extra             = metadata
+    self.cited_paper       = cited_paper
   end
 
   def is_random_uri?
