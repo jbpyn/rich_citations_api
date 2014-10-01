@@ -9,12 +9,25 @@
           "properties": {
           },
           "additionalProperties": true
-        },
+      },
       "citation_group": {
         "type": "object",
         "properties": {
           "id": {"type": "string"},
           "section": {"type": "string"},
+          "context": {
+              "type": "object",
+              "required": ["truncated_before", "truncated_after",
+                           "text_after", "text_before",
+                           "citation"],
+              "properties": {
+                  "truncated_before": { "type": "boolean" },
+                  "text_before": { "type": "string" },
+                  "citation": { "type": "string" },
+                  "text_after": { "type": "string" },
+                  "truncated_after": { "type": "boolean" }
+              }
+          },
           "references": {
             "type": "array",
             "items": {
@@ -22,7 +35,7 @@
             }
           }
         },
-        "required": [ "id", "references" ],
+        "required": [ "id", "references", "context" ],
         "additionalProperties": false
       },
       "reference": {
