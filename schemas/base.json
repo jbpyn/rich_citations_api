@@ -3,7 +3,7 @@
     "id": "http://api.richcitations.org/schema",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "defenitions": {
+    "definitions": {
       "bibliographic": {
           "type": "object",
           "properties": {
@@ -36,7 +36,7 @@
           "uri": {
             "type": "string"
           },
-          "bibliographic": { "$ref": "#/defenitions/bibliographic" },
+          "bibliographic": { "$ref": "#/definitions/bibliographic" },
           "number": {
             "type": "integer"
           },
@@ -62,14 +62,14 @@
         "uri": {
             "type": "string"
         },
-        "bibliographic": { "$ref": "#/defenitions/bibliographic" },
+        "bibliographic": { "$ref": "#/definitions/bibliographic" },
         "references": {
             "type": "array",
-            "items": { "$ref": "#/defenitions/reference" }
+            "items": { "$ref": "#/definitions/reference" }
         },
         "citation_groups": {
               "type": "array",
-              "items": { "$ref": "#/defenitions/citation_group" }
+              "items": { "$ref": "#/definitions/citation_group" }
         },
         "more_stuff": {
           "type": "string"
