@@ -88,6 +88,21 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal cited.bibliographic, {}
   end
 
+  test 'it should work with references that have an accessed_at field' do
+    p = Paper.new
+    p.assign_metadata('uri' => 'http://example.com/a',
+                      'references' => [
+                        { 'id' => 'ref.1',
+                          'uri' => 'http://example.com/c1',
+                          'bibliographic' => {'title'=>'1'},
+                          'accessed_at' => '2012-04-23T18:25:43.511Z',
+                          'number' => 1
+                        }
+                      ])
+
+    assert_equal p.references[0].accessed_at, DateTime.parse('2012-04-23T18:25:43.511Z')
+  end
+  
   test "it should create Citation Groups" do
     p = Paper.new
     p.assign_metadata(

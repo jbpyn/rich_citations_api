@@ -43,6 +43,10 @@
           "original_citation": {
             "type": "string"
           },
+          "accessed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "citation_groups": {
             "type": "array",
             "items": {

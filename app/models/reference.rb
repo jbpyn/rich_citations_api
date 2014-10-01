@@ -49,6 +49,7 @@ class Reference < Base
                                   'uri'               => uri,
                                   'id'                => ref_id,
                                   'original_citation' => original_citation,
+                                  'accessed_at'       => accessed_at,
                                   'citation_groups'   => citation_groups.map { |g| g.group_id }.presence
                                 ).compact
 
@@ -85,6 +86,7 @@ class Reference < Base
     self.ref_id            = ref_id
     self.number            = metadata.delete('number')
     self.original_citation = sanitize_html( metadata.delete('original_citation') )
+    self.accessed_at       = metadata.delete('accessed_at')
     self.extra             = metadata
     self.cited_paper       = cited_paper
   end
