@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922231242) do
+ActiveRecord::Schema.define(version: 20140930214554) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -58,14 +58,15 @@ ActiveRecord::Schema.define(version: 20140922231242) do
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
 
   create_table "references", force: true do |t|
-    t.string   "uri",             null: false
+    t.string   "uri",                         null: false
     t.text     "extra"
-    t.integer  "number",          null: false
-    t.integer  "citing_paper_id", null: false
+    t.integer  "number",                      null: false
+    t.integer  "citing_paper_id",             null: false
     t.integer  "cited_paper_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "ref_id",          null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "ref_id",          limit: 255, null: false
+    t.datetime "accessed_at"
   end
 
   add_index "references", ["cited_paper_id", "number"], name: "index_references_on_cited_paper_id_and_number", unique: true
