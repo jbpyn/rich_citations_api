@@ -91,6 +91,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test 'it should work with references that have an accessed_at field' do
     p = Paper.new
     p.assign_metadata('uri' => 'http://example.com/a',
+                      'bibliographic' => {},
                       'references' => [
                         { 'id' => 'ref.1',
                           'uri' => 'http://example.com/c1',

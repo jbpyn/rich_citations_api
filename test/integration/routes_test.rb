@@ -24,6 +24,8 @@ class RoutesTest < ActionDispatch::IntegrationTest
 
   class DefaultRoutesTest < RoutesTest
 
+    # Default routes can only be tested in one direction
+
     test 'GET request' do
       assert_recognizes({ controller: 'v0/papers', action: 'show', uri:'test' },
                         { path: '/papers', method: :get },
@@ -40,16 +42,17 @@ class RoutesTest < ActionDispatch::IntegrationTest
   class V0RoutesTest < RoutesTest
 
     test 'GET request' do
-      assert_recognizes({ controller: 'v0/papers', action: 'show', uri:'test' },
-                        { path: '/v0/papers', method: :get },
-                        { uri: 'test'  })
+
+      assert_routing( { path: '/v0/papers', method: :get },
+                      { controller: 'v0/papers', action: 'show', uri:'test' },
+                      {},
+                      { uri: 'test'  }   )
     end
 
     test 'POST request' do
-      assert_recognizes({ controller: 'v0/papers', action: 'create' },
-                        { path: '/v0/papers', method: :post })
+      assert_routing(  { path: '/v0/papers', method: :post },
+                       { controller: 'v0/papers', action: 'create' }  )
     end
-
   end
 
 end
