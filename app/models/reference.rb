@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Reference < ActiveRecord::Base
+class Reference < Base
 
   # relationships
   belongs_to :cited_paper,  class: Paper, inverse_of: :referenced_by, validate:true, autosave:true
@@ -41,17 +41,20 @@ class Reference < ActiveRecord::Base
   default_scope -> { order(:number) }
 
   json_attribute :extra
+  delegate :bibliographic,
+           to: :cited_paper
 
   def metadata(include_cited_paper=false)
-    result = (extra || {}).merge( 'number'          => number,
-                                  'uri'             => uri,
-                                  'id'              => ref_id,
-                                  'accessed_at'     => accessed_at,
-                                  'citation_groups' => citation_groups.map { |g| g.group_id }.presence
+    result = (extra || {}).merge( 'number'            => number,
+                                  'uri'               => uri,
+                                  'id'                => ref_id,
+                                  'original_citation' => original_citation,
+                                  'accessed_at'       => accessed_at,
+                                  'citation_groups'   => citation_groups.map { |g| g.group_id }.presence
                                 ).compact
 
     if include_cited_paper && cited_paper
-      result['bibliographic'] = cited_paper.bibliographic
+      result['bibliographic'] = bibliographic
     end
 
     result
@@ -75,19 +78,17 @@ class Reference < ActiveRecord::Base
     end
 
     if bibliographic
-      if cited_paper
-        cited_paper.bibliographic = bibliographic
-      else
-        cited_paper = Paper.new(uri:uri, bibliographic:bibliographic)
-      end
+      cited_paper ||= Paper.new(uri:uri)
+      cited_paper.assign_bibliographic_metadata(bibliographic)
     end
 
-    self.uri         = uri
-    self.ref_id      = ref_id
-    self.number      = metadata.delete('number')
-    self.accessed_at = metadata.delete('accessed_at')
-    self.extra       = metadata
-    self.cited_paper = cited_paper
+    self.uri               = uri
+    self.ref_id            = ref_id
+    self.number            = metadata.delete('number')
+    self.original_citation = sanitize_html( metadata.delete('original_citation') )
+    self.accessed_at       = metadata.delete('accessed_at')
+    self.extra             = metadata
+    self.cited_paper       = cited_paper
   end
 
   def is_random_uri?

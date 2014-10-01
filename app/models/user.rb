@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class User < ActiveRecord::Base
+class User < Base
 
   has_many :audit_log_entries, inverse_of: :user
 

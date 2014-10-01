@@ -20,6 +20,8 @@
 
 class ApiController < ::ApplicationController
 
+  protect_from_forgery with: :null_session
+
   protected
 
   def authentication_required!

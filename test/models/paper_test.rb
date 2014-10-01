@@ -179,4 +179,9 @@ class PaperTest < ActiveSupport::TestCase
     assert_equal(2, p.citation_groups[1].position)
     assert_equal([g2, g1], p.citation_groups)
   end
+
+  test 'The schema should be valid' do
+    assert_equal [], JSON::Validator.fully_validate_schema(Paper::JSON_SCHEMA)
+  end
+
 end

@@ -3,69 +3,77 @@
     "id": "http://api.richcitations.org/schema",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "required": ["uri"],
-    "additionalProperties": false,
+    "definitions": {
+      "bibliographic": {
+          "type": "object",
+          "properties": {
+          },
+          "additionalProperties": true
+        },
+      "citation_group": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "text": {"type": "string"},
+          "section": {"type": "string"},
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [ "id", "text", "references" ],
+        "additionalProperties": false
+      },
+      "reference": {
+        "type": "object",
+        "required": ["id", "uri", "number"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "bibliographic": { "$ref": "#/definitions/bibliographic" },
+          "number": {
+            "type": "integer"
+          },
+          "original_citation": {
+            "type": "string"
+          },
+          "accessed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "citation_groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "required": ["uri", "bibliographic"],
     "properties": {
         "uri": {
             "type": "string"
         },
-        "more_stuff": {
-            "type": "string"
-        },
+        "bibliographic": { "$ref": "#/definitions/bibliographic" },
         "references": {
             "type": "array",
-            "items": {
-                "type": "object",
-                "required": ["id", "uri", "number"],
-                "additionalProperties": false,
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "uri": {
-                        "type": "string"
-                    },
-                    "bibliographic": {
-                        "type": "object",
-                        "additionalProperties": true
-                        },
-                    "number": {
-                        "type": "integer"
-                    },
-                    "citation_groups": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "accessed_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    }
-                }
-            }
+            "items": { "$ref": "#/definitions/reference" }
         },
         "citation_groups": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "id": {"type": "string"},
-                    "text": {"type": "string"},
-                    "section": {"type": "string"},
-                    "references": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
+              "type": "array",
+              "items": { "$ref": "#/definitions/citation_group" }
         },
-        "bibliographic": {
-            "type": "object",
-            "additionalProperties": true
+        "more_stuff": {
+          "type": "string"
         }
-    }
+    },
+    "additionalProperties": false
 }

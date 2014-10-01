@@ -18,21 +18,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-Rails.application.routes.draw do
+class Base < ActiveRecord::Base
+  self.abstract_class = true
 
-  #@note simple versioning. Add something more robust later.
+  extend JsonAttributes
 
-  version0_api = lambda do
-    scope controller:'papers' do
-      post '/papers', action:'create'
-      get  '/papers', action:'show'
-    end
+  private
+
+  def sanitize_html(html)
+    html.present? ? Loofah.fragment(html).scrub!(SANITIZER).scrub!(:strip).scrub!(:nofollow).to_s.presence : nil
   end
 
-  # Specified Version 0
-  namespace 'v0', &version0_api
-
-  # Default to version 0
-  scope module:'v0', &version0_api
+  SANITIZER = Rails::Html::PermitScrubber.new
+  SANITIZER.tags = %w[a em i strong b u cite q mark abbr sub sup s wbr]
 
 end

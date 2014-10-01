@@ -28,17 +28,49 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c = Reference.new
     c.assign_metadata('id'       => 'ref.x',
                       'number'   => 2,
+                      'original_citation'  => 'Literal Text',
                       'uri'      => 'http://example.org/a',
                       'mentions' => 2                   )
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
+    assert_equal c.original_citation, 'Literal Text'
     assert_equal c.extra,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
     p.reload
     assert_equal(p.bibliographic, {'title' => 'Original Title'})
+  end
+
+  test "it should clean unsafe attributes from reference metadata" do
+    p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
+
+    c = Reference.new
+    c.assign_metadata('id'       => 'ref.x',
+                      'number'   => 2,
+                      'uri'      => 'http://example.org/a',
+                      'original_citation'  => '<span>Literal</span>'   )
+
+    assert_equal c.original_citation, 'Literal'
+  end
+
+  test "it should clean unsafe attributes from bibliographic metadata" do
+    p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
+
+    c = Reference.new
+    c.assign_metadata('id'       => 'ref.x',
+                      'number'   => 2,
+                      'uri'      => 'http://example.org/a',
+                      'bibliographic' => {
+                          'title'           => '<span>Title</span>',
+                          'container-title' => '<span>Publication</span>',
+                          'abstract'        => '<span>Abstract</span>',
+                          'subtitle'        => ['<span>Subtitle 1</span>', '<span>Subtitle 2</span>']
+                      }                  )
+
+    assert_equal c.bibliographic, { 'title' => 'Title', 'container-title' => 'Publication', 'abstract' => 'Abstract',
+                                    'subtitle' => ['Subtitle 1', 'Subtitle 2'] }
   end
 
   test "it should update an existing papers metadata if it is provided" do
@@ -150,6 +182,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
     metadata = { 'id'              => 'ref.x',
                  'number'          => 2,
+                 'literal'         => 'Literal Text',
                  'uri'             => 'http://example.org/a',
                  'bibliographic'   => {'title' => 'Updated Title'},
                  'citation_groups' => ['group-2', 'group-1' ],

@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Paper < ActiveRecord::Base
+class Paper < Base
 
   # relationships
   has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper
@@ -34,10 +34,10 @@ class Paper < ActiveRecord::Base
   JSON_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
 
   json_attribute :bibliographic
-  json_attribute :extra, :foo
+  json_attribute :extra
 
   def to_param
-    "?id=#{URI.encode_www_form_component(uri)}"
+    uri
   end
   
   def self.for_uri(uri)
@@ -60,9 +60,12 @@ class Paper < ActiveRecord::Base
 
   def assign_metadata(metadata)
     return false unless JSON::Validator.validate(JSON_SCHEMA, metadata)
+
     metadata = metadata.dup
 
     # This is order dependent
+
+    assign_bibliographic_metadata( metadata.delete('bibliographic') )
 
     references = metadata.delete('references')
     create_references_from_metadata(references) if references.present?
@@ -71,12 +74,30 @@ class Paper < ActiveRecord::Base
     create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
 
     self.uri           = metadata.delete('uri')
-    self.bibliographic = metadata.delete('bibliographic')
     self.extra         = metadata
+
+    true
+  end
+
+  def assign_bibliographic_metadata(metadata)
+    if metadata.present?
+      metadata = metadata.dup
+
+      metadata['title']           = sanitize_html(metadata['title'] )
+      metadata['container-title'] = sanitize_html(metadata['container-title'] )
+      metadata['abstract']        = sanitize_html(metadata['abstract'])
+
+      subtitles = metadata['subtitle']
+      if subtitles.present?
+        subtitles.each_index do |i| subtitles[i] = sanitize_html(subtitles[i]) end
+      end
+    end
+
+    self.bibliographic = metadata && metadata.compact
   end
 
   def update_metadata(metadata, updating_user)
-    assign_metadata(metadata)
+    return false unless assign_metadata(metadata)
     saved = self.save
     AuditLogEntry.create(paper:self, user:updating_user) if saved
     saved

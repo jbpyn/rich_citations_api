@@ -20,10 +20,10 @@
 
 require 'test_helper'
 
-class ::V0::ApiControllerTest < ActionController::TestCase
+class ::V0::PapersControllerTest < ActionController::TestCase
 
   def setup
-    @controller = V0::ApiController.new
+    @controller = V0::PapersController.new
   end
 
   def metadata(paper_uri)
@@ -41,7 +41,7 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     }
   end
 
-  class ::V0::ApiControlerGetTest < ::V0::ApiControllerTest
+  class ::V0::PapersControlerGetTest < ::V0::PapersControllerTest
     paper_uri = 'http://example.com/a'
 
     def setup
@@ -64,8 +64,8 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     test "It should GET a paper" do
       create_paper(paper_uri)
 
-      id = URI.encode_www_form_component(paper_uri)
-      get :show, id:id
+      uri = URI.encode_www_form_component(paper_uri)
+      get :show, uri:uri
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
@@ -82,8 +82,8 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     test "It should GET a paper including cited metadata" do
       create_paper(paper_uri)
 
-      id = URI.encode_www_form_component(paper_uri)
-      get :show, id:id, include:'cited'
+      uri = URI.encode_www_form_component(paper_uri)
+      get :show, uri:uri, include:'cited'
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
@@ -97,16 +97,23 @@ class ::V0::ApiControllerTest < ActionController::TestCase
           }
     end
 
-    test "It should render a 404 if you GET a paper that doesn't exist" do
+    test "It should render a 400 if you don't provide the uri param to a GET request" do
       id = URI.encode_www_form_component(paper_uri)
-      get :show, id:id, include:'cited'
+      get :show
+
+      assert_response :bad_request
+    end
+
+    test "It should render a 404 if you GET a paper that doesn't exist" do
+      uri = URI.encode_www_form_component(paper_uri)
+      get :show, uri:uri
 
       assert_response :not_found
     end
 
   end
 
-  class ::V0::ApiControlerPostTest < ::V0::ApiControllerTest
+  class ::V0::PapersControlerPostTest < ::V0::PapersControllerTest
 
     paper_uri = 'http://example.com/a'
 
@@ -133,15 +140,15 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     end
     
     test "It should round trip data via the Location header" do
-      id = URI.encode_www_form_component(paper_uri)
+      uri = URI.encode_www_form_component(paper_uri)
       post :create, metadata(paper_uri).to_json
-      assert_equal("http://test.host/papers?id=#{id}", response.headers['Location'])
+      assert_equal("http://test.host/papers?uri=#{uri}", response.headers['Location'])
       route = Rails.application.routes.recognize_path(response.headers['Location'])
       assert_equal('show', route[:action])
-      assert_equal('v0/api', route[:controller])
-      assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['id'])
+      assert_equal('v0/papers', route[:controller])
+      assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['uri'])
                    
-      get :show, id: paper_uri
+      get :show, uri: paper_uri
       assert_response :success
       assert_equal @response.content_type, Mime::JSON
     end
@@ -190,6 +197,30 @@ class ::V0::ApiControllerTest < ActionController::TestCase
     test "It should fail for missing metadata" do
       data = metadata(paper_uri)
       data.delete('uri')
+      post :create, data.to_json
+
+      assert_response :unprocessable_entity
+    end
+
+    test "It should fail for missing reference metadata" do
+      data = metadata(paper_uri)
+      data['references'].first.delete('uri')
+      post :create, data.to_json
+
+      assert_response :unprocessable_entity
+    end
+
+    test "It should fail for extra metadata" do
+      data = metadata(paper_uri)
+      data['foo'] = 'bar'
+      post :create, data.to_json
+
+      assert_response :unprocessable_entity
+    end
+
+    test "It should fail for extra reference metadata" do
+      data = metadata(paper_uri)
+      data['references'].first['foo'] = 'bar'
       post :create, data.to_json
 
       assert_response :unprocessable_entity

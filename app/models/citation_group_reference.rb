@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class CitationGroupReference < ActiveRecord::Base
+class CitationGroupReference < Base
   belongs_to :citation_group, inverse_of: :citation_group_references
   belongs_to :reference,      inverse_of: :citation_group_references
 

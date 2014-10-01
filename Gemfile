@@ -10,6 +10,7 @@ gem 'oj'
 
 gem 'acts_as_list'
 gem 'json-schema'
+gem 'rails-html-sanitizer'
 
 group :production do
   gem 'rails_12factor'

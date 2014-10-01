@@ -45,6 +45,18 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     assert_equal g.extra,           'extra_metadata' => { 'count' => 2 }
   end
 
+  test "it should sanitize html for the basic metadata" do
+    g = CitationGroup.new
+    g.assign_metadata('id'              => 'group-1',
+                      'text_before'     => '<span>text before</span>',
+                      'text'            => '<span>t e x t</span>',
+                      'text_after'      => '<span>text after</span>'              )
+
+    assert_equal g.text_before,     'text before'
+    assert_equal g.text,            't e x t'
+    assert_equal g.text_after,      'text after'
+  end
+
   test "it should assign references" do
     p = papers(:a)
     g = CitationGroup.new(citing_paper:p)
