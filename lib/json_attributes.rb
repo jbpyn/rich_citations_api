@@ -22,11 +22,6 @@
 
 module JsonAttributes
 
-  # def extended(klass)
-  #   puts "--- extended"
-  #   klass.cattr_accessor :json_attribute_fields # unless defined?(:json_attribute_fields)
-  # end
-
   def json_attribute(*names)
     if ! defined? json_attribute_fields
       cattr_accessor(:json_attribute_fields) { [] }

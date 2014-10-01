@@ -61,7 +61,6 @@ class ReferenceTest < ActiveSupport::TestCase
     c = Paper.new(uri: 'http://example.org/c')
     r =     Reference.new(extra: 'foo', citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1')
     r.save
-    puts r.errors.full_messages
     assert r.save
     assert_not Reference.new(extra: 'baz', citing_paper: a, cited_paper: c, number:3, uri:'uri://2', ref_id:'ref.1').save
   end

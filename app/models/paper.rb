@@ -60,6 +60,7 @@ class Paper < Base
 
   def assign_metadata(metadata)
     return false unless JSON::Validator.validate(JSON_SCHEMA, metadata)
+
     metadata = metadata.dup
 
     # This is order dependent
@@ -74,6 +75,8 @@ class Paper < Base
 
     self.uri           = metadata.delete('uri')
     self.extra         = metadata
+
+    true
   end
 
   def assign_bibliographic_metadata(metadata)
@@ -94,7 +97,7 @@ class Paper < Base
   end
 
   def update_metadata(metadata, updating_user)
-    assign_metadata(metadata)
+    return false unless assign_metadata(metadata)
     saved = self.save
     AuditLogEntry.create(paper:self, user:updating_user) if saved
     saved

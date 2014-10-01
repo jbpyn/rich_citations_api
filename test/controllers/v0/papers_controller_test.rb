@@ -197,6 +197,30 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_response :unprocessable_entity
     end
 
+    test "It should fail for missing reference metadata" do
+      data = metadata(paper_uri)
+      data['references'].first.delete('uri')
+      post :create, data.to_json
+
+      assert_response :unprocessable_entity
+    end
+
+    test "It should fail for extra metadata" do
+      data = metadata(paper_uri)
+      data['foo'] = 'bar'
+      post :create, data.to_json
+
+      assert_response :unprocessable_entity
+    end
+
+    test "It should fail for extra reference metadata" do
+      data = metadata(paper_uri)
+      data['references'].first['foo'] = 'bar'
+      post :create, data.to_json
+
+      assert_response :unprocessable_entity
+    end
+
   end
 
 end
