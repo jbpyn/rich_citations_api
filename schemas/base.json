@@ -17,9 +17,7 @@
           "section": {"type": "string"},
           "context": {
               "type": "object",
-              "required": ["truncated_before", "truncated_after",
-                           "text_after", "text_before",
-                           "citation"],
+              "required": ["citation"],
               "properties": {
                   "truncated_before": { "type": "boolean" },
                   "text_before": { "type": "string" },
