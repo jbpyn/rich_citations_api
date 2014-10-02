@@ -13,8 +13,11 @@
       "citation_group": {
         "type": "object",
         "properties": {
-          "id": {"type": "string"},
-          "section": {"type": "string"},
+            "id": {"type": "string"},
+            "section": {"type": "string"},
+            "word_position": {
+                "type": "integer"
+            },
           "context": {
               "type": "object",
               "required": ["citation"],
@@ -45,6 +48,12 @@
           },
           "uri": {
             "type": "string"
+          },
+          "uri_source": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
           },
           "bibliographic": { "$ref": "#/definitions/bibliographic" },
           "number": {
@@ -80,6 +89,15 @@
         "citation_groups": {
               "type": "array",
               "items": { "$ref": "#/definitions/citation_group" }
+        },
+        "word_count": {
+            "type": "integer"
+        },
+        "updated_by": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
         },
         "more_stuff": {
           "type": "string"
