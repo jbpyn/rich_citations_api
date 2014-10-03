@@ -1,6 +1,5 @@
 {
   "uri": "http://dx.doi.org/10.1371/journal.pone.0000000",
-  "uri_type": "doi",
   "bibliographic": {
     "author": [
       {
@@ -310,10 +309,7 @@
           ]
         }
       },
-      "uri": {
-        "url": "http://www.plosone.org/static/commentGuidelines.action"
-      },
-      "uri_type": "url",
+      "uri": "http://www.plosone.org/static/commentGuidelines.action",
       "uri_source": "ref",
       "score": 2.5,
       "citation_groups": [
@@ -335,10 +331,7 @@
           ]
         }
       },
-      "uri": {
-        "url": "http://www.plosone.org/static/privacy.action"
-      },
-      "uri_type": "url",
+      "uri": "http://www.plosone.org/static/privacy.action",
       "uri_source": "ref",
       "score": 2.5,
       "citation_groups": [
@@ -360,10 +353,7 @@
           ]
         }
       },
-      "uri": {
-        "url": "http://www.plosone.org/static/terms.action"
-      },
-      "uri_type": "url",
+      "uri": "http://www.plosone.org/static/terms.action",
       "uri_source": "ref",
       "score": 2.5,
       "citation_groups": [
@@ -385,10 +375,7 @@
           ]
         }
       },
-      "uri": {
-        "url": "http://www.plos.org/about/people/staff/"
-      },
-      "uri_type": "url",
+      "uri": "http://www.plos.org/about/people/staff/",
       "uri_source": "ref",
       "score": 2.5
     }
@@ -438,6 +425,5 @@
   ],
   "updated_by": [
 
-  ],
-  "literal": null
+  ]
 }
