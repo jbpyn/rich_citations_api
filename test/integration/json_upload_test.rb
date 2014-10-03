@@ -5,7 +5,10 @@ class JsonUploadTest < ActionDispatch::IntegrationTest
     json_file = File.join(Rails.root, 'test', 'fixtures', 'journal.pone.0000000.json')
     post('/papers?api_key=841c5d42-2ca3-42fc-8eda-87fbccc1f4ca',
          File.read(json_file).to_s,
-         { 'Content-Type' => 'application/json' })
-    assert_response(:ok, @response.body)
+         'Accept'       => Mime::JSON.to_s,
+         'Content-Type' => Mime::JSON.to_s)
+    assert_response(:created, @response.body)
+    assert_equal('http://www.example.com/papers?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%2Fjournal.pone.0000000',
+                 @response.headers['Location'])
   end
 end
