@@ -10,6 +10,12 @@
           },
           "additionalProperties": true
       },
+      "updated_by": {
+          "type": "array",
+          "items": {
+              "type": "object"
+          }
+      },
       "citation_group": {
         "type": "object",
         "properties": {
@@ -46,6 +52,10 @@
           "id": {
             "type": "string"
           },
+          "self_citations": {
+              "type": "array",
+              "items": { "type": "string" }
+          },
           "uri": {
             "type": "string"
           },
@@ -71,7 +81,8 @@
             "items": {
               "type": "string"
             }
-          }
+          },
+          "updated_by": { "$ref": "#/definitions/updated_by" }
         },
         "additionalProperties": false
       }
@@ -93,12 +104,7 @@
         "word_count": {
             "type": "integer"
         },
-        "updated_by": {
-            "type": "array",
-            "items": {
-                "type": "object"
-            }
-        },
+        "updated_by": { "$ref": "#/definitions/updated_by" },
         "more_stuff": {
           "type": "string"
         }
