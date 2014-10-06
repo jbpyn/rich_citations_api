@@ -22,8 +22,8 @@ require 'test_helper'
 
 class CitationGroupTest < ActiveSupport::TestCase
   test 'can create a citation group' do
-    r1 = Reference.new(extra: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
-    r2 = Reference.new(extra: 'bar', citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-2', number: 2, uri:'uri://2')
+    r1 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r2 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-2', number: 2, uri:'uri://2')
 
     g = CitationGroup.new(citing_paper: papers(:d),
                           group_id:'g1',
@@ -40,8 +40,8 @@ class CitationGroupTest < ActiveSupport::TestCase
   end
 
   test 'ordering is added for references' do
-    r1 = Reference.new(extra: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
-    r2 = Reference.new(extra: 'bar', citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-2', number: 2, uri:'uri://2')
+    r1 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r2 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-2', number: 2, uri:'uri://2')
     g  = CitationGroup.new(citing_paper: papers(:d), group_id:'g1',
                            references: [r1, r2])
     assert(g.save)
@@ -58,7 +58,7 @@ class CitationGroupTest < ActiveSupport::TestCase
   end
 
   test 'citation_group destroys citation_group_references, but not references ' do
-    r1 = Reference.new(extra: 'foo', citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r1 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
     g = CitationGroup.new(citing_paper: papers(:d), group_id:'g1',
                           references: [r1])
     g.save!

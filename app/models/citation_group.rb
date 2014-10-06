@@ -32,27 +32,26 @@ class CitationGroup < Base
 
   acts_as_list scope: :citing_paper
 
-  json_attribute :extra
-
   def metadata
-    extra.merge(
-            'id'              => group_id,
-            'ellipses_before' => ellipses_before,
-            'text_before'     => text_before,
-            'text'            => text,
-            'text_after'      => text_after,
-            'ellipses_after'  => ellipses_after,
-            'word_position'   => word_position,
-            'section'         => section,
-            'references'      => references.map { |r| r.ref_id }.presence
-        ).compact
+    { 'id'              => group_id,
+      'context' => {
+        'ellipses_before' => ellipses_before,
+        'text_before'     => text_before,
+        'text'            => text,
+        'text_after'      => text_after,
+        'ellipses_after'  => ellipses_after
+      },
+      'word_position'   => word_position,
+      'section'         => section,
+      'references'      => references.map { |r| r.ref_id }.presence
+    }.compact
   end
   alias to_json metadata
 
   def assign_metadata(metadata)
     metadata = metadata.dup
     group_id = metadata.delete('id')
-
+    context = (metadata.delete('context') || {}).dup
     reference_ids = metadata.delete('references')
     reference_ids && reference_ids.each do |ref_id|
       reference = citing_paper.reference_for_id(ref_id)
@@ -61,14 +60,13 @@ class CitationGroup < Base
     end
 
     self.group_id        = group_id
-    self.ellipses_before = metadata.delete('ellipses_before')
-    self.text_before     = sanitize_html( metadata.delete('text_before') )
-    self.text            = sanitize_html( metadata.delete('text') )
-    self.text_after      = sanitize_html( metadata.delete('text_after') )
-    self.ellipses_after  = metadata.delete('ellipses_after')
+    self.ellipses_before = context.delete('ellipses_before')
+    self.text_before     = sanitize_html( context.delete('text_before') )
+    self.text            = sanitize_html( context.delete('text') )
+    self.text_after      = sanitize_html( context.delete('text_after') )
+    self.ellipses_after  = context.delete('ellipses_after')
     self.word_position   = metadata.delete('word_position')
     self.section         = metadata.delete('section')
-    self.extra           = metadata
   end
 
 end
