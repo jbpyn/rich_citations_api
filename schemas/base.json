@@ -47,7 +47,7 @@
       },
       "reference": {
         "type": "object",
-        "required": ["id", "uri", "number"],
+        "required": ["id", "number"],
         "properties": {
           "id": {
             "type": "string"

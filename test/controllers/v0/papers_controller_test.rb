@@ -204,7 +204,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
     test "It should fail for missing reference metadata" do
       data = metadata(paper_uri)
-      data['references'].first.delete('uri')
+      data['references'].first.delete('id')
       post :create, data.to_json
 
       assert_response :unprocessable_entity
