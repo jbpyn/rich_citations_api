@@ -29,7 +29,6 @@ class ::V0::PapersControllerTest < ActionController::TestCase
   def metadata(paper_uri)
     { 'uri'           => paper_uri,
       'bibliographic' => { 'title' => 'Title' },
-      'more_stuff'    => 'Was here!',
       'references'    => [
         { 'id' => 'ref.1',
           'uri' => 'http://example.com/c1',
@@ -72,7 +71,6 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_equal    @response.json,
                      { 'uri'           => paper_uri,
                        'bibliographic' => { 'title' => 'Title' },
-                       'more_stuff'    => 'Was here!',
                        'references'    => [
                            { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
                        ]
@@ -90,7 +88,6 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_equal    @response.json,
           { 'uri'           => paper_uri,
             'bibliographic' => { 'title' => 'Title' },
-            'more_stuff'    => 'Was here!',
             'references'    => [
                 { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title' => 'Title'}, 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
             ]

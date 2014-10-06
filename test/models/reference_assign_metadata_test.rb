@@ -29,14 +29,12 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'       => 'ref.x',
                       'number'   => 2,
                       'original_citation'  => 'Literal Text',
-                      'uri'      => 'http://example.org/a',
-                      'mentions' => 2                   )
+                      'uri'      => 'http://example.org/a')
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
     assert_equal c.original_citation, 'Literal Text'
-    assert_equal c.extra,   { 'mentions' => 2 }
 
     assert_equal c.cited_paper, p
     p.reload
@@ -82,14 +80,12 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'http://example.org/a',
-                      'bibliographic' => {'title' => 'Updated Title'},
-                      'mentions'      => 3                               )
+                      'bibliographic' => {'title' => 'Updated Title'})
     c.save!
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
-    assert_equal c.extra,   { 'mentions' => 3 }
 
     assert_equal c.cited_paper, p
     p.reload
@@ -105,8 +101,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'            => 'ref.x',
                       'number'        => nil,
                       'uri'           => 'http://example.org/a',
-                      'bibliographic' => {'title' => 'Updated Title'},
-                      'mentions'      => 3                               )
+                      'bibliographic' => {'title' => 'Updated Title'})
     assert !c.save
 
     p.reload
@@ -123,14 +118,12 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'http://example.org/a',
-                      'bibliographic' => {'title' => 'Title'},
-                      'mentions'      => 2                               )
+                      'bibliographic' => {'title' => 'Title'})
     c.save!
 
     assert_equal c.uri,    'http://example.org/a'
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number, 2
-    assert_equal c.extra,   { 'mentions' => 2 }
 
     p = Paper.for_uri('http://example.org/a')
     assert_equal c.cited_paper, p
@@ -144,14 +137,12 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'            => 'ref.x',
                       'number'        => 2,
                       # 'uri'           => 'http://example.org/a',
-                      'bibliographic' => {'title' => 'Title'},
-                      'mentions'      => 2                               )
+                      'bibliographic' => {'title' => 'Title'})
     c.save!
 
     assert_equal c.is_random_uri?, true
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number, 2
-    assert_equal c.extra,   { 'mentions' => 2 }
 
     p = Paper.for_uri(c.uri)
     assert_equal c.cited_paper, p
@@ -168,8 +159,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'bad_uri',
-                      'bibliographic' => {'title' => 'Title'},
-                      'mentions'      => 2                               )
+                      'bibliographic' => {'title' => 'Title'})
 
     assert_equal c.save, false
 
@@ -180,13 +170,12 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   test "it should round-trip the metadata" do
     p1 = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
-    metadata = { 'id'              => 'ref.x',
-                 'number'          => 2,
-                 'literal'         => 'Literal Text',
-                 'uri'             => 'http://example.org/a',
-                 'bibliographic'   => {'title' => 'Updated Title'},
-                 'citation_groups' => ['group-2', 'group-1' ],
-                 'mentions'        => 2                              }
+    metadata = { 'id'                => 'ref.x',
+                 'number'            => 2,
+                 'original_citation' => 'Literal Text',
+                 'uri'               => 'http://example.org/a',
+                 'bibliographic'     => {'title' => 'Updated Title'},
+                 'citation_groups'   => ['group-2', 'group-1' ]}
 
     r = Reference.new
     r.assign_metadata(metadata)
@@ -203,8 +192,8 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_raises(RuntimeError) {
       c.assign_metadata('id'            => 'ref.x',
                         'number'        => 2,
-                        'uri'           => 'http://example.org/a',
-                        'mentions'      => 2                               )
+                        'uri'           => 'http://example.org/a')
+
     }
   end
 

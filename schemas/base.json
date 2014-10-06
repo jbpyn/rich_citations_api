@@ -101,13 +101,7 @@
               "type": "array",
               "items": { "$ref": "#/definitions/citation_group" }
         },
-        "word_count": {
-            "type": "integer"
-        },
-        "updated_by": { "$ref": "#/definitions/updated_by" },
-        "more_stuff": {
-          "type": "string"
-        }
+        "updated_by": { "$ref": "#/definitions/updated_by" }
     },
     "additionalProperties": false
 }

@@ -31,15 +31,11 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should assign metadata to a paper" do
     p = Paper.new
-    p.assign_metadata(
-                      'uri'           => 'http://example.com/a',
-                      'bibliographic' => { 'title' => 'Title' },
-                      'more_stuff'    => 'Was here!'
-                     )
+    p.assign_metadata('uri'           => 'http://example.com/a',
+                      'bibliographic' => { 'title' => 'Title' })
 
     assert_equal p.uri,           'http://example.com/a'
     assert_equal p.bibliographic, { 'title' => 'Title' }
-    assert_equal p.extra,         { 'more_stuff' => 'Was here!' }
   end
 
   test "it should clean html attributes" do
@@ -164,7 +160,6 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should round trip metadata" do
     metadata = { 'uri'           => 'http://example.com/a',
                  'bibliographic' => { 'title' => 'Title' },
-                 'more_stuff'    => 'Was here!',
                  'references'    => [
                     { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1,
                       'bibliographic'   => {'title'=>'1'},
@@ -192,7 +187,6 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     saved = p.update_metadata( {
             'uri'           => 'http://example.com/a',
             'bibliographic' => { 'title' => 'Title' },
-            'more_stuff'    => 'Was here!'
                                }, nil )
     assert saved
   end
@@ -202,8 +196,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     saved = p.update_metadata( {
                                    # 'uri'           => 'http://example.com/a',
-                                   'bibliographic' => { 'title' => 'Title' },
-                                   'more_stuff'    => 'Was here!'
+                                   'bibliographic' => { 'title' => 'Title' }
                                }, nil )
     assert !saved
     assert_equal old_paper_count, Paper.count
@@ -214,8 +207,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     p.update_metadata( {
                                    'uri'           => 'http://example.com/a',
-                                   'bibliographic' => { 'title' => 'Title' },
-                                   'more_stuff'    => 'Was here!'
+                                   'bibliographic' => { 'title' => 'Title' }
                                }, u )
     assert_equal p.audit_log_entries.count, 1
     assert_equal u.audit_log_entries.count, 1
@@ -227,8 +219,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     p.update_metadata( {
                            # 'uri'           => 'http://example.com/a',
-                           'bibliographic' => { 'title' => 'Title' },
-                           'more_stuff'    => 'Was here!'
+                           'bibliographic' => { 'title' => 'Title' }
                        }, u )
     assert_equal p.audit_log_entries.count, 0
     assert_equal u.audit_log_entries.count, 0

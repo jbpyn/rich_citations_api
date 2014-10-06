@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006220740) do
+ActiveRecord::Schema.define(version: 20141006225226) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20141006220740) do
     t.integer "citing_paper_id", null: false
     t.integer "position",        null: false
     t.string  "group_id",        null: false
-    t.text    "extra"
   end
 
   add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position"
@@ -52,14 +51,12 @@ ActiveRecord::Schema.define(version: 20141006220740) do
     t.text     "bibliographic"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.text     "extra"
   end
 
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
 
   create_table "references", force: true do |t|
     t.string   "uri",                           null: false
-    t.text     "extra"
     t.integer  "number",                        null: false
     t.integer  "citing_paper_id",               null: false
     t.integer  "cited_paper_id"

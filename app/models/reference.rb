@@ -40,18 +40,17 @@ class Reference < Base
 
   default_scope -> { order(:number) }
 
-  json_attribute :extra
   delegate :bibliographic,
            to: :cited_paper
 
   def metadata(include_cited_paper=false)
-    result = (extra || {}).merge( 'number'            => number,
-                                  'uri'               => uri,
-                                  'id'                => ref_id,
-                                  'original_citation' => original_citation,
-                                  'accessed_at'       => accessed_at,
-                                  'citation_groups'   => citation_groups.map { |g| g.group_id }.presence
-                                ).compact
+    result = { 'number'            => number,
+               'uri'               => uri,
+               'id'                => ref_id,
+               'original_citation' => original_citation,
+               'accessed_at'       => accessed_at,
+               'citation_groups'   => citation_groups.map(&:group_id).presence
+             }.compact
 
     if include_cited_paper && cited_paper
       result['bibliographic'] = bibliographic
@@ -87,7 +86,6 @@ class Reference < Base
     self.number            = metadata.delete('number')
     self.original_citation = sanitize_html( metadata.delete('original_citation') )
     self.accessed_at       = metadata.delete('accessed_at')
-    self.extra             = metadata
     self.cited_paper       = cited_paper
   end
 

@@ -34,7 +34,6 @@ class Paper < Base
   JSON_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
 
   json_attribute :bibliographic
-  json_attribute :extra
 
   def to_param
     uri
@@ -49,12 +48,11 @@ class Paper < Base
   end
 
   def metadata(include_cited_paper=false)
-    (extra || {}).merge(
-      'uri'             => uri,
+    { 'uri'             => uri,
       'bibliographic'   => bibliographic,
       'references'      => references_metadata(include_cited_paper),
       'citation_groups' => citation_groups_metadata
-    ).compact
+    }.compact
   end
   alias to_json metadata
 
@@ -74,8 +72,6 @@ class Paper < Base
     create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
 
     self.uri           = metadata.delete('uri')
-    self.extra         = metadata
-
     true
   end
 
