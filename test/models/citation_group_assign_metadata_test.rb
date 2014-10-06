@@ -26,21 +26,21 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     g = CitationGroup.new
     g.assign_metadata('id'              => 'group-1',
                       'context' => {
-                        'ellipses_before' => true,
+                        'truncate_before' => true,
                         'text_before'     => 'text before',
-                        'text'            => 't e x t',
+                        'citation'        => 't e x t',
                         'text_after'      => 'text after',
-                        'ellipses_after'  => true
+                        'truncate_after'  => true
                       },
                       'word_position'   => 42,
                       'section'         => 'Introduction')
 
     assert_equal g.group_id,        'group-1'
-    assert_equal g.ellipses_before, true
+    assert_equal g.truncate_before, true
     assert_equal g.text_before,     'text before'
-    assert_equal g.text,            't e x t'
+    assert_equal g.citation,        't e x t'
     assert_equal g.text_after,      'text after'
-    assert_equal g.ellipses_after,  true
+    assert_equal g.truncate_after,  true
     assert_equal g.word_position,   42
     assert_equal g.section,         'Introduction'
   end
@@ -50,11 +50,11 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     g.assign_metadata('id'              => 'group-1',
                       'context' => {
                         'text_before'     => '<span>text before</span>',
-                        'text'            => '<span>t e x t</span>',
+                        'citation'        => '<span>t e x t</span>',
                         'text_after'      => '<span>text after</span>'})
 
     assert_equal g.text_before,     'text before'
-    assert_equal g.text,            't e x t'
+    assert_equal g.citation,        't e x t'
     assert_equal g.text_after,      'text after'
   end
 
@@ -75,11 +75,11 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     metadata = { 'id'              => 'group-1',
                  'references'      => ['ref-2', 'ref-1'],
                  'context' => {
-                   'ellipses_before' => false,
+                   'truncate_before' => false,
                    'text_before'     => 'text before',
-                   'text'            => 't e x t',
+                   'citation'        => 't e x t',
                    'text_after'      => 'text after',
-                   'ellipses_after'  => true
+                   'truncate_after'  => true
                  },
                  'word_position'   => 42,
                  'section'         => 'Introduction' }

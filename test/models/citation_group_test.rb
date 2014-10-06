@@ -28,9 +28,9 @@ class CitationGroupTest < ActiveSupport::TestCase
     g = CitationGroup.new(citing_paper: papers(:d),
                           group_id:'g1',
                           section: 'Foo',
-                          text: '[1,2]',
-                          ellipses_before: true,
-                          ellipses_after: false,
+                          citation: '[1,2]',
+                          truncate_before: true,
+                          truncate_after: false,
                           text_before: 'bar',
                           text_before: 'baz',
                           references: [r1, r2])

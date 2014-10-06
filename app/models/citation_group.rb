@@ -33,19 +33,21 @@ class CitationGroup < Base
   acts_as_list scope: :citing_paper
 
   def metadata
-    { 'id'              => group_id,
-      'context' => {
-        'ellipses_before' => ellipses_before,
-        'text_before'     => text_before,
-        'text'            => text,
-        'text_after'      => text_after,
-        'ellipses_after'  => ellipses_after
-      },
-      'word_position'   => word_position,
-      'section'         => section,
-      'references'      => references.map { |r| r.ref_id }.presence
-    }.compact
+    md = { 'id'              => group_id,
+           'word_position'   => word_position,
+           'section'         => section,
+           'references'      => references.map { |r| r.ref_id }.presence
+         }.compact
+    md['context'] = {
+      'truncate_before' => truncate_before,
+      'text_before'     => text_before,
+      'citation'        => citation,
+      'text_after'      => text_after,
+      'truncate_after'  => truncate_after
+    }.delete_if { |_,v| v.nil? }
+    md
   end
+
   alias to_json metadata
 
   def assign_metadata(metadata)
@@ -60,11 +62,11 @@ class CitationGroup < Base
     end
 
     self.group_id        = group_id
-    self.ellipses_before = context.delete('ellipses_before')
+    self.truncate_before = context.delete('truncate_before') || false
     self.text_before     = sanitize_html( context.delete('text_before') )
-    self.text            = sanitize_html( context.delete('text') )
+    self.citation        = sanitize_html( context.delete('citation') )
     self.text_after      = sanitize_html( context.delete('text_after') )
-    self.ellipses_after  = context.delete('ellipses_after')
+    self.truncate_after  = context.delete('truncate_after') || false
     self.word_position   = metadata.delete('word_position')
     self.section         = metadata.delete('section')
   end
