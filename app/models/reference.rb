@@ -43,9 +43,13 @@ class Reference < Base
   delegate :bibliographic,
            to: :cited_paper
 
+  delegate :uri_source,
+           to: :cited_paper
+
   def metadata(include_cited_paper=false)
     result = { 'number'            => number,
                'uri'               => uri,
+               'uri_source'        => uri_source,
                'id'                => ref_id,
                'original_citation' => original_citation,
                'accessed_at'       => accessed_at,
@@ -81,6 +85,11 @@ class Reference < Base
       cited_paper.assign_bibliographic_metadata(bibliographic)
     end
 
+    uri_source = metadata.delete('uri_source')
+    if uri_source
+      cited_paper.uri_source = uri_source
+    end
+    
     self.uri               = uri
     self.ref_id            = ref_id
     self.number            = metadata.delete('number')

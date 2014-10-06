@@ -32,10 +32,12 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should assign metadata to a paper" do
     p = Paper.new
     p.assign_metadata('uri'           => 'http://example.com/a',
+                      'uri_source'    => 'foo',
                       'bibliographic' => { 'title' => 'Title' })
 
     assert_equal p.uri,           'http://example.com/a'
     assert_equal p.bibliographic, { 'title' => 'Title' }
+    assert_equal p.uri_source, 'foo'
   end
 
   test "it should clean html attributes" do

@@ -174,6 +174,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                  'number'            => 2,
                  'original_citation' => 'Literal Text',
                  'uri'               => 'http://example.org/a',
+                 'uri_source'        => 'foo',
                  'bibliographic'     => {'title' => 'Updated Title'},
                  'citation_groups'   => ['group-2', 'group-1' ]}
 

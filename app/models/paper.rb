@@ -51,6 +51,7 @@ class Paper < Base
     { 'uri'             => uri,
       'bibliographic'   => bibliographic,
       'references'      => references_metadata(include_cited_paper),
+      'uri_source'      => uri_source,
       'citation_groups' => citation_groups_metadata
     }.compact
   end
@@ -72,6 +73,7 @@ class Paper < Base
     create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
 
     self.uri           = metadata.delete('uri')
+    self.uri_source    = metadata.delete('uri_source')
     true
   end
 

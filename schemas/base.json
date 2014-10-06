@@ -92,6 +92,9 @@
         "uri": {
             "type": "string"
         },
+        "uri_source": {
+            "type": "string"
+        },
         "bibliographic": { "$ref": "#/definitions/bibliographic" },
         "references": {
             "type": "array",

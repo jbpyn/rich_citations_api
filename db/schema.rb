@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20141006225226) do
     t.text     "bibliographic"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "uri_source"
   end
 
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
@@ -65,9 +66,6 @@ ActiveRecord::Schema.define(version: 20141006225226) do
     t.string   "ref_id",            limit: 255, null: false
     t.string   "original_citation"
     t.datetime "accessed_at"
-    t.string   "bib_source"
-    t.string   "uri_source"
-    t.decimal  "word_count"
   end
 
   add_index "references", ["cited_paper_id", "number"], name: "index_references_on_cited_paper_id_and_number", unique: true
