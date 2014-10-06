@@ -24,7 +24,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   DUMMY_CONTEXT = {
     'text_before' => 'Lorem ipsum',
     'truncated_before' => false,
-    'citation' => '[1]',
+    'text' => '[1]',
     'text_after' =>'dolor',
     'truncated_after' => false
   }
