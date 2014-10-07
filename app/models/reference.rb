@@ -53,6 +53,7 @@ class Reference < Base
                'id'                => ref_id,
                'original_citation' => original_citation,
                'accessed_at'       => accessed_at,
+               'word_count'        => cited_paper.word_count,
                'citation_groups'   => citation_groups.map(&:group_id).presence
              }.compact
 
@@ -89,7 +90,12 @@ class Reference < Base
     if uri_source
       cited_paper.uri_source = uri_source
     end
-    
+
+    word_count = metadata.delete('word_count')
+    if word_count
+      cited_paper.word_count = word_count
+    end
+
     self.uri               = uri
     self.ref_id            = ref_id
     self.number            = metadata.delete('number')

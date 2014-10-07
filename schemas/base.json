@@ -82,6 +82,7 @@
               "type": "string"
             }
           },
+          "word_count": { "type": "integer" },
           "updated_by": { "$ref": "#/definitions/updated_by" }
         },
         "additionalProperties": false
@@ -104,6 +105,7 @@
               "type": "array",
               "items": { "$ref": "#/definitions/citation_group" }
         },
+        "word_count": { "type": "integer" },
         "updated_by": { "$ref": "#/definitions/updated_by" }
     },
     "additionalProperties": false

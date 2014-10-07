@@ -95,6 +95,7 @@ class PaperTest < ActiveSupport::TestCase
 
   test 'Papers should be able to return their metadata' do
     p = Paper.new(uri: 'http://example.org/a',
+                  word_count: 101,
                   bibliographic: {'title' => 'Citing 1'})
 
     p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'})
@@ -103,6 +104,7 @@ class PaperTest < ActiveSupport::TestCase
     assert_equal(p.metadata, {
                                  'uri'           => 'http://example.org/a',
                                  'bibliographic' => {'title' => 'Citing 1' },
+                                 'word_count'    => 101,
                                  'references'    => [
                                                       {"uri"=>"http://example.org/0", "number"=>0, "id"=>"ref.0"},
                                                       {"uri"=>"http://example.org/1", "number"=>1, "id"=>"ref.1"},
