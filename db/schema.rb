@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007211414) do
+ActiveRecord::Schema.define(version: 20141007213346) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -39,18 +39,18 @@ ActiveRecord::Schema.define(version: 20141007211414) do
     t.boolean "truncate_after"
     t.integer "word_position"
     t.text    "section"
-    t.integer "citing_paper_id", null: false
-    t.integer "position",        null: false
-    t.string  "group_id",        null: false
+    t.integer "citing_paper_id",             null: false
+    t.integer "position",                    null: false
+    t.string  "group_id",        limit: 255, null: false
   end
 
   add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position"
 
   create_table "papers", force: true do |t|
-    t.string   "uri",           null: false
+    t.string   "uri",           limit: 255, null: false
     t.text     "bibliographic"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "uri_source"
     t.decimal  "word_count"
   end
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20141007211414) do
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
 
   create_table "references", force: true do |t|
-    t.string   "uri",                           null: false
+    t.string   "uri",               limit: 255, null: false
     t.integer  "number",                        null: false
     t.integer  "citing_paper_id",               null: false
     t.integer  "cited_paper_id"
@@ -73,11 +73,11 @@ ActiveRecord::Schema.define(version: 20141007211414) do
   add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id"
 
   create_table "users", force: true do |t|
-    t.string   "api_key",    limit: 36, null: false
-    t.string   "full_name"
-    t.string   "email"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.string   "api_key",    limit: 36,  null: false
+    t.string   "full_name",  limit: 255, null: false
+    t.string   "email",      limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
