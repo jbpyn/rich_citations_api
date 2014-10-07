@@ -44,7 +44,7 @@ class CitationGroup < Base
       'citation'        => citation,
       'text_after'      => text_after,
       'truncate_after'  => truncate_after
-    }.delete_if { |_,v| v.nil? }
+    }.compact
     md
   end
 
