@@ -52,6 +52,7 @@ class Paper < Base
       'bibliographic'   => bibliographic,
       'references'      => references_metadata(include_cited_paper),
       'uri_source'      => uri_source,
+      'bib_source'      => bib_source,
       'word_count'      => word_count,
       'citation_groups' => citation_groups_metadata
     }.compact
@@ -75,6 +76,7 @@ class Paper < Base
 
     self.uri           = metadata.delete('uri')
     self.uri_source    = metadata.delete('uri_source')
+    self.bib_source    = metadata.delete('bib_source')
     self.word_count    = metadata.delete('word_count')
     true
   end

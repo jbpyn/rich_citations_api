@@ -80,6 +80,8 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     c.assign_metadata('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'http://example.org/a',
+                      'uri_source'    => 'foo',
+                      'bib_source'    => 'bar',
                       'word_count'    => 99,
                       'bibliographic' => {'title' => 'Updated Title'})
     c.save!
@@ -88,6 +90,8 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number,  2
     assert_equal 99, c.cited_paper.word_count
+    assert_equal 'foo', c.cited_paper.uri_source
+    assert_equal 'bar', c.cited_paper.bib_source
 
     assert_equal c.cited_paper, p
     p.reload
@@ -177,6 +181,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                  'original_citation' => 'Literal Text',
                  'uri'               => 'http://example.org/a',
                  'uri_source'        => 'foo',
+                 'bib_source'        => 'bar',
                  'word_count'        => 99,
                  'bibliographic'     => {'title' => 'Updated Title'},
                  'citation_groups'   => ['group-2', 'group-1' ]}
