@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 20141007213346) do
 
   create_table "users", force: true do |t|
     t.string   "api_key",    limit: 36,  null: false
-    t.string   "full_name",  limit: 255, null: false
-    t.string   "email",      limit: 255, null: false
+    t.string   "full_name",  limit: 255
+    t.string   "email",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
