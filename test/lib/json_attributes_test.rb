@@ -24,8 +24,8 @@ class JsonAttributesTest < ActiveSupport::TestCase
 
   test "it should know it's attributes" do
     paper = Paper.new
-    assert(paper.json_attribute_fields, [:bibliographic, :extra ])
-    assert(Paper.json_attribute_fields, [:bibliographic, :extra ])
+    assert(paper.json_attribute_fields, [:bibliographic])
+    assert(Paper.json_attribute_fields, [:bibliographic])
   end
 
   test "it should read the attribute as JSON" do

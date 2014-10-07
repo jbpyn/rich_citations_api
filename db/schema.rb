@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001003805) do
+ActiveRecord::Schema.define(version: 20141007213346) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -32,17 +32,16 @@ ActiveRecord::Schema.define(version: 20141001003805) do
   add_index "citation_group_references", ["reference_id"], name: "index_citation_group_references_on_reference_id"
 
   create_table "citation_groups", force: true do |t|
-    t.boolean "ellipses_before"
+    t.boolean "truncate_before"
     t.text    "text_before"
-    t.text    "text"
+    t.text    "citation"
     t.text    "text_after"
-    t.boolean "ellipses_after"
+    t.boolean "truncate_after"
     t.integer "word_position"
     t.text    "section"
     t.integer "citing_paper_id",             null: false
     t.integer "position",                    null: false
     t.string  "group_id",        limit: 255, null: false
-    t.text    "extra"
   end
 
   add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position"
@@ -52,14 +51,14 @@ ActiveRecord::Schema.define(version: 20141001003805) do
     t.text     "bibliographic"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.text     "extra"
+    t.string   "uri_source"
+    t.decimal  "word_count"
   end
 
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
 
   create_table "references", force: true do |t|
     t.string   "uri",               limit: 255, null: false
-    t.text     "extra"
     t.integer  "number",                        null: false
     t.integer  "citing_paper_id",               null: false
     t.integer  "cited_paper_id"

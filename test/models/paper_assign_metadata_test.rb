@@ -23,23 +23,23 @@ require 'test_helper'
 class PaperAssignMetadataTest < ActiveSupport::TestCase
   DUMMY_CONTEXT = {
     'text_before' => 'Lorem ipsum',
-    'truncated_before' => false,
+    'truncate_before' => false,
     'citation' => '[1]',
     'text_after' =>'dolor',
-    'truncated_after' => false
+    'truncate_after' => false
   }
 
   test "it should assign metadata to a paper" do
     p = Paper.new
-    p.assign_metadata(
-                      'uri'           => 'http://example.com/a',
-                      'bibliographic' => { 'title' => 'Title' },
-                      'more_stuff'    => 'Was here!'
-                     )
+    p.assign_metadata('uri'           => 'http://example.com/a',
+                      'uri_source'    => 'foo',
+                      'word_count'    => 101,
+                      'bibliographic' => { 'title' => 'Title' })
 
     assert_equal p.uri,           'http://example.com/a'
     assert_equal p.bibliographic, { 'title' => 'Title' }
-    assert_equal p.extra,         { 'more_stuff' => 'Was here!' }
+    assert_equal p.uri_source, 'foo'
+    assert_equal 101, p.word_count
   end
 
   test "it should clean html attributes" do
@@ -118,11 +118,11 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
             'bibliographic' => {},
             'references' => [
                 { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} , 'number' => 1},
-                { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'} , 'number' => 2},
+                { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'} , 'number' => 2}
             ],
             'citation_groups' => [
                 { 'id' => 'group-1', 'context' => DUMMY_CONTEXT, 'section' => 'First',  'references' => ['ref.1','ref.2'] },
-                { 'id' => 'group-2', 'context' => DUMMY_CONTEXT, 'section' => 'Second', 'references' => ['ref.2'] },
+                { 'id' => 'group-2', 'context' => DUMMY_CONTEXT, 'section' => 'Second', 'references' => ['ref.2'] }
             ])
 
     assert_equal p.citation_groups.size, 2
@@ -164,7 +164,6 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should round trip metadata" do
     metadata = { 'uri'           => 'http://example.com/a',
                  'bibliographic' => { 'title' => 'Title' },
-                 'more_stuff'    => 'Was here!',
                  'references'    => [
                     { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1,
                       'bibliographic'   => {'title'=>'1'},
@@ -192,7 +191,6 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     saved = p.update_metadata( {
             'uri'           => 'http://example.com/a',
             'bibliographic' => { 'title' => 'Title' },
-            'more_stuff'    => 'Was here!'
                                }, nil )
     assert saved
   end
@@ -202,8 +200,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     saved = p.update_metadata( {
                                    # 'uri'           => 'http://example.com/a',
-                                   'bibliographic' => { 'title' => 'Title' },
-                                   'more_stuff'    => 'Was here!'
+                                   'bibliographic' => { 'title' => 'Title' }
                                }, nil )
     assert !saved
     assert_equal old_paper_count, Paper.count
@@ -214,8 +211,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     p.update_metadata( {
                                    'uri'           => 'http://example.com/a',
-                                   'bibliographic' => { 'title' => 'Title' },
-                                   'more_stuff'    => 'Was here!'
+                                   'bibliographic' => { 'title' => 'Title' }
                                }, u )
     assert_equal p.audit_log_entries.count, 1
     assert_equal u.audit_log_entries.count, 1
@@ -227,8 +223,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.new
     p.update_metadata( {
                            # 'uri'           => 'http://example.com/a',
-                           'bibliographic' => { 'title' => 'Title' },
-                           'more_stuff'    => 'Was here!'
+                           'bibliographic' => { 'title' => 'Title' }
                        }, u )
     assert_equal p.audit_log_entries.count, 0
     assert_equal u.audit_log_entries.count, 0

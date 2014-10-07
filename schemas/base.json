@@ -82,6 +82,7 @@
               "type": "string"
             }
           },
+          "word_count": { "type": "integer" },
           "updated_by": { "$ref": "#/definitions/updated_by" }
         },
         "additionalProperties": false
@@ -90,6 +91,9 @@
     "required": ["uri", "bibliographic"],
     "properties": {
         "uri": {
+            "type": "string"
+        },
+        "uri_source": {
             "type": "string"
         },
         "bibliographic": { "$ref": "#/definitions/bibliographic" },
@@ -101,13 +105,8 @@
               "type": "array",
               "items": { "$ref": "#/definitions/citation_group" }
         },
-        "word_count": {
-            "type": "integer"
-        },
-        "updated_by": { "$ref": "#/definitions/updated_by" },
-        "more_stuff": {
-          "type": "string"
-        }
+        "word_count": { "type": "integer" },
+        "updated_by": { "$ref": "#/definitions/updated_by" }
     },
     "additionalProperties": false
 }
