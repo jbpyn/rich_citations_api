@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007213346) do
+ActiveRecord::Schema.define(version: 20141007230603) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20141007213346) do
     t.datetime "updated_at",                null: false
     t.string   "uri_source"
     t.decimal  "word_count"
+    t.string   "bib_source"
   end
 
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true

@@ -50,6 +50,7 @@ class Reference < Base
     result = { 'number'            => number,
                'uri'               => uri,
                'uri_source'        => uri_source,
+               'bib_source'        => cited_paper.bib_source,
                'id'                => ref_id,
                'original_citation' => original_citation,
                'accessed_at'       => accessed_at,
@@ -86,15 +87,9 @@ class Reference < Base
       cited_paper.assign_bibliographic_metadata(bibliographic)
     end
 
-    uri_source = metadata.delete('uri_source')
-    if uri_source
-      cited_paper.uri_source = uri_source
-    end
-
-    word_count = metadata.delete('word_count')
-    if word_count
-      cited_paper.word_count = word_count
-    end
+    cited_paper.uri_source = metadata.delete('uri_source')
+    cited_paper.bib_source = metadata.delete('bib_source')
+    cited_paper.word_count = metadata.delete('word_count')
 
     self.uri               = uri
     self.ref_id            = ref_id
