@@ -50,19 +50,21 @@ class Reference < Base
     result = { 'number'            => number,
                'uri'               => uri,
                'uri_source'        => uri_source,
-               'bib_source'        => cited_paper.bib_source,
                'id'                => ref_id,
                'original_citation' => original_citation,
                'accessed_at'       => accessed_at,
-               'word_count'        => cited_paper.word_count,
                'citation_groups'   => citation_groups.map(&:group_id).presence
-             }.compact
+             }
 
     if include_cited_paper && cited_paper
-      result['bibliographic'] = bibliographic
+      result.merge!(
+          'bib_source'    => cited_paper.bib_source,
+          'word_count'    => cited_paper.word_count,
+          'bibliographic' => bibliographic
+      )
     end
 
-    result
+    result.compact
   end
   alias to_json metadata
 
