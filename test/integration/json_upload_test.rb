@@ -8,9 +8,10 @@ class JsonUploadTest < ActionDispatch::IntegrationTest
          'Accept'       => Mime::JSON.to_s,
          'Content-Type' => Mime::JSON.to_s)
     assert_response(:created, @response.body)
+
     assert_equal('http://www.example.com/papers?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%2Fjournal.pone.0000000',
                  @response.headers['Location'])
-    get('/papers', {uri: 'http%3A%2F%2Fdx.doi.org%2F10.1371%2Fjournal.pone.0000000'},
+    get('/papers', {uri: 'http%3A%2F%2Fdx.doi.org%2F10.1371%2Fjournal.pone.0000000', include:'cited'},
         'Accept' => Mime::JSON.to_s)
     original = MultiJson.load(File.read(json_file).to_s)
     new = MultiJson.load(@response.body.to_s)
