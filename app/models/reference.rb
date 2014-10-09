@@ -55,6 +55,7 @@ class Reference < Base
                'original_citation' => original_citation,
                'accessed_at'       => accessed_at,
                'word_count'        => cited_paper.word_count,
+               'score'             => score,
                'citation_groups'   => citation_groups.map(&:group_id).presence
              }.compact
 
@@ -96,6 +97,7 @@ class Reference < Base
     self.number            = metadata.delete('number')
     self.original_citation = sanitize_html( metadata.delete('original_citation') )
     self.accessed_at       = metadata.delete('accessed_at')
+    self.score             = metadata.delete('score')
     self.cited_paper       = cited_paper
   end
 

@@ -82,6 +82,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                       'uri'           => 'http://example.org/a',
                       'uri_source'    => 'foo',
                       'bib_source'    => 'bar',
+                      'score'         => 2.5,
                       'word_count'    => 99,
                       'bibliographic' => {'title' => 'Updated Title'})
     c.save!
@@ -92,6 +93,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal 99, c.cited_paper.word_count
     assert_equal 'foo', c.cited_paper.uri_source
     assert_equal 'bar', c.cited_paper.bib_source
+    assert_equal 2.5, c.score
 
     assert_equal c.cited_paper, p
     p.reload
@@ -182,6 +184,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                  'uri'               => 'http://example.org/a',
                  'uri_source'        => 'foo',
                  'bib_source'        => 'bar',
+                 'score'             => 2.5,
                  'word_count'        => 99,
                  'bibliographic'     => {'title' => 'Updated Title'},
                  'citation_groups'   => ['group-2', 'group-1' ]}
