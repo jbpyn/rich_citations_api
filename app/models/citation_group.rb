@@ -33,19 +33,18 @@ class CitationGroup < Base
   acts_as_list scope: :citing_paper
 
   def metadata
-    md = { 'id'              => group_id,
-           'word_position'   => word_position,
-           'section'         => section,
-           'references'      => references.map { |r| r.ref_id }.presence
-         }.compact
-    md['context'] = {
-      'truncate_before' => truncate_before,
-      'text_before'     => text_before,
-      'citation'        => citation,
-      'text_after'      => text_after,
-      'truncate_after'  => truncate_after
+    { 'id'              => group_id,
+      'word_position'   => word_position,
+      'section'         => section,
+      'context' => {
+        'truncated_before' => truncated_before,
+        'text_before'      => text_before,
+        'citation'         => citation,
+        'text_after'       => text_after,
+        'truncated_after'  => truncated_after
+      }.compact,
+      'references'      => references.map(&:ref_id).presence
     }.compact
-    md
   end
 
   alias to_json metadata
@@ -61,14 +60,14 @@ class CitationGroup < Base
       self.references << reference
     end
 
-    self.group_id        = group_id
-    self.truncate_before = context.delete('truncate_before') || false
-    self.text_before     = sanitize_html( context.delete('text_before') )
-    self.citation        = sanitize_html( context.delete('citation') )
-    self.text_after      = sanitize_html( context.delete('text_after') )
-    self.truncate_after  = context.delete('truncate_after') || false
-    self.word_position   = metadata.delete('word_position')
-    self.section         = metadata.delete('section')
+    self.group_id         = group_id
+    self.truncated_before = context.delete('truncated_before') || false
+    self.text_before      = sanitize_html( context.delete('text_before') )
+    self.citation         = sanitize_html( context.delete('citation') )
+    self.text_after       = sanitize_html( context.delete('text_after') )
+    self.truncated_after  = context.delete('truncated_after') || false
+    self.word_position    = metadata.delete('word_position')
+    self.section          = metadata.delete('section')
   end
 
 end

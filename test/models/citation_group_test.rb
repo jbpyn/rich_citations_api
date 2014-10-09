@@ -29,8 +29,8 @@ class CitationGroupTest < ActiveSupport::TestCase
                           group_id:'g1',
                           section: 'Foo',
                           citation: '[1,2]',
-                          truncate_before: true,
-                          truncate_after: false,
+                          truncated_before: true,
+                          truncated_after: false,
                           text_before: 'bar',
                           text_before: 'baz',
                           references: [r1, r2])

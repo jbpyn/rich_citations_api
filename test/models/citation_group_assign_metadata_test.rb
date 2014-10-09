@@ -26,23 +26,23 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     g = CitationGroup.new
     g.assign_metadata('id'              => 'group-1',
                       'context' => {
-                        'truncate_before' => true,
-                        'text_before'     => 'text before',
-                        'citation'        => 't e x t',
-                        'text_after'      => 'text after',
-                        'truncate_after'  => true
+                        'truncated_before' => true,
+                        'text_before'      => 'text before',
+                        'citation'         => 't e x t',
+                        'text_after'       => 'text after',
+                        'truncated_after'  => true
                       },
                       'word_position'   => 42,
                       'section'         => 'Introduction')
 
-    assert_equal g.group_id,        'group-1'
-    assert_equal g.truncate_before, true
-    assert_equal g.text_before,     'text before'
-    assert_equal g.citation,        't e x t'
-    assert_equal g.text_after,      'text after'
-    assert_equal g.truncate_after,  true
-    assert_equal g.word_position,   42
-    assert_equal g.section,         'Introduction'
+    assert_equal g.group_id,         'group-1'
+    assert_equal g.truncated_before, true
+    assert_equal g.text_before,      'text before'
+    assert_equal g.citation,         't e x t'
+    assert_equal g.text_after,       'text after'
+    assert_equal g.truncated_after,  true
+    assert_equal g.word_position,    42
+    assert_equal g.section,          'Introduction'
   end
 
   test "it should sanitize html for the basic metadata" do
@@ -75,11 +75,11 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     metadata = { 'id'              => 'group-1',
                  'references'      => ['ref-2', 'ref-1'],
                  'context' => {
-                   'truncate_before' => false,
-                   'text_before'     => 'text before',
-                   'citation'        => 't e x t',
-                   'text_after'      => 'text after',
-                   'truncate_after'  => true
+                   'truncated_before' => false,
+                   'text_before'      => 'text before',
+                   'citation'         => 't e x t',
+                   'text_after'       => 'text after',
+                   'truncated_after'  => true
                  },
                  'word_position'   => 42,
                  'section'         => 'Introduction' }

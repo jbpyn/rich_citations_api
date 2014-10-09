@@ -23,10 +23,10 @@ require 'test_helper'
 class PaperAssignMetadataTest < ActiveSupport::TestCase
   DUMMY_CONTEXT = {
     'text_before' => 'Lorem ipsum',
-    'truncate_before' => false,
+    'truncated_before' => false,
     'citation' => '[1]',
     'text_after' =>'dolor',
-    'truncate_after' => false
+    'truncated_after' => false
   }
 
   test "it should assign metadata to a paper" do
