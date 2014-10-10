@@ -58,6 +58,23 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     assert_equal g.text_after,      'text after'
   end
 
+  test 'it should work with missing truncate' do
+    r1 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r2 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-2', number: 2, uri:'uri://2')
+    g = CitationGroup.new(citing_paper: papers(:a), references: [r1, r2])
+    g.assign_metadata('id'              => 'group-1',
+                      'context' => {
+                        'text_before'      => 'text before',
+                        'citation'         => 't e x t',
+                        'text_after'       => 'text after',
+                        'truncated_after'  => false
+                      })
+    g.save!
+    g.reload
+    assert_equal(false, g.truncated_before)
+    assert_equal(false, g.truncated_after)
+  end
+  
   test "it should assign references" do
     p = papers(:a)
     g = CitationGroup.new(citing_paper:p)

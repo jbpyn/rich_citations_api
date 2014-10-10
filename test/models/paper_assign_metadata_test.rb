@@ -26,7 +26,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     'truncated_before' => false,
     'citation' => '[1]',
     'text_after' =>'dolor',
-    'truncated_after' => false
+    'truncated_after' => true
   }
 
   test "it should assign metadata to a paper" do
@@ -130,6 +130,11 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal p.citation_groups.size, 2
     assert_equal p.citation_groups[0].group_id, 'group-1'
     assert_equal p.citation_groups[1].group_id, 'group-2'
+    assert_equal p.citation_groups[0].truncated_before, DUMMY_CONTEXT['truncated_before']
+    assert_equal p.citation_groups[0].truncated_after, DUMMY_CONTEXT['truncated_after']
+    assert_equal p.citation_groups[0].text_before, DUMMY_CONTEXT['text_before']
+    assert_equal p.citation_groups[0].text_after, DUMMY_CONTEXT['text_after']
+    assert_equal p.citation_groups[0].citation, DUMMY_CONTEXT['citation']
   end
 
   test "it should not create anything if it there is an error in a Citation Group" do
@@ -174,6 +179,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                       'bibliographic'   => {'title'=>'2'},
                       'citation_groups' => ['group-1', 'group-2']               }
                  ],
+                 'word_count' => 201,
                  'citation_groups' => [
                     { 'id' => 'group-1', 'context' => DUMMY_CONTEXT, 'section' => 'First',  'references' => ['ref.1','ref.2'] },
                     { 'id' => 'group-2', 'context' => DUMMY_CONTEXT, 'section' => 'Second', 'references' => ['ref.2'] },
