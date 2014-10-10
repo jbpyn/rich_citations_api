@@ -1,0 +1,4787 @@
+{
+  "uri": "http://dx.doi.org/10.1371/journal.pone.0107541",
+  "bibliographic": {
+    "author": [
+      {
+        "given": "Jayant M.",
+        "family": "Pinto",
+        "email": "jpinto@surgery.bsd.uchicago.edu",
+        "affiliation": "Section of Otolaryngology-Head and Neck Surgery, Department of Surgery, The University of Chicago, Chicago, Illinois, United States of America"
+      },
+      {
+        "given": "Kristen E.",
+        "family": "Wroblewski",
+        "affiliation": "Department of Health Studies, The University of Chicago, Chicago, Illinois, United States of America"
+      },
+      {
+        "given": "David W.",
+        "family": "Kern",
+        "affiliation": "Department of Comparative Human Development and The Institute for Mind and Biology, The University of Chicago, Chicago, Illinois, United States of America"
+      },
+      {
+        "given": "L. Philip",
+        "family": "Schumm",
+        "affiliation": "Department of Health Studies, The University of Chicago, Chicago, Illinois, United States of America"
+      },
+      {
+        "given": "Martha K.",
+        "family": "McClintock",
+        "affiliation": "Department of Comparative Human Development and The Institute for Mind and Biology, The University of Chicago, Chicago, Illinois, United States of America"
+      }
+    ],
+    "bib_source": "dx.doi.org"
+  },
+  "word_count": 3630,
+  "references": [
+    {
+      "id": "pone.0107541-Niimura1",
+      "number": 1,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1186",
+        "author": [
+          {
+            "family": "Niimura",
+            "given": "Yoshihito"
+          }
+        ],
+        "container-title": "Hum Genomics",
+        "reference-count": 51,
+        "page": "107",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              12,
+              5
+            ]
+          ],
+          "timestamp": 1354665600000
+        },
+        "issue": "2",
+        "title": "Evolutionary dynamics of olfactory receptor genes in chordates: interaction between environments and genomic contents",
+        "type": "journal-article",
+        "DOI": "10.1186/1479-7364-4-2-107",
+        "ISSN": [
+          "1479-7364"
+        ],
+        "URL": "http://dx.doi.org/10.1186/1479-7364-4-2-107",
+        "source": "CrossRef",
+        "publisher": "Springer Science + Business Media",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410031094640
+        },
+        "volume": "4",
+        "member": "http://id.crossref.org/member/297",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1186/1479-7364-4-2-107",
+      "uri_source": "crossref",
+      "score": 4.9026456,
+      "citation_groups": [
+        "1"
+      ],
+      "original_citation": "NiimuraY (2009) Evolutionary dynamics of olfactory receptor genes in chordates: interaction between environments and genomic contents. Hum Genomics 4: 107–118."
+    },
+    {
+      "id": "pone.0107541-Mennella1",
+      "number": 2,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Pediatrics, Perinatology, and Child Health"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2001,
+              6,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1542",
+        "author": [
+          {
+            "family": "Mennella",
+            "given": "J. A."
+          },
+          {
+            "family": "Jagnow",
+            "given": "C. P."
+          },
+          {
+            "family": "Beauchamp",
+            "given": "G. K."
+          }
+        ],
+        "container-title": "PEDIATRICS",
+        "reference-count": 0,
+        "page": "e88-e88",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              14
+            ]
+          ],
+          "timestamp": 1313280000000
+        },
+        "issue": "6",
+        "title": "Prenatal and Postnatal Flavor Learning by Human Infants",
+        "type": "journal-article",
+        "DOI": "10.1542/peds.107.6.e88",
+        "ISSN": [
+          "0031-4005",
+          "1098-4275"
+        ],
+        "URL": "http://dx.doi.org/10.1542/peds.107.6.e88",
+        "source": "CrossRef",
+        "publisher": "American Academy of Pediatrics (AAP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409779059475
+        },
+        "volume": "107",
+        "member": "http://id.crossref.org/member/417",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1542/peds.107.6.e88",
+      "uri_source": "crossref",
+      "score": 4.80566,
+      "citation_groups": [
+        "2"
+      ],
+      "original_citation": "MennellaJA, JagnowCP, BeauchampGK (2001) Prenatal and postnatal flavor learning by human infants. Pediatrics 107: E88."
+    },
+    {
+      "id": "pone.0107541-Hays1",
+      "number": 3,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Experimental and Cognitive Psychology",
+          "Behavioral Neuroscience"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2006,
+              6
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1016",
+        "author": [
+          {
+            "family": "Hays",
+            "given": "Nicholas P."
+          },
+          {
+            "family": "Roberts",
+            "given": "Susan B."
+          }
+        ],
+        "container-title": "Physiology & Behavior",
+        "reference-count": 159,
+        "page": "257-266",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              3
+            ]
+          ],
+          "timestamp": 1312329600000
+        },
+        "issue": "3",
+        "title": "The anorexia of aging in humans",
+        "type": "journal-article",
+        "DOI": "10.1016/j.physbeh.2006.05.029",
+        "ISSN": [
+          "0031-9384"
+        ],
+        "URL": "http://dx.doi.org/10.1016/j.physbeh.2006.05.029",
+        "source": "CrossRef",
+        "publisher": "Elsevier BV",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409781972050
+        },
+        "volume": "88",
+        "member": "http://id.crossref.org/member/78",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1016/j.physbeh.2006.05.029",
+      "uri_source": "crossref_lowscore",
+      "score": 2.430883,
+      "citation_groups": [
+        "2"
+      ],
+      "original_citation": "HaysNP, RobertsSB (2006) The anorexia of aging in humans. Physiol Behav 88: 257–266."
+    },
+    {
+      "id": "pone.0107541-Jacob1",
+      "number": 4,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Genetics"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2002,
+              1,
+              22
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1038",
+        "author": [
+          {
+            "family": "Jacob",
+            "given": "Suma"
+          },
+          {
+            "family": "McClintock",
+            "given": "Martha K."
+          },
+          {
+            "family": "Zelano",
+            "given": "Bethanne"
+          },
+          {
+            "family": "Ober",
+            "given": "Carole"
+          }
+        ],
+        "container-title": "Nat. Genet.",
+        "reference-count": 0,
+        "page": "175-179",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              14
+            ]
+          ],
+          "timestamp": 1313280000000
+        },
+        "issue": "2",
+        "title": "Paternally inherited HLA alleles are associated with women's choice of male odor",
+        "type": "journal-article",
+        "DOI": "10.1038/ng830",
+        "ISSN": [
+          "1061-4036"
+        ],
+        "URL": "http://dx.doi.org/10.1038/ng830",
+        "source": "CrossRef",
+        "publisher": "Nature Publishing Group",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409775334692
+        },
+        "volume": "30",
+        "member": "http://id.crossref.org/member/339",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1038/ng830",
+      "uri_source": "crossref",
+      "score": 5.552421,
+      "citation_groups": [
+        "3"
+      ],
+      "original_citation": "JacobS, McClintockMK, ZelanoB, OberC (2002) Paternally inherited HLA alleles are associated with women's choice of male odor. Nat Genet 30: 175–179.",
+      "self_citations": [
+        "McClintock, Martha K. [name]"
+      ]
+    },
+    {
+      "id": "pone.0107541-Jacob2",
+      "number": 5,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Behavioral Neuroscience",
+          "Endocrine and Autonomic Systems",
+          "Endocrinology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2002,
+              11
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1006",
+        "author": [
+          {
+            "family": "Jacob",
+            "given": "Suma"
+          },
+          {
+            "family": "Garcia",
+            "given": "Sheila"
+          },
+          {
+            "family": "Hayreh",
+            "given": "Davinder"
+          },
+          {
+            "family": "McClintock",
+            "given": "Martha K."
+          }
+        ],
+        "container-title": "Hormones and Behavior",
+        "reference-count": 39,
+        "page": "274-283",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              7,
+              21
+            ]
+          ],
+          "timestamp": 1311206400000
+        },
+        "issue": "3",
+        "title": "Psychological Effects of Musky Compounds: Comparison of Androstadienone with Androstenol and Muscone",
+        "type": "journal-article",
+        "DOI": "10.1006/hbeh.2002.1826",
+        "ISSN": [
+          "0018-506X"
+        ],
+        "URL": "http://dx.doi.org/10.1006/hbeh.2002.1826",
+        "source": "CrossRef",
+        "publisher": "Elsevier BV",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409778968395
+        },
+        "volume": "42",
+        "member": "http://id.crossref.org/member/78",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1006/hbeh.2002.1826",
+      "uri_source": "crossref",
+      "score": 4.984033,
+      "citation_groups": [
+        "3"
+      ],
+      "original_citation": "JacobS, GarciaS, HayrehD, McClintockMK (2002) Psychological effects of musky compounds: comparison of androstadienone with androstenol and muscone. Horm Behav 42: 274–283.",
+      "self_citations": [
+        "McClintock, Martha K. [name]"
+      ]
+    },
+    {
+      "id": "pone.0107541-Doucet1",
+      "number": 6,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Agricultural and Biological Sciences(all)",
+          "Medicine(all)",
+          "Biochemistry, Genetics and Molecular Biology(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              10,
+              23
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1371",
+        "update-policy": "http://dx.doi.org/10.1371/journal.pone.corrections_policy",
+        "author": [
+          {
+            "family": "Doucet",
+            "given": "Sébastien"
+          },
+          {
+            "family": "Soussignan",
+            "given": "Robert"
+          },
+          {
+            "family": "Sagot",
+            "given": "Paul"
+          },
+          {
+            "family": "Schaal",
+            "given": "Benoist"
+          }
+        ],
+        "container-title": "PLoS ONE",
+        "reference-count": 0,
+        "page": "e7579",
+        "deposited": {
+          "date-parts": [
+            [
+              2014,
+              3,
+              6
+            ]
+          ],
+          "timestamp": 1394064000000
+        },
+        "issue": "10",
+        "title": "The Secretion of Areolar (Montgomery's) Glands from Lactating Women Elicits Selective, Unconditional Responses in Neonates",
+        "editor": [
+          {
+            "family": "Hausberger",
+            "given": "Martine"
+          }
+        ],
+        "type": "journal-article",
+        "DOI": "10.1371/journal.pone.0007579",
+        "ISSN": [
+          "1932-6203"
+        ],
+        "URL": "http://dx.doi.org/10.1371/journal.pone.0007579",
+        "source": "CrossRef",
+        "publisher": "Public Library of Science (PLoS)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              10
+            ]
+          ],
+          "timestamp": 1410318512922
+        },
+        "volume": "4",
+        "member": "http://id.crossref.org/member/340",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1371/journal.pone.0007579",
+      "uri_source": "crossref",
+      "score": 7.4951277,
+      "citation_groups": [
+        "3"
+      ],
+      "updated_by": [
+
+      ],
+      "original_citation": "DoucetS, SoussignanR, SagotP, SchaalB (2009) The secretion of areolar (Montgomery's) glands from lactating women elicits selective, unconditional responses in neonates. PLoS One 4: e7579."
+    },
+    {
+      "id": "pone.0107541-WelgeLussen1",
+      "number": 7,
+      "bibliographic": {
+        "text": "Welge-Lussen A ( 2009 ) Ageing, neurodegeneration, and olfactory and gustatory loss . B-Ent 5 Suppl 13 129 – 132 .",
+        "container-type": "journal",
+        "container-title": "B-Ent",
+        "title": "Ageing, neurodegeneration, and olfactory and gustatory loss",
+        "volume": "5",
+        "issued": {
+          "date-parts": [
+            [
+              2009
+            ]
+          ]
+        },
+        "page": "129-132",
+        "author": [
+          {
+            "family": "Welge-Lussen",
+            "given": "A"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "4"
+      ]
+    },
+    {
+      "id": "pone.0107541-Burton1",
+      "number": 8,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Physiology",
+          "Neuroscience(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2012,
+              7,
+              18
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1152",
+        "author": [
+          {
+            "family": "Burton",
+            "given": "S. D."
+          },
+          {
+            "family": "Ermentrout",
+            "given": "G. B."
+          },
+          {
+            "family": "Urban",
+            "given": "N. N."
+          }
+        ],
+        "container-title": "Journal of Neurophysiology",
+        "reference-count": 0,
+        "page": "2115-2133",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              10,
+              15
+            ]
+          ],
+          "timestamp": 1350259200000
+        },
+        "issue": "8",
+        "title": "Intrinsic heterogeneity in oscillatory dynamics limits correlation-induced neural synchronization",
+        "type": "journal-article",
+        "DOI": "10.1152/jn.00362.2012",
+        "ISSN": [
+          "0022-3077",
+          "1522-1598"
+        ],
+        "URL": "http://dx.doi.org/10.1152/jn.00362.2012",
+        "source": "CrossRef",
+        "publisher": "American Physiological Society",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410018639149
+        },
+        "volume": "108",
+        "member": "http://id.crossref.org/member/24",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1152/jn.00362.2012",
+      "uri_source": "crossref",
+      "score": 3.6031976,
+      "citation_groups": [
+        "4"
+      ],
+      "original_citation": "BurtonSD, ErmentroutGB, UrbanNN (2012) Intrinsic heterogeneity in oscillatory dynamics limits correlation-induced neural synchronization. J Neurophysiol 108: 2115–2133."
+    },
+    {
+      "id": "pone.0107541-GarciaEsparcia1",
+      "number": 9,
+      "bibliographic": {
+        "subtitle": [
+          "Novel Putative Chemoreceptors in the Human Brain"
+        ],
+        "subject": [
+          "Clinical Neurology",
+          "Pathology and Forensic Medicine",
+          "Cellular and Molecular Neuroscience",
+          "Neurology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2013,
+              6
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1097",
+        "author": [
+          {
+            "family": "Garcia-Esparcia",
+            "given": "Paula"
+          },
+          {
+            "family": "Schlüter",
+            "given": "Agatha"
+          },
+          {
+            "family": "Carmona",
+            "given": "Margarita"
+          },
+          {
+            "family": "Moreno",
+            "given": "Jesús"
+          },
+          {
+            "family": "Ansoleaga",
+            "given": "Belen"
+          },
+          {
+            "family": "Torrejón-Escribano",
+            "given": "Benjamín"
+          },
+          {
+            "family": "Gustincich",
+            "given": "Stefano"
+          },
+          {
+            "family": "Pujol",
+            "given": "Aurora"
+          },
+          {
+            "family": "Ferrer",
+            "given": "Isidre"
+          }
+        ],
+        "container-title": "Journal of Neuropathology & Experimental Neurology",
+        "reference-count": 18,
+        "page": "524-539",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              12,
+              5
+            ]
+          ],
+          "timestamp": 1386201600000
+        },
+        "issue": "6",
+        "title": "Functional Genomics Reveals Dysregulation of Cortical Olfactory Receptors in Parkinson Disease",
+        "type": "journal-article",
+        "DOI": "10.1097/nen.0b013e318294fd76",
+        "ISSN": [
+          "0022-3069"
+        ],
+        "URL": "http://dx.doi.org/10.1097/nen.0b013e318294fd76",
+        "source": "CrossRef",
+        "publisher": "Ovid Technologies (Wolters Kluwer Health)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              5,
+              23
+            ]
+          ],
+          "timestamp": 1400842834334
+        },
+        "volume": "72",
+        "member": "http://id.crossref.org/member/276",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1097/nen.0b013e318294fd76",
+      "uri_source": "crossref",
+      "score": 4.213554,
+      "citation_groups": [
+        "4"
+      ],
+      "original_citation": "Garcia-EsparciaP, SchluterA, CarmonaM, MorenoJ, AnsoleagaB, et al. (2013) Functional genomics reveals dysregulation of cortical olfactory receptors in Parkinson disease: novel putative chemoreceptors in the human brain. J Neuropathol Exp Neurol 72: 524–539."
+    },
+    {
+      "id": "pone.0107541-Pagano1",
+      "number": 10,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Molecular Medicine",
+          "Cell Biology",
+          "Developmental Biology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2000,
+              7
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1002",
+        "author": [
+          {
+            "family": "Pagano",
+            "given": "Stefano F."
+          },
+          {
+            "family": "Impagnatiello",
+            "given": "Francesco"
+          },
+          {
+            "family": "Girelli",
+            "given": "Marina"
+          },
+          {
+            "family": "Cova",
+            "given": "Lidia"
+          },
+          {
+            "family": "Grioni",
+            "given": "Elisabetta"
+          },
+          {
+            "family": "Onofri",
+            "given": "Marco"
+          },
+          {
+            "family": "Cavallaro",
+            "given": "Maurizio"
+          },
+          {
+            "family": "Etteri",
+            "given": "Sabrina"
+          },
+          {
+            "family": "Vitello",
+            "given": "Francesco"
+          },
+          {
+            "family": "Giombini",
+            "given": "Sergio"
+          },
+          {
+            "family": "Solero",
+            "given": "Carlo L."
+          },
+          {
+            "family": "Parati",
+            "given": "Eugenio A."
+          }
+        ],
+        "container-title": "Stem Cells",
+        "reference-count": 23,
+        "page": "295-300",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              17
+            ]
+          ],
+          "timestamp": 1313539200000
+        },
+        "issue": "4",
+        "title": "Isolation and Characterization of Neural Stem Cells from the Adult Human Olfactory Bulb",
+        "type": "journal-article",
+        "DOI": "10.1634/stemcells.18-4-295",
+        "ISSN": [
+          "1066-5099",
+          "1549-4918"
+        ],
+        "URL": "http://dx.doi.org/10.1634/stemcells.18-4-295",
+        "source": "CrossRef",
+        "publisher": "Wiley-Blackwell",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              5
+            ]
+          ],
+          "timestamp": 1409881202711
+        },
+        "volume": "18",
+        "member": "http://id.crossref.org/member/311",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1634/stemcells.18-4-295",
+      "uri_source": "crossref",
+      "score": 4.368475,
+      "citation_groups": [
+        "5"
+      ],
+      "original_citation": "PaganoSF, ImpagnatielloF, GirelliM, CovaL, GrioniE, et al. (2000) Isolation and characterization of neural stem cells from the adult human olfactory bulb. Stem Cells 18: 295–300."
+    },
+    {
+      "id": "pone.0107541-Roy1",
+      "number": 11,
+      "bibliographic": {
+        "text": "Roy NS , Wang S , Jiang L , Kang J , Benraiss A , et al . ( 2000 ) In vitro neurogenesis by progenitor cells isolated from the adult human hippocampus . Nat Med 6 : 271 – 277 .",
+        "container-type": "journal",
+        "container-title": "Nat Med",
+        "title": "In vitro neurogenesis by progenitor cells isolated from the adult human hippocampus",
+        "volume": "6",
+        "issued": {
+          "date-parts": [
+            [
+              2000
+            ]
+          ]
+        },
+        "page": "271-277",
+        "author": [
+          {
+            "family": "Roy",
+            "given": "NS"
+          },
+          {
+            "family": "Wang",
+            "given": "S"
+          },
+          {
+            "family": "Jiang",
+            "given": "L"
+          },
+          {
+            "family": "Kang",
+            "given": "J"
+          },
+          {
+            "family": "Benraiss",
+            "given": "A"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "5"
+      ]
+    },
+    {
+      "id": "pone.0107541-Schwob1",
+      "number": 12,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Histology",
+          "Anatomy",
+          "Ecology, Evolution, Behavior and Systematics",
+          "Biotechnology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2002,
+              2,
+              15
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1002",
+        "author": [
+          {
+            "family": "Schwob",
+            "given": "James E."
+          }
+        ],
+        "container-title": "Anat. Rec.",
+        "reference-count": 167,
+        "page": "33-49",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              7,
+              19
+            ]
+          ],
+          "timestamp": 1311033600000
+        },
+        "issue": "1",
+        "title": "Neural regeneration and the peripheral olfactory system",
+        "type": "journal-article",
+        "DOI": "10.1002/ar.10047",
+        "ISSN": [
+          "0003-276X",
+          "1097-0185"
+        ],
+        "URL": "http://dx.doi.org/10.1002/ar.10047",
+        "source": "CrossRef",
+        "publisher": "Wiley-Blackwell",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409746769027
+        },
+        "volume": "269",
+        "member": "http://id.crossref.org/member/311",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1002/ar.10047",
+      "uri_source": "crossref",
+      "score": 5.1439176,
+      "citation_groups": [
+        "5"
+      ],
+      "original_citation": "SchwobJE (2002) Neural regeneration and the peripheral olfactory system. Anat Rec 269: 33–49."
+    },
+    {
+      "id": "pone.0107541-WatabeRudolph1",
+      "number": 13,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Agricultural and Biological Sciences(all)",
+          "Medicine(all)",
+          "Biochemistry, Genetics and Molecular Biology(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2011,
+              11,
+              16
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1371",
+        "update-policy": "http://dx.doi.org/10.1371/journal.pone.corrections_policy",
+        "author": [
+          {
+            "family": "Watabe-Rudolph",
+            "given": "Masami"
+          },
+          {
+            "family": "Begus-Nahrmann",
+            "given": "Yvonne"
+          },
+          {
+            "family": "Lechel",
+            "given": "André"
+          },
+          {
+            "family": "Rolyan",
+            "given": "Harshvardhan"
+          },
+          {
+            "family": "Scheithauer",
+            "given": "Marc-Oliver"
+          },
+          {
+            "family": "Rettinger",
+            "given": "Gerhard"
+          },
+          {
+            "family": "Thal",
+            "given": "Dietmar Rudolf"
+          },
+          {
+            "family": "Rudolph",
+            "given": "Karl Lenhard"
+          }
+        ],
+        "container-title": "PLoS ONE",
+        "reference-count": 0,
+        "page": "e27801",
+        "deposited": {
+          "date-parts": [
+            [
+              2014,
+              3,
+              5
+            ]
+          ],
+          "timestamp": 1393977600000
+        },
+        "issue": "11",
+        "title": "Telomere Shortening Impairs Regeneration of the Olfactory Epithelium in Response to Injury but Not Under Homeostatic Conditions",
+        "editor": [
+          {
+            "family": "Bergmann",
+            "given": "Andreas"
+          }
+        ],
+        "type": "journal-article",
+        "DOI": "10.1371/journal.pone.0027801",
+        "ISSN": [
+          "1932-6203"
+        ],
+        "URL": "http://dx.doi.org/10.1371/journal.pone.0027801",
+        "source": "CrossRef",
+        "publisher": "Public Library of Science (PLoS)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              9
+            ]
+          ],
+          "timestamp": 1410301139063
+        },
+        "volume": "6",
+        "member": "http://id.crossref.org/member/340",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1371/journal.pone.0027801",
+      "uri_source": "crossref",
+      "score": 5.5930777,
+      "citation_groups": [
+        "6",
+        "32"
+      ],
+      "updated_by": [
+
+      ],
+      "original_citation": "Watabe-RudolphM, Begus-NahrmannY, LechelA, RolyanH, ScheithauerMO, et al. (2011) Telomere shortening impairs regeneration of the olfactory epithelium in response to injury but not under homeostatic conditions. PLoS One 6: e27801."
+    },
+    {
+      "id": "pone.0107541-Canter1",
+      "number": 14,
+      "bibliographic": {
+        "URL": "http://www.cdc.gov/nchs/nvss/mortality_tables.htm",
+        "bib_source": "url",
+        "container-type": "other",
+        "title": "Mortality Tables. Available: <a>http://www.cdc.gov/nchs/nvss/mortality_tables.htm</a>. CDC.",
+        "issued": {
+          "date-parts": [
+            [
+              2013
+            ]
+          ]
+        },
+        "author": [
+          {
+            "literal": "Canter for Disease Control"
+          }
+        ]
+      },
+      "uri": "http://www.cdc.gov/nchs/nvss/mortality_tables.htm",
+      "uri_source": "ref",
+      "score": 2.5,
+      "citation_groups": [
+        "7"
+      ]
+    },
+    {
+      "id": "pone.0107541-Fried1",
+      "number": 15,
+      "bibliographic": {
+        "text": "Fried LP , Tangen CM , Walston J , Newman AB , Hirsch C , et al . ( 2001 ) Frailty in older adults: evidence for a phenotype . J Gerontol A Biol Sci Med Sci 56 : M146 – 156 .",
+        "container-type": "journal",
+        "container-title": "J Gerontol A Biol Sci Med Sci",
+        "title": "Frailty in older adults: evidence for a phenotype",
+        "volume": "56",
+        "issued": {
+          "date-parts": [
+            [
+              2001
+            ]
+          ]
+        },
+        "page": "M146-156",
+        "author": [
+          {
+            "family": "Fried",
+            "given": "LP"
+          },
+          {
+            "family": "Tangen",
+            "given": "CM"
+          },
+          {
+            "family": "Walston",
+            "given": "J"
+          },
+          {
+            "family": "Newman",
+            "given": "AB"
+          },
+          {
+            "family": "Hirsch",
+            "given": "C"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "8",
+        "20"
+      ]
+    },
+    {
+      "id": "pone.0107541-Makary1",
+      "number": 16,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Surgery"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2010,
+              6
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1016",
+        "author": [
+          {
+            "family": "Makary",
+            "given": "Martin A."
+          },
+          {
+            "family": "Segev",
+            "given": "Dorry L."
+          },
+          {
+            "family": "Pronovost",
+            "given": "Peter J."
+          },
+          {
+            "family": "Syin",
+            "given": "Dora"
+          },
+          {
+            "family": "Bandeen-Roche",
+            "given": "Karen"
+          },
+          {
+            "family": "Patel",
+            "given": "Purvi"
+          },
+          {
+            "family": "Takenaga",
+            "given": "Ryan"
+          },
+          {
+            "family": "Devgan",
+            "given": "Lara"
+          },
+          {
+            "family": "Holzmueller",
+            "given": "Christine G."
+          },
+          {
+            "family": "Tian",
+            "given": "Jing"
+          },
+          {
+            "family": "Fried",
+            "given": "Linda P."
+          }
+        ],
+        "container-title": "Journal of the American College of Surgeons",
+        "reference-count": 30,
+        "page": "901-908",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              10,
+              11
+            ]
+          ],
+          "timestamp": 1318291200000
+        },
+        "issue": "6",
+        "title": "Frailty as a Predictor of Surgical Outcomes in Older Patients",
+        "type": "journal-article",
+        "DOI": "10.1016/j.jamcollsurg.2010.01.028",
+        "ISSN": [
+          "1072-7515"
+        ],
+        "URL": "http://dx.doi.org/10.1016/j.jamcollsurg.2010.01.028",
+        "source": "CrossRef",
+        "publisher": "Elsevier BV",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409847409574
+        },
+        "volume": "210",
+        "member": "http://id.crossref.org/member/78",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1016/j.jamcollsurg.2010.01.028",
+      "uri_source": "crossref",
+      "score": 2.902741,
+      "citation_groups": [
+        "8"
+      ],
+      "original_citation": "MakaryMA, SegevDL, PronovostPJ, SyinD, Bandeen-RocheK, et al. (2010) Frailty as a predictor of surgical outcomes in older patients. J Am Coll Surg 210: 901–908."
+    },
+    {
+      "id": "pone.0107541-Wilson1",
+      "number": 17,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Biochemistry, Genetics and Molecular Biology(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              7
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1111",
+        "author": [
+          {
+            "family": "Wilson",
+            "given": "Robert S."
+          },
+          {
+            "family": "Arnold",
+            "given": "Steven E."
+          },
+          {
+            "family": "Schneider",
+            "given": "Julie A."
+          },
+          {
+            "family": "Boyle",
+            "given": "Patricia A."
+          },
+          {
+            "family": "Buchman",
+            "given": "Aron S."
+          },
+          {
+            "family": "Bennett",
+            "given": "David A."
+          }
+        ],
+        "container-title": "Annals of the New York Academy of Sciences",
+        "reference-count": 39,
+        "page": "730-735",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              6,
+              22
+            ]
+          ],
+          "timestamp": 1308700800000
+        },
+        "issue": "1",
+        "title": "Olfactory Impairment in Presymptomatic Alzheimer's Disease",
+        "type": "journal-article",
+        "DOI": "10.1111/j.1749-6632.2009.04013.x",
+        "ISSN": [
+          "0077-8923"
+        ],
+        "URL": "http://dx.doi.org/10.1111/j.1749-6632.2009.04013.x",
+        "source": "CrossRef",
+        "publisher": "Wiley-Blackwell",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409737072065
+        },
+        "volume": "1170",
+        "member": "http://id.crossref.org/member/311",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1111/j.1749-6632.2009.04013.x",
+      "uri_source": "crossref",
+      "score": 2.5214598,
+      "citation_groups": [
+        "9"
+      ],
+      "original_citation": "WilsonRS, ArnoldSE, SchneiderJA, BoylePA, BuchmanAS, et al. (2009) Olfactory impairment in presymptomatic Alzheimer's disease. Ann N Y Acad Sci 1170: 730–735."
+    },
+    {
+      "id": "pone.0107541-Wilson2",
+      "number": 18,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Psychology(all)",
+          "Ageing",
+          "Geriatrics and Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2008,
+              6,
+              9
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1080",
+        "author": [
+          {
+            "family": "Wilson",
+            "given": "Robert S."
+          },
+          {
+            "family": "Arnold",
+            "given": "Steven E."
+          },
+          {
+            "family": "Buchman",
+            "given": "Aron S."
+          },
+          {
+            "family": "Tang",
+            "given": "Yuxiao"
+          },
+          {
+            "family": "Bennett",
+            "given": "David A."
+          }
+        ],
+        "container-title": "Experimental Aging Research",
+        "reference-count": 46,
+        "page": "173-187",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              6,
+              30
+            ]
+          ],
+          "timestamp": 1309392000000
+        },
+        "issue": "3",
+        "title": "Odor Identification and Progression of Parkinsonian Signs in Older Persons",
+        "type": "journal-article",
+        "DOI": "10.1080/03610730802070001",
+        "ISSN": [
+          "0361-073X",
+          "1096-4657"
+        ],
+        "URL": "http://dx.doi.org/10.1080/03610730802070001",
+        "source": "CrossRef",
+        "publisher": "Informa UK Limited",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409809412442
+        },
+        "volume": "34",
+        "member": "http://id.crossref.org/member/301",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1080/03610730802070001",
+      "uri_source": "crossref",
+      "score": 3.6478617,
+      "citation_groups": [
+        "9"
+      ],
+      "original_citation": "WilsonRS, ArnoldSE, BuchmanAS, TangY, BennettDA (2008) Odor identification and progression of parkinsonian signs in older persons. Exp Aging Res 34: 173–187."
+    },
+    {
+      "id": "pone.0107541-Stamps1",
+      "number": 19,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Neurology",
+          "Neurology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2013,
+              10
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1016",
+        "update-policy": "http://dx.doi.org/10.1016/elsevier_cm_policy",
+        "author": [
+          {
+            "family": "Stamps",
+            "given": "Jennifer J."
+          },
+          {
+            "family": "Bartoshuk",
+            "given": "Linda M."
+          },
+          {
+            "family": "Heilman",
+            "given": "Kenneth M."
+          }
+        ],
+        "container-title": "Journal of the Neurological Sciences",
+        "reference-count": 42,
+        "page": "19-24",
+        "deposited": {
+          "date-parts": [
+            [
+              2014,
+              5,
+              6
+            ]
+          ],
+          "timestamp": 1399334400000
+        },
+        "issue": "1-2",
+        "title": "A brief olfactory test for Alzheimer's disease",
+        "type": "journal-article",
+        "DOI": "10.1016/j.jns.2013.06.033",
+        "ISSN": [
+          "0022-510X"
+        ],
+        "URL": "http://dx.doi.org/10.1016/j.jns.2013.06.033",
+        "source": "CrossRef",
+        "publisher": "Elsevier BV",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              7,
+              28
+            ]
+          ],
+          "timestamp": 1406561644288
+        },
+        "volume": "333",
+        "member": "http://id.crossref.org/member/78",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1016/j.jns.2013.06.033",
+      "uri_source": "crossref",
+      "score": 2.6576817,
+      "citation_groups": [
+        "9"
+      ],
+      "updated_by": [
+
+      ],
+      "original_citation": "StampsJJ, BartoshukLM, HeilmanKM (2013) A brief olfactory test for Alzheimer's disease. J Neurol Sci 333: 19–24."
+    },
+    {
+      "id": "pone.0107541-Suzman1",
+      "number": 20,
+      "bibliographic": {
+        "text": "Suzman R ( 2009 ) The National Social Life, Health, and Aging Project: an introduction . J Gerontol B Psychol Sci Soc Sci 64 Suppl 1 i5 – 11 .",
+        "container-type": "journal",
+        "container-title": "J Gerontol B Psychol Sci Soc Sci",
+        "title": "The National Social Life, Health, and Aging Project: an introduction",
+        "volume": "64",
+        "issued": {
+          "date-parts": [
+            [
+              2009
+            ]
+          ]
+        },
+        "page": "i5-11",
+        "author": [
+          {
+            "family": "Suzman",
+            "given": "R"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "10",
+        "12",
+        "13"
+      ]
+    },
+    {
+      "id": "pone.0107541-OMuircheartaigh1",
+      "number": 21,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Psychology",
+          "Social Psychology",
+          "Geriatrics and Gerontology",
+          "Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              6,
+              30
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "O'Muircheartaigh",
+            "given": "C."
+          },
+          {
+            "family": "Eckman",
+            "given": "S."
+          },
+          {
+            "family": "Smith",
+            "given": "S."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series B: Psychological Sciences and Social Sciences",
+        "reference-count": 8,
+        "page": "i12-i19",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              6
+            ]
+          ],
+          "timestamp": 1312588800000
+        },
+        "issue": "Supplement 1",
+        "title": "Statistical Design and Estimation for the National Social Life, Health, and Aging Project",
+        "type": "journal-article",
+        "DOI": "10.1093/geronb/gbp045",
+        "ISSN": [
+          "1079-5014",
+          "1758-5368"
+        ],
+        "URL": "http://dx.doi.org/10.1093/geronb/gbp045",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409862289233
+        },
+        "volume": "64B",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/geronb/gbp045",
+      "uri_source": "crossref_lowscore",
+      "score": 2.1104448,
+      "citation_groups": [
+        "10",
+        "12",
+        "13"
+      ],
+      "original_citation": "O'MuircheartaighC, EckmanS, SmithS (2009) Statistical design and estimation for the national social life, health, and aging project. J Gerontol B Psychol Sci Soc Sci 64 Suppl 1i12–19."
+    },
+    {
+      "id": "pone.0107541-Pinto1",
+      "number": 22,
+      "bibliographic": {
+        "text": "Pinto JM, Schumm LP, Wroblewski KE, Kern DW, McClintock MK (2013) Racial Disparities in Olfactory Loss Among Older Adults in the United States. J Gerontol A Biol Sci Med Sci.",
+        "container-type": "other",
+        "bib_source": "RefNode",
+        "title": "Racial Disparities in Olfactory Loss Among Older Adults in the United States. J Gerontol A Biol Sci Med Sci.",
+        "issued": {
+          "date-parts": [
+            [
+              2013
+            ]
+          ]
+        },
+        "author": [
+          {
+            "literal": "Pinto JM, Schumm LP, Wroblewski KE, Kern DW, McClintock MK"
+          }
+        ]
+      },
+      "citation_groups": [
+        "10",
+        "16",
+        "23",
+        "27"
+      ]
+    },
+    {
+      "id": "pone.0107541-QatoDM1",
+      "number": 23,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Pharmacology (medical)",
+          "Epidemiology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2010,
+              6,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1002",
+        "author": [
+          {
+            "family": "Qato",
+            "given": "Dima M."
+          },
+          {
+            "family": "Lindau",
+            "given": "Stacy Tessler"
+          },
+          {
+            "family": "Conti",
+            "given": "Rena M."
+          },
+          {
+            "family": "Schumm",
+            "given": "L. Philip"
+          },
+          {
+            "family": "Alexander",
+            "given": "G. Caleb"
+          }
+        ],
+        "container-title": "Pharmacoepidem. Drug Safe.",
+        "reference-count": 54,
+        "page": "834-842",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              19
+            ]
+          ],
+          "timestamp": 1313712000000
+        },
+        "issue": "8",
+        "title": "Racial and ethnic disparities in cardiovascular medication use among older adults in the United States",
+        "type": "journal-article",
+        "DOI": "10.1002/pds.1974",
+        "ISSN": [
+          "1053-8569",
+          "1099-1557"
+        ],
+        "URL": "http://dx.doi.org/10.1002/pds.1974",
+        "source": "CrossRef",
+        "publisher": "Wiley-Blackwell",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              5,
+              13
+            ]
+          ],
+          "timestamp": 1399969796402
+        },
+        "volume": "19",
+        "member": "http://id.crossref.org/member/311",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1002/pds.1974",
+      "uri_source": "crossref",
+      "score": 2.8234653,
+      "citation_groups": [
+        "10"
+      ],
+      "original_citation": "Qato DMLS, ContiRM, SchummLP, AlexanderGC (2010) Racial and ethnic disparities in cardiovascular medication use among older adults in the United States. Pharmacoepidemiol Drug Saf 19: 834–842.",
+      "self_citations": [
+        "Schumm, L. Philip [name]"
+      ]
+    },
+    {
+      "id": "pone.0107541-Waite1",
+      "number": 24,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Psychology",
+          "Social Psychology",
+          "Geriatrics and Gerontology",
+          "Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              6,
+              4
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "Waite",
+            "given": "L. J."
+          },
+          {
+            "family": "Laumann",
+            "given": "E. O."
+          },
+          {
+            "family": "Das",
+            "given": "A."
+          },
+          {
+            "family": "Schumm",
+            "given": "L. P."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series B: Psychological Sciences and Social Sciences",
+        "reference-count": 22,
+        "page": "i56-i66",
+        "deposited": {
+          "date-parts": [
+            [
+              2009,
+              12,
+              22
+            ]
+          ],
+          "timestamp": 1261440000000
+        },
+        "issue": "Supplement 1",
+        "title": "Sexuality: Measures of Partnerships, Practices, Attitudes, and Problems in the National Social Life, Health, and Aging Study",
+        "type": "journal-article",
+        "DOI": "10.1093/geronb/gbp038",
+        "ISSN": [
+          "1079-5014",
+          "1758-5368"
+        ],
+        "URL": "http://dx.doi.org/10.1093/geronb/gbp038",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              2
+            ]
+          ],
+          "timestamp": 1409629073689
+        },
+        "volume": "64B",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/geronb/gbp038",
+      "uri_source": "crossref_lowscore",
+      "score": 2.2378333,
+      "citation_groups": [
+        "10"
+      ],
+      "original_citation": "WaiteLJ, LaumannEO, DasA, SchummLP (2009) Sexuality: measures of partnerships, practices, attitudes, and problems in the National Social Life, Health, and Aging Study. J Gerontol B Psychol Sci Soc Sci 64 Suppl 1i56–66."
+    },
+    {
+      "id": "pone.0107541-CalderonGarciduenas1",
+      "number": 25,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Molecular Biology",
+          "Pathology and Forensic Medicine",
+          "Cell Biology",
+          "Toxicology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2008,
+              2,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1177",
+        "author": [
+          {
+            "family": "Calderon-Garciduenas",
+            "given": "L."
+          },
+          {
+            "family": "Solt",
+            "given": "A. C."
+          },
+          {
+            "family": "Henriquez-Roldan",
+            "given": "C."
+          },
+          {
+            "family": "Torres-Jardon",
+            "given": "R."
+          },
+          {
+            "family": "Nuse",
+            "given": "B."
+          },
+          {
+            "family": "Herritt",
+            "given": "L."
+          },
+          {
+            "family": "Villarreal-Calderon",
+            "given": "R."
+          },
+          {
+            "family": "Osnaya",
+            "given": "N."
+          },
+          {
+            "family": "Stone",
+            "given": "I."
+          },
+          {
+            "family": "Garcia",
+            "given": "R."
+          },
+          {
+            "family": "Brooks",
+            "given": "D. M."
+          },
+          {
+            "family": "Gonzalez-Maciel",
+            "given": "A."
+          },
+          {
+            "family": "Reynoso-Robles",
+            "given": "R."
+          },
+          {
+            "family": "Delgado-Chavez",
+            "given": "R."
+          },
+          {
+            "family": "Reed",
+            "given": "W."
+          }
+        ],
+        "container-title": "Toxicologic Pathology",
+        "reference-count": 0,
+        "page": "289-310",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              1
+            ]
+          ],
+          "timestamp": 1312156800000
+        },
+        "issue": "2",
+        "title": "Long-term Air Pollution Exposure Is Associated with Neuroinflammation, an Altered Innate Immune Response, Disruption of the Blood-Brain Barrier, Ultrafine Particulate Deposition, and Accumulation of Amyloid  -42 and  -Synuclein in Children and Young Adults",
+        "type": "journal-article",
+        "DOI": "10.1177/0192623307313011",
+        "ISSN": [
+          "0192-6233"
+        ],
+        "URL": "http://dx.doi.org/10.1177/0192623307313011",
+        "source": "CrossRef",
+        "publisher": "SAGE Publications",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409736812291
+        },
+        "volume": "36",
+        "member": "http://id.crossref.org/member/179",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1177/0192623307313011",
+      "uri_source": "crossref",
+      "score": 4.6508822,
+      "citation_groups": [
+        "10"
+      ],
+      "original_citation": "Calderon-GarciduenasL, SoltAC, Henriquez-RoldanC, Torres-JardonR, NuseB, et al. (2008) Long-term air pollution exposure is associated with neuroinflammation, an altered innate immune response, disruption of the blood-brain barrier, ultrafine particulate deposition, and accumulation of amyloid beta-42 and alpha-synuclein in children and young adults. Toxicol Pathol 36: 289–310."
+    },
+    {
+      "id": "pone.0107541-Schumm1",
+      "number": 26,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Psychology",
+          "Social Psychology",
+          "Geriatrics and Gerontology",
+          "Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              6,
+              23
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "Schumm",
+            "given": "L. P."
+          },
+          {
+            "family": "McClintock",
+            "given": "M."
+          },
+          {
+            "family": "Williams",
+            "given": "S."
+          },
+          {
+            "family": "Leitsch",
+            "given": "S."
+          },
+          {
+            "family": "Lundstrom",
+            "given": "J."
+          },
+          {
+            "family": "Hummel",
+            "given": "T."
+          },
+          {
+            "family": "Lindau",
+            "given": "S. T."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series B: Psychological Sciences and Social Sciences",
+        "reference-count": 29,
+        "page": "i76-i85",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              7,
+              8
+            ]
+          ],
+          "timestamp": 1310083200000
+        },
+        "issue": "Supplement 1",
+        "title": "Assessment of Sensory Function in the National Social Life, Health, and Aging Project",
+        "type": "journal-article",
+        "DOI": "10.1093/geronb/gbp048",
+        "ISSN": [
+          "1079-5014",
+          "1758-5368"
+        ],
+        "URL": "http://dx.doi.org/10.1093/geronb/gbp048",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409761828912
+        },
+        "volume": "64B",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/geronb/gbp048",
+      "uri_source": "crossref_lowscore",
+      "score": 2.159032,
+      "citation_groups": [
+        "11",
+        "15"
+      ],
+      "original_citation": "SchummLP, McClintockM, WilliamsS, LeitschS, LundstromJ, et al. (2009) Assessment of sensory function in the National Social Life, Health, and Aging Project. J Gerontol B Psychol Sci Soc Sci 64 Suppl 1i76–85."
+    },
+    {
+      "id": "pone.0107541-Lindau1",
+      "number": 27,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2007,
+              8,
+              23
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1056",
+        "author": [
+          {
+            "family": "Lindau",
+            "given": "Stacy Tessler"
+          },
+          {
+            "family": "Schumm",
+            "given": "L. Philip"
+          },
+          {
+            "family": "Laumann",
+            "given": "Edward O."
+          },
+          {
+            "family": "Levinson",
+            "given": "Wendy"
+          },
+          {
+            "family": "O'Muircheartaigh",
+            "given": "Colm A."
+          },
+          {
+            "family": "Waite",
+            "given": "Linda J."
+          }
+        ],
+        "container-title": "New England Journal of Medicine",
+        "reference-count": 30,
+        "page": "762-774",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              1,
+              20
+            ]
+          ],
+          "timestamp": 1327017600000
+        },
+        "issue": "8",
+        "title": "A Study of Sexuality and Health among Older Adults in the United States",
+        "type": "journal-article",
+        "DOI": "10.1056/nejmoa067423",
+        "ISSN": [
+          "0028-4793",
+          "1533-4406"
+        ],
+        "URL": "http://dx.doi.org/10.1056/nejmoa067423",
+        "source": "CrossRef",
+        "publisher": "New England Journal of Medicine (NEJM/MMS)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410020272513
+        },
+        "volume": "357",
+        "member": "http://id.crossref.org/member/150",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1056/nejmoa067423",
+      "uri_source": "crossref",
+      "score": 3.1194963,
+      "citation_groups": [
+        "13"
+      ],
+      "original_citation": "LindauST, SchummLP, LaumannEO, LevinsonW, O'MuircheartaighCA, et al. (2007) A study of sexuality and health among older adults in the United States. N Engl J Med 357: 762–774.",
+      "self_citations": [
+        "Schumm, L. Philip [name]"
+      ]
+    },
+    {
+      "id": "pone.0107541-Mueller1",
+      "number": 28,
+      "bibliographic": {
+        "text": "Mueller C , Renner B ( 2006 ) A new procedure for the short screening of olfactory function using five items from the \"Sniffin' Sticks\" identification test kit . Am J Rhinol 20 : 113 – 116 .",
+        "container-type": "journal",
+        "container-title": "Am J Rhinol",
+        "title": "A new procedure for the short screening of olfactory function using five items from the \"Sniffin' Sticks\" identification test kit",
+        "volume": "20",
+        "issued": {
+          "date-parts": [
+            [
+              2006
+            ]
+          ]
+        },
+        "page": "113-116",
+        "author": [
+          {
+            "family": "Mueller",
+            "given": "C"
+          },
+          {
+            "family": "Renner",
+            "given": "B"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "14"
+      ]
+    },
+    {
+      "id": "pone.0107541-Kern1",
+      "number": 29,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Anthropology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              22
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1177",
+        "author": [
+          {
+            "family": "Kern",
+            "given": "D. W."
+          },
+          {
+            "family": "Wroblewski",
+            "given": "K. E."
+          },
+          {
+            "family": "Schumm",
+            "given": "L. P."
+          },
+          {
+            "family": "Pinto",
+            "given": "J. M."
+          },
+          {
+            "family": "McClintock",
+            "given": "M. K."
+          }
+        ],
+        "container-title": "Field Methods",
+        "reference-count": 0,
+        "deposited": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              26
+            ]
+          ],
+          "timestamp": 1411689600000
+        },
+        "title": "Field Survey Measures of Olfaction: The Olfactory Function Field Exam (OFFE)",
+        "type": "journal-article",
+        "DOI": "10.1177/1525822x14547499",
+        "ISSN": [
+          "1525-822X",
+          "1552-3969"
+        ],
+        "URL": "http://dx.doi.org/10.1177/1525822x14547499",
+        "source": "CrossRef",
+        "publisher": "SAGE Publications",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              29
+            ]
+          ],
+          "timestamp": 1412034816529
+        },
+        "member": "http://id.crossref.org/member/179",
+        "bib_source": "dx.doi.org",
+        "container-type": "other"
+      },
+      "uri": "http://dx.doi.org/10.1177/1525822x14547499",
+      "uri_source": "crossref",
+      "score": 3.7776763,
+      "citation_groups": [
+        "16"
+      ],
+      "original_citation": "Kern DW, Wroblewski KE, Schumm LP, Pinto JM, McClintock MK Field Survey Measures of Olfaction: The Olfactory Function Field Exam (OFFE). Field Methods In press."
+    },
+    {
+      "id": "pone.0107541-Mueller2",
+      "number": 30,
+      "bibliographic": {
+        "text": "Mueller C , Renner B ( 2006 ) A new procedure for the short screening of olfactory function using five items from the \"Sniffin' Sticks\" identification test kit . American Journal of Rhinology 20 : 113 – 116 .",
+        "container-type": "journal",
+        "container-title": "American Journal of Rhinology",
+        "title": "A new procedure for the short screening of olfactory function using five items from the \"Sniffin' Sticks\" identification test kit",
+        "volume": "20",
+        "issued": {
+          "date-parts": [
+            [
+              2006
+            ]
+          ]
+        },
+        "page": "113-116",
+        "author": [
+          {
+            "family": "Mueller",
+            "given": "C"
+          },
+          {
+            "family": "Renner",
+            "given": "B"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "17"
+      ]
+    },
+    {
+      "id": "pone.0107541-OMuircheartaigh2",
+      "number": 31,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Psychology",
+          "Social Psychology",
+          "Geriatrics and Gerontology",
+          "Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              6,
+              30
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "O'Muircheartaigh",
+            "given": "C."
+          },
+          {
+            "family": "Eckman",
+            "given": "S."
+          },
+          {
+            "family": "Smith",
+            "given": "S."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series B: Psychological Sciences and Social Sciences",
+        "reference-count": 8,
+        "page": "i12-i19",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              6
+            ]
+          ],
+          "timestamp": 1312588800000
+        },
+        "issue": "Supplement 1",
+        "title": "Statistical Design and Estimation for the National Social Life, Health, and Aging Project",
+        "type": "journal-article",
+        "DOI": "10.1093/geronb/gbp045",
+        "ISSN": [
+          "1079-5014",
+          "1758-5368"
+        ],
+        "URL": "http://dx.doi.org/10.1093/geronb/gbp045",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409862289233
+        },
+        "volume": "64B",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/geronb/gbp045",
+      "uri_source": "crossref",
+      "score": 4.202997,
+      "citation_groups": [
+        "18",
+        "24"
+      ],
+      "original_citation": "O'MuircheartaighCA, EckmanS, SmithSN (2009) Statistical design and estimation for the national social life, health, and aging project. The Journals of Gerontology Series B, Psychological Sciences and Social Sciences 64 Suppl 1i12–i19."
+    },
+    {
+      "id": "pone.0107541-KatzJN1",
+      "number": 32,
+      "bibliographic": {
+        "subtitle": [
+          ""
+        ],
+        "subject": [
+          "Public Health, Environmental and Occupational Health"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              1996,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1097",
+        "author": [
+          {
+            "family": "Katz",
+            "given": "Jeffrey N."
+          },
+          {
+            "family": "Chang",
+            "given": "Lily C."
+          },
+          {
+            "family": "Sangha",
+            "given": "Oliver"
+          },
+          {
+            "family": "Fossel",
+            "given": "Anne H."
+          },
+          {
+            "family": "Bates",
+            "given": "David W."
+          }
+        ],
+        "container-title": "Medical Care",
+        "reference-count": 16,
+        "page": "73-84",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              21
+            ]
+          ],
+          "timestamp": 1313884800000
+        },
+        "issue": "1",
+        "title": "Can Comorbidity Be Measured By Questionnaire Rather than Medical Record Review?",
+        "type": "journal-article",
+        "DOI": "10.1097/00005650-199601000-00006",
+        "ISSN": [
+          "0025-7079"
+        ],
+        "URL": "http://dx.doi.org/10.1097/00005650-199601000-00006",
+        "source": "CrossRef",
+        "publisher": "Ovid Technologies (Wolters Kluwer Health)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409772876323
+        },
+        "volume": "34",
+        "member": "http://id.crossref.org/member/276",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1097/00005650-199601000-00006",
+      "uri_source": "crossref",
+      "score": 3.4815018,
+      "citation_groups": [
+        "19"
+      ],
+      "original_citation": "Katz JNCL, SanghaO, FosselAH, BatesDW (1996) Can comorbidity be measured by questionnaire rather than medical record review? Med Care 34: 73–84."
+    },
+    {
+      "id": "pone.0107541-Williams1",
+      "number": 33,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Psychology",
+          "Social Psychology",
+          "Geriatrics and Gerontology",
+          "Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              2,
+              9
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "Williams",
+            "given": "S. R."
+          },
+          {
+            "family": "Pham-Kanter",
+            "given": "G."
+          },
+          {
+            "family": "Leitsch",
+            "given": "S. A."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series B: Psychological Sciences and Social Sciences",
+        "reference-count": 40,
+        "page": "i67-i75",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              6,
+              7
+            ]
+          ],
+          "timestamp": 1307404800000
+        },
+        "issue": "Supplement 1",
+        "title": "Measures of Chronic Conditions and Diseases Associated With Aging in the National Social Life, Health, and Aging Project",
+        "type": "journal-article",
+        "DOI": "10.1093/geronb/gbn015",
+        "ISSN": [
+          "1079-5014",
+          "1758-5368"
+        ],
+        "URL": "http://dx.doi.org/10.1093/geronb/gbn015",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              3
+            ]
+          ],
+          "timestamp": 1409711208259
+        },
+        "volume": "64B",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/geronb/gbn015",
+      "uri_source": "crossref_lowscore",
+      "score": 2.4152439,
+      "citation_groups": [
+        "21"
+      ],
+      "original_citation": "WilliamsSR, Pham-KanterG, LeitschSA (2009) Measures of chronic conditions and diseases associated with aging in the national social life, health, and aging project. J Gerontol B Psychol Sci Soc Sci 64 Suppl 1i67–75."
+    },
+    {
+      "id": "pone.0107541-Pfeiffer1",
+      "number": 34,
+      "bibliographic": {
+        "text": "Pfeiffer E ( 1975 ) A short portable mental status questionnaire for the assessment of organic brain deficit in elderly patients . J Am Geriatr Soc 23 : 433 – 441 .",
+        "container-type": "journal",
+        "container-title": "J Am Geriatr Soc",
+        "title": "A short portable mental status questionnaire for the assessment of organic brain deficit in elderly patients",
+        "volume": "23",
+        "issued": {
+          "date-parts": [
+            [
+              1975
+            ]
+          ]
+        },
+        "page": "433-441",
+        "author": [
+          {
+            "family": "Pfeiffer",
+            "given": "E"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "22"
+      ]
+    },
+    {
+      "id": "pone.0107541-Ewing1",
+      "number": 35,
+      "bibliographic": {
+        "license": "failed-to-obtain-license",
+        "subtitle": [
+          "The CAGE Questionnaire"
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              1984,
+              10,
+              12
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1001",
+        "author": [
+          {
+            "family": "Ewing",
+            "given": "John A."
+          }
+        ],
+        "container-title": "JAMA",
+        "reference-count": 0,
+        "page": "1905",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              11,
+              1
+            ]
+          ],
+          "timestamp": 1383264000000
+        },
+        "issue": "14",
+        "title": "Detecting Alcoholism",
+        "type": "journal-article",
+        "DOI": "10.1001/jama.1984.03350140051025",
+        "ISSN": [
+          "0098-7484"
+        ],
+        "URL": "http://dx.doi.org/10.1001/jama.1984.03350140051025",
+        "source": "CrossRef",
+        "publisher": "American Medical Association (AMA)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              9
+            ]
+          ],
+          "timestamp": 1410225240938
+        },
+        "volume": "252",
+        "member": "http://id.crossref.org/member/10",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1001/jama.1984.03350140051025",
+      "uri_source": "crossref",
+      "score": 4.6661263,
+      "citation_groups": [
+        "23"
+      ],
+      "original_citation": "EwingJA (1984) Detecting alcoholism. The CAGE questionnaire. Jama 252: 1905–1907."
+    },
+    {
+      "id": "pone.0107541-Binder1",
+      "number": 36,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Statistics, Probability and Uncertainty",
+          "Statistics and Probability"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              1983,
+              12
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.2307",
+        "author": [
+          {
+            "family": "Binder",
+            "given": "David A."
+          }
+        ],
+        "container-title": "International Statistical Review / Revue Internationale de Statistique",
+        "reference-count": 0,
+        "page": "279",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              10,
+              2
+            ]
+          ],
+          "timestamp": 1380672000000
+        },
+        "issue": "3",
+        "title": "On the Variances of Asymptotically Normal Estimators from Complex Surveys",
+        "type": "journal-article",
+        "DOI": "10.2307/1402588",
+        "ISSN": [
+          "0306-7734"
+        ],
+        "URL": "http://dx.doi.org/10.2307/1402588",
+        "source": "CrossRef",
+        "publisher": "JSTOR",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              8
+            ]
+          ],
+          "timestamp": 1410187632147
+        },
+        "volume": "51",
+        "member": "http://id.crossref.org/member/1121",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.2307/1402588",
+      "uri_source": "crossref",
+      "score": 3.7704024,
+      "citation_groups": [
+        "25"
+      ],
+      "original_citation": "BinderDA (1983) On the variances of asymptotically normal estimators from complex surveys. International Statistical Review 51: 279–292."
+    },
+    {
+      "id": "pone.0107541-Administration1",
+      "number": 37,
+      "bibliographic": {
+        "URL": "http://www.ssa.gov/OACT/STATS/table4c6.html",
+        "bib_source": "url",
+        "container-type": "other",
+        "title": "Available: <a>http://www.ssa.gov/OACT/STATS/table4c6.html</a>.",
+        "issued": {
+          "date-parts": [
+            [
+              2014
+            ]
+          ]
+        },
+        "author": [
+          {
+            "literal": "Administration SS"
+          }
+        ]
+      },
+      "uri": "http://www.ssa.gov/OACT/STATS/table4c6.html",
+      "uri_source": "ref",
+      "score": 2.5,
+      "citation_groups": [
+        "26"
+      ]
+    },
+    {
+      "id": "pone.0107541-Locher1",
+      "number": 38,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Ageing",
+          "Geriatrics and Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2007,
+              12,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "Locher",
+            "given": "J. L."
+          },
+          {
+            "family": "Roth",
+            "given": "D. L."
+          },
+          {
+            "family": "Ritchie",
+            "given": "C. S."
+          },
+          {
+            "family": "Cox",
+            "given": "K."
+          },
+          {
+            "family": "Sawyer",
+            "given": "P."
+          },
+          {
+            "family": "Bodner",
+            "given": "E. V."
+          },
+          {
+            "family": "Allman",
+            "given": "R. M."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series A: Biological Sciences and Medical Sciences",
+        "reference-count": 22,
+        "page": "1389-1392",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              11,
+              21
+            ]
+          ],
+          "timestamp": 1321833600000
+        },
+        "issue": "12",
+        "title": "Body Mass Index, Weight Loss, and Mortality in Community-Dwelling Older Adults",
+        "type": "journal-article",
+        "DOI": "10.1093/gerona/62.12.1389",
+        "ISSN": [
+          "1079-5006",
+          "1758-535X"
+        ],
+        "URL": "http://dx.doi.org/10.1093/gerona/62.12.1389",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              5
+            ]
+          ],
+          "timestamp": 1409910563035
+        },
+        "volume": "62",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/gerona/62.12.1389",
+      "uri_source": "crossref_lowscore",
+      "score": 2.3759758,
+      "citation_groups": [
+        "28"
+      ],
+      "original_citation": "LocherJL, RothDL, RitchieCS, CoxK, SawyerP, et al. (2007) Body mass index, weight loss, and mortality in community-dwelling older adults. J Gerontol A Biol Sci Med Sci 62: 1389–1392."
+    },
+    {
+      "id": "pone.0107541-Cao1",
+      "number": 39,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Public Health, Environmental and Occupational Health",
+          "Epidemiology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2014,
+              3,
+              28
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1136",
+        "update-policy": "http://dx.doi.org/10.1136/crossmarkpolicy",
+        "author": [
+          {
+            "family": "Cao",
+            "given": "S."
+          },
+          {
+            "family": "Moineddin",
+            "given": "R."
+          },
+          {
+            "family": "Urquia",
+            "given": "M. L."
+          },
+          {
+            "family": "Razak",
+            "given": "F."
+          },
+          {
+            "family": "Ray",
+            "given": "J. G."
+          }
+        ],
+        "container-title": "Journal of Epidemiology & Community Health",
+        "reference-count": 0,
+        "page": "683-690",
+        "deposited": {
+          "date-parts": [
+            [
+              2014,
+              6,
+              3
+            ]
+          ],
+          "timestamp": 1401753600000
+        },
+        "issue": "7",
+        "title": "J-shapedness: an often missed, often miscalculated relation: the example of weight and mortality",
+        "type": "journal-article",
+        "DOI": "10.1136/jech-2013-203439",
+        "ISSN": [
+          "0143-005X"
+        ],
+        "URL": "http://dx.doi.org/10.1136/jech-2013-203439",
+        "source": "CrossRef",
+        "publisher": "BMJ",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              8
+            ]
+          ],
+          "timestamp": 1410138393119
+        },
+        "volume": "68",
+        "member": "http://id.crossref.org/member/239",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1136/jech-2013-203439",
+      "uri_source": "crossref",
+      "score": 4.8663173,
+      "citation_groups": [
+        "28"
+      ],
+      "updated_by": [
+
+      ],
+      "original_citation": "CaoS, MoineddinR, UrquiaML, RazakF, RayJG (2014) J-shapedness: an often missed, often miscalculated relation: the example of weight and mortality. J Epidemiol Community Health 68: 683–690."
+    },
+    {
+      "id": "pone.0107541-Flegal1",
+      "number": 40,
+      "bibliographic": {
+        "subtitle": [
+          "A Systematic Review and Meta-analysis"
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2013,
+              1,
+              2
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1001",
+        "author": [
+          {
+            "family": "Flegal",
+            "given": "Katherine M."
+          },
+          {
+            "family": "Kit",
+            "given": "Brian K."
+          },
+          {
+            "family": "Orpana",
+            "given": "Heather"
+          },
+          {
+            "family": "Graubard",
+            "given": "Barry I."
+          }
+        ],
+        "container-title": "JAMA",
+        "reference-count": 0,
+        "page": "71",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              12,
+              6
+            ]
+          ],
+          "timestamp": 1386288000000
+        },
+        "issue": "1",
+        "title": "Association of All-Cause Mortality With Overweight and Obesity Using Standard Body Mass Index Categories",
+        "type": "journal-article",
+        "DOI": "10.1001/jama.2012.113905",
+        "ISSN": [
+          "0098-7484"
+        ],
+        "URL": "http://dx.doi.org/10.1001/jama.2012.113905",
+        "source": "CrossRef",
+        "publisher": "American Medical Association (AMA)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              5,
+              23
+            ]
+          ],
+          "timestamp": 1400837881850
+        },
+        "volume": "309",
+        "member": "http://id.crossref.org/member/10",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1001/jama.2012.113905",
+      "uri_source": "crossref",
+      "score": 4.954882,
+      "citation_groups": [
+        "28"
+      ],
+      "original_citation": "FlegalKM, KitBK, OrpanaH, GraubardBI (2013) Association of all-cause mortality with overweight and obesity using standard body mass index categories: a systematic review and meta-analysis. JAMA 309: 71–82."
+    },
+    {
+      "id": "pone.0107541-Mullol1",
+      "number": 41,
+      "bibliographic": {
+        "license": "failed-to-obtain-license",
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2012,
+              1,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1136",
+        "author": [
+          {
+            "family": "Mullol",
+            "given": "J."
+          },
+          {
+            "family": "Alobid",
+            "given": "I."
+          },
+          {
+            "family": "Marino-Sanchez",
+            "given": "F."
+          },
+          {
+            "family": "Quinto",
+            "given": "L."
+          },
+          {
+            "family": "de Haro",
+            "given": "J."
+          },
+          {
+            "family": "Bernal-Sprekelsen",
+            "given": "M."
+          },
+          {
+            "family": "Valero",
+            "given": "A."
+          },
+          {
+            "family": "Picado",
+            "given": "C."
+          },
+          {
+            "family": "Marin",
+            "given": "C."
+          }
+        ],
+        "container-title": "BMJ Open",
+        "reference-count": 0,
+        "page": "e001256-e001256",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              11,
+              7
+            ]
+          ],
+          "timestamp": 1352246400000
+        },
+        "issue": "6",
+        "title": "Furthering the understanding of olfaction, prevalence of loss of smell and risk factors: a population-based survey (OLFACAT study)",
+        "type": "journal-article",
+        "DOI": "10.1136/bmjopen-2012-001256",
+        "ISSN": [
+          "2044-6055"
+        ],
+        "URL": "http://dx.doi.org/10.1136/bmjopen-2012-001256",
+        "source": "CrossRef",
+        "publisher": "BMJ",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410029400310
+        },
+        "volume": "2",
+        "member": "http://id.crossref.org/member/239",
+        "bib_source": "dx.doi.org",
+        "container-type": "other"
+      },
+      "uri": "http://dx.doi.org/10.1136/bmjopen-2012-001256",
+      "uri_source": "crossref",
+      "score": 5.186409,
+      "citation_groups": [
+        "30",
+        "31"
+      ],
+      "original_citation": "Mullol J, Alobid I, Marino-Sanchez F, Quinto L, de Haro J, et al.. (2012) Furthering the understanding of olfaction, prevalence of loss of smell and risk factors: a population-based survey (OLFACAT study). BMJ Open 2."
+    },
+    {
+      "id": "pone.0107541-Keller1",
+      "number": 42,
+      "bibliographic": {
+        "license": "cc-by",
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Cellular and Molecular Neuroscience"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2012
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1186",
+        "author": [
+          {
+            "family": "Keller",
+            "given": "Andreas"
+          },
+          {
+            "family": "Hempstead",
+            "given": "Margaret"
+          },
+          {
+            "family": "Gomez",
+            "given": "Iran A"
+          },
+          {
+            "family": "Gilbert",
+            "given": "Avery N"
+          },
+          {
+            "family": "Vosshall",
+            "given": "Leslie B"
+          }
+        ],
+        "container-title": "BMC Neurosci",
+        "reference-count": 51,
+        "page": "122",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              12,
+              5
+            ]
+          ],
+          "timestamp": 1354665600000
+        },
+        "issue": "1",
+        "title": "An olfactory demography of a diverse metropolitan population",
+        "type": "journal-article",
+        "DOI": "10.1186/1471-2202-13-122",
+        "ISSN": [
+          "1471-2202"
+        ],
+        "URL": "http://dx.doi.org/10.1186/1471-2202-13-122",
+        "source": "CrossRef",
+        "publisher": "Springer Science + Business Media",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410032006835
+        },
+        "volume": "13",
+        "member": "http://id.crossref.org/member/297",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1186/1471-2202-13-122",
+      "uri_source": "crossref",
+      "score": 4.583806,
+      "citation_groups": [
+        "29"
+      ],
+      "original_citation": "KellerA, HempsteadM, GomezIA, GilbertAN, VosshallLB (2012) An olfactory demography of a diverse metropolitan population. BMC Neurosci 13: 122."
+    },
+    {
+      "id": "pone.0107541-Doty1",
+      "number": 43,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Clinical Neurology",
+          "Neurology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2008,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1002",
+        "author": [
+          {
+            "family": "Doty",
+            "given": "Richard L."
+          }
+        ],
+        "container-title": "Annals of Neurology",
+        "reference-count": 111,
+        "page": "7-15",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              12
+            ]
+          ],
+          "timestamp": 1313107200000
+        },
+        "issue": "1",
+        "title": "The olfactory vector hypothesis of neurodegenerative disease: Is it viable?",
+        "type": "journal-article",
+        "DOI": "10.1002/ana.21327",
+        "ISSN": [
+          "0364-5134",
+          "1531-8249"
+        ],
+        "URL": "http://dx.doi.org/10.1002/ana.21327",
+        "source": "CrossRef",
+        "publisher": "Wiley-Blackwell",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409865522886
+        },
+        "volume": "63",
+        "member": "http://id.crossref.org/member/311",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1002/ana.21327",
+      "uri_source": "crossref",
+      "score": 3.6867204,
+      "citation_groups": [
+        "33"
+      ],
+      "original_citation": "DotyRL (2008) The olfactory vector hypothesis of neurodegenerative disease: is it viable? Ann Neurol 63: 7–15."
+    },
+    {
+      "id": "pone.0107541-Prediger1",
+      "number": 44,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Neuroscience(all)",
+          "Toxicology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2011,
+              10,
+              15
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1007",
+        "author": [
+          {
+            "family": "Prediger",
+            "given": "Rui D. S."
+          },
+          {
+            "family": "Aguiar",
+            "given": "Aderbal S."
+          },
+          {
+            "family": "Matheus",
+            "given": "Filipe C."
+          },
+          {
+            "family": "Walz",
+            "given": "Roger"
+          },
+          {
+            "family": "Antoury",
+            "given": "Layal"
+          },
+          {
+            "family": "Raisman-Vozari",
+            "given": "Rita"
+          },
+          {
+            "family": "Doty",
+            "given": "Richard L."
+          }
+        ],
+        "container-title": "Neurotox Res",
+        "reference-count": 228,
+        "page": "90-116",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              4,
+              12
+            ]
+          ],
+          "timestamp": 1365724800000
+        },
+        "issue": "1",
+        "title": "Intranasal Administration of Neurotoxicants in Animals: Support for the Olfactory Vector Hypothesis of Parkinson’s Disease",
+        "type": "journal-article",
+        "DOI": "10.1007/s12640-011-9281-8",
+        "ISSN": [
+          "1029-8428",
+          "1476-3524"
+        ],
+        "URL": "http://dx.doi.org/10.1007/s12640-011-9281-8",
+        "source": "CrossRef",
+        "publisher": "Springer Science + Business Media",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              7,
+              28
+            ]
+          ],
+          "timestamp": 1406515383774
+        },
+        "volume": "21",
+        "member": "http://id.crossref.org/member/297",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1007/s12640-011-9281-8",
+      "uri_source": "crossref",
+      "score": 4.097816,
+      "citation_groups": [
+        "33"
+      ],
+      "original_citation": "PredigerRD, AguiarASJr, MatheusFC, WalzR, AntouryL, et al. (2012) Intranasal administration of neurotoxicants in animals: support for the olfactory vector hypothesis of Parkinson's disease. Neurotox Res 21: 90–116."
+    },
+    {
+      "id": "pone.0107541-Gan1",
+      "number": 45,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Critical Care and Intensive Care Medicine",
+          "Pulmonary and Respiratory Medicine"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2013,
+              4
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1164",
+        "author": [
+          {
+            "family": "Gan",
+            "given": "Wen Qi"
+          },
+          {
+            "family": "FitzGerald",
+            "given": "J. Mark"
+          },
+          {
+            "family": "Carlsten",
+            "given": "Chris"
+          },
+          {
+            "family": "Sadatsafavi",
+            "given": "Mohsen"
+          },
+          {
+            "family": "Brauer",
+            "given": "Michael"
+          }
+        ],
+        "container-title": "Am J Respir Crit Care Med",
+        "reference-count": 47,
+        "page": "721-727",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              5,
+              23
+            ]
+          ],
+          "timestamp": 1369267200000
+        },
+        "issue": "7",
+        "title": "Associations of Ambient Air Pollution with Chronic Obstructive Pulmonary Disease Hospitalization and Mortality",
+        "type": "journal-article",
+        "DOI": "10.1164/rccm.201211-2004oc",
+        "ISSN": [
+          "1073-449X",
+          "1535-4970"
+        ],
+        "URL": "http://dx.doi.org/10.1164/rccm.201211-2004oc",
+        "source": "CrossRef",
+        "publisher": "American Thoracic Society",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              8
+            ]
+          ],
+          "timestamp": 1410149708729
+        },
+        "volume": "187",
+        "member": "http://id.crossref.org/member/19",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1164/rccm.201211-2004oc",
+      "uri_source": "crossref",
+      "score": 4.365385,
+      "citation_groups": [
+        "34"
+      ],
+      "original_citation": "GanWQ, FitzGeraldJM, CarlstenC, SadatsafaviM, BrauerM (2013) Associations of ambient air pollution with chronic obstructive pulmonary disease hospitalization and mortality. Am J Respir Crit Care Med 187: 721–727."
+    },
+    {
+      "id": "pone.0107541-deRuijter1",
+      "number": 46,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              1,
+              8
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1136",
+        "author": [
+          {
+            "family": "de Ruijter",
+            "given": "W."
+          },
+          {
+            "family": "Westendorp",
+            "given": "R. G J"
+          },
+          {
+            "family": "Assendelft",
+            "given": "W. J J"
+          },
+          {
+            "family": "den Elzen",
+            "given": "W. P J"
+          },
+          {
+            "family": "de Craen",
+            "given": "A. J M"
+          },
+          {
+            "family": "le Cessie",
+            "given": "S."
+          },
+          {
+            "family": "Gussekloo",
+            "given": "J."
+          }
+        ],
+        "container-title": "BMJ",
+        "reference-count": 0,
+        "page": "a3083-a3083",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              16
+            ]
+          ],
+          "timestamp": 1313452800000
+        },
+        "issue": "jan08 2",
+        "title": "Use of Framingham risk score and new biomarkers to predict cardiovascular mortality in older people: population based observational cohort study",
+        "type": "journal-article",
+        "DOI": "10.1136/bmj.a3083",
+        "ISSN": [
+          "0959-8138",
+          "1468-5833"
+        ],
+        "URL": "http://dx.doi.org/10.1136/bmj.a3083",
+        "source": "CrossRef",
+        "publisher": "BMJ",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409853303798
+        },
+        "volume": "338",
+        "member": "http://id.crossref.org/member/239",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1136/bmj.a3083",
+      "uri_source": "crossref",
+      "score": 4.7063107,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "de RuijterW, WestendorpRG, AssendelftWJ, den ElzenWP, de CraenAJ, et al. (2009) Use of Framingham risk score and new biomarkers to predict cardiovascular mortality in older people: population based observational cohort study. BMJ 338: a3083."
+    },
+    {
+      "id": "pone.0107541-Zethelius1",
+      "number": 47,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2008,
+              5,
+              15
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1056",
+        "author": [
+          {
+            "family": "Zethelius",
+            "given": "Björn"
+          },
+          {
+            "family": "Berglund",
+            "given": "Lars"
+          },
+          {
+            "family": "Sundström",
+            "given": "Johan"
+          },
+          {
+            "family": "Ingelsson",
+            "given": "Erik"
+          },
+          {
+            "family": "Basu",
+            "given": "Samar"
+          },
+          {
+            "family": "Larsson",
+            "given": "Anders"
+          },
+          {
+            "family": "Venge",
+            "given": "Per"
+          },
+          {
+            "family": "Ärnlöv",
+            "given": "Johan"
+          }
+        ],
+        "container-title": "New England Journal of Medicine",
+        "reference-count": 30,
+        "page": "2107-2116",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              1,
+              20
+            ]
+          ],
+          "timestamp": 1327017600000
+        },
+        "issue": "20",
+        "title": "Use of Multiple Biomarkers to Improve the Prediction of Death from Cardiovascular Causes",
+        "type": "journal-article",
+        "DOI": "10.1056/nejmoa0707064",
+        "ISSN": [
+          "0028-4793",
+          "1533-4406"
+        ],
+        "URL": "http://dx.doi.org/10.1056/nejmoa0707064",
+        "source": "CrossRef",
+        "publisher": "New England Journal of Medicine (NEJM/MMS)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410020399784
+        },
+        "volume": "358",
+        "member": "http://id.crossref.org/member/150",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1056/nejmoa0707064",
+      "uri_source": "crossref",
+      "score": 4.332849,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "ZetheliusB, BerglundL, SundstromJ, IngelssonE, BasuS, et al. (2008) Use of multiple biomarkers to improve the prediction of death from cardiovascular causes. N Engl J Med 358: 2107–2116."
+    },
+    {
+      "id": "pone.0107541-Goldman1",
+      "number": 48,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Ageing",
+          "Geriatrics and Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2006,
+              10,
+              1
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1093",
+        "author": [
+          {
+            "family": "Goldman",
+            "given": "N."
+          },
+          {
+            "family": "Turra",
+            "given": "C. M."
+          },
+          {
+            "family": "Glei",
+            "given": "D. A."
+          },
+          {
+            "family": "Seplaki",
+            "given": "C. L."
+          },
+          {
+            "family": "Lin",
+            "given": "Y.-H."
+          },
+          {
+            "family": "Weinstein",
+            "given": "M."
+          }
+        ],
+        "container-title": "The Journals of Gerontology Series A: Biological Sciences and Medical Sciences",
+        "reference-count": 25,
+        "page": "1070-1074",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              11,
+              21
+            ]
+          ],
+          "timestamp": 1321833600000
+        },
+        "issue": "10",
+        "title": "Predicting Mortality From Clinical and Nonclinical Biomarkers",
+        "type": "journal-article",
+        "DOI": "10.1093/gerona/61.10.1070",
+        "ISSN": [
+          "1079-5006",
+          "1758-535X"
+        ],
+        "URL": "http://dx.doi.org/10.1093/gerona/61.10.1070",
+        "source": "CrossRef",
+        "publisher": "Oxford University Press (OUP)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              5
+            ]
+          ],
+          "timestamp": 1409910487518
+        },
+        "volume": "61",
+        "member": "http://id.crossref.org/member/286",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1093/gerona/61.10.1070",
+      "uri_source": "crossref_lowscore",
+      "score": 2.1415174,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "GoldmanN, TurraCM, GleiDA, SeplakiCL, LinYH, et al. (2006) Predicting mortality from clinical and nonclinical biomarkers. J Gerontol A Biol Sci Med Sci 61: 1070–1074."
+    },
+    {
+      "id": "pone.0107541-Kistorp1",
+      "number": 49,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2005,
+              4,
+              6
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1001",
+        "author": [
+          {
+            "family": "Kistorp",
+            "given": "Caroline"
+          }
+        ],
+        "container-title": "JAMA",
+        "reference-count": 0,
+        "page": "1609",
+        "deposited": {
+          "date-parts": [
+            [
+              2013,
+              8,
+              14
+            ]
+          ],
+          "timestamp": 1376438400000
+        },
+        "issue": "13",
+        "title": "N-Terminal Pro-Brain Natriuretic Peptide, C-Reactive Protein, and Urinary Albumin Levels as Predictors of Mortality and Cardiovascular Events in Older Adults",
+        "type": "journal-article",
+        "DOI": "10.1001/jama.293.13.1609",
+        "ISSN": [
+          "0098-7484"
+        ],
+        "URL": "http://dx.doi.org/10.1001/jama.293.13.1609",
+        "source": "CrossRef",
+        "publisher": "American Medical Association (AMA)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              10
+            ]
+          ],
+          "timestamp": 1410314392866
+        },
+        "volume": "293",
+        "member": "http://id.crossref.org/member/10",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1001/jama.293.13.1609",
+      "uri_source": "crossref",
+      "score": 3.767375,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "KistorpC, RaymondI, PedersenF, GustafssonF, FaberJ, et al. (2005) N-terminal pro-brain natriuretic peptide, C-reactive protein, and urinary albumin levels as predictors of mortality and cardiovascular events in older adults. JAMA 293: 1609–1616."
+    },
+    {
+      "id": "pone.0107541-Fried2",
+      "number": 50,
+      "bibliographic": {
+        "text": "Fried LP , Kronmal RA , Newman AB , Bild DE , Mittelmark MB , et al . ( 1998 ) Risk factors for 5-year mortality in older adults: the Cardiovascular Health Study . JAMA 279 : 585 – 592 .",
+        "container-type": "journal",
+        "container-title": "JAMA",
+        "title": "Risk factors for 5-year mortality in older adults: the Cardiovascular Health Study",
+        "volume": "279",
+        "issued": {
+          "date-parts": [
+            [
+              1998
+            ]
+          ]
+        },
+        "page": "585-592",
+        "author": [
+          {
+            "family": "Fried",
+            "given": "LP"
+          },
+          {
+            "family": "Kronmal",
+            "given": "RA"
+          },
+          {
+            "family": "Newman",
+            "given": "AB"
+          },
+          {
+            "family": "Bild",
+            "given": "DE"
+          },
+          {
+            "family": "Mittelmark",
+            "given": "MB"
+          }
+        ],
+        "bib_source": "RefNode"
+      },
+      "citation_groups": [
+        "35"
+      ]
+    },
+    {
+      "id": "pone.0107541-Corti1",
+      "number": 51,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Medicine(all)"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              1994,
+              10,
+              5
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1001",
+        "author": [
+          {
+            "family": "Corti",
+            "given": "M. C."
+          }
+        ],
+        "container-title": "JAMA: The Journal of the American Medical Association",
+        "reference-count": 0,
+        "page": "1036-1042",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              10
+            ]
+          ],
+          "timestamp": 1312934400000
+        },
+        "issue": "13",
+        "title": "Serum albumin level and physical disability as predictors of mortality in older persons",
+        "type": "journal-article",
+        "DOI": "10.1001/jama.272.13.1036",
+        "ISSN": [
+          "0098-7484",
+          "1538-3598"
+        ],
+        "URL": "http://dx.doi.org/10.1001/jama.272.13.1036",
+        "source": "CrossRef",
+        "publisher": "American Medical Association (AMA)",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409812345484
+        },
+        "volume": "272",
+        "member": "http://id.crossref.org/member/10",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1001/jama.272.13.1036",
+      "uri_source": "crossref_lowscore",
+      "score": 2.3614824,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "CortiMC, GuralnikJM, SaliveME, SorkinJD (1994) Serum albumin level and physical disability as predictors of mortality in older persons. JAMA 272: 1036–1042."
+    },
+    {
+      "id": "pone.0107541-RoseroBixby1",
+      "number": 52,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Public Health, Environmental and Occupational Health",
+          "Epidemiology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2012
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1186",
+        "author": [
+          {
+            "family": "Rosero-Bixby",
+            "given": "Luis"
+          },
+          {
+            "family": "Dow",
+            "given": "William H"
+          }
+        ],
+        "container-title": "Population Health Metrics",
+        "reference-count": 26,
+        "page": "11",
+        "deposited": {
+          "date-parts": [
+            [
+              2012,
+              12,
+              5
+            ]
+          ],
+          "timestamp": 1354665600000
+        },
+        "issue": "1",
+        "title": "Predicting mortality with biomarkers: a population-based prospective cohort study for elderly Costa Ricans",
+        "type": "journal-article",
+        "DOI": "10.1186/1478-7954-10-11",
+        "ISSN": [
+          "1478-7954"
+        ],
+        "URL": "http://dx.doi.org/10.1186/1478-7954-10-11",
+        "source": "CrossRef",
+        "publisher": "Springer Science + Business Media",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              6
+            ]
+          ],
+          "timestamp": 1410030851828
+        },
+        "volume": "10",
+        "member": "http://id.crossref.org/member/297",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1186/1478-7954-10-11",
+      "uri_source": "crossref",
+      "score": 4.732083,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "Rosero-BixbyL, DowWH (2012) Predicting mortality with biomarkers: a population-based prospective cohort study for elderly Costa Ricans. Popul Health Metr 10: 11."
+    },
+    {
+      "id": "pone.0107541-Reuben1",
+      "number": 53,
+      "bibliographic": {
+        "subtitle": [
+
+        ],
+        "subject": [
+          "Geriatrics and Gerontology"
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              2002,
+              4
+            ]
+          ]
+        },
+        "score": 1.0,
+        "prefix": "http://id.crossref.org/prefix/10.1111",
+        "author": [
+          {
+            "family": "Reuben",
+            "given": "David B."
+          },
+          {
+            "family": "Cheh",
+            "given": "Anna I."
+          },
+          {
+            "family": "Harris",
+            "given": "Tamara B."
+          },
+          {
+            "family": "Ferrucci",
+            "given": "Luigi"
+          },
+          {
+            "family": "Rowe",
+            "given": "John W."
+          },
+          {
+            "family": "Tracy",
+            "given": "Russell P."
+          },
+          {
+            "family": "Seeman",
+            "given": "Teresa E."
+          }
+        ],
+        "container-title": "Journal of the American Geriatrics Society",
+        "reference-count": 43,
+        "page": "638-644",
+        "deposited": {
+          "date-parts": [
+            [
+              2011,
+              8,
+              23
+            ]
+          ],
+          "timestamp": 1314057600000
+        },
+        "issue": "4",
+        "title": "Peripheral Blood Markers of Inflammation Predict Mortality and Functional Decline in High-Functioning Community-Dwelling Older Persons",
+        "type": "journal-article",
+        "DOI": "10.1046/j.1532-5415.2002.50157.x",
+        "ISSN": [
+          "0002-8614",
+          "1532-5415"
+        ],
+        "URL": "http://dx.doi.org/10.1046/j.1532-5415.2002.50157.x",
+        "source": "CrossRef",
+        "publisher": "Wiley-Blackwell",
+        "indexed": {
+          "date-parts": [
+            [
+              2014,
+              9,
+              4
+            ]
+          ],
+          "timestamp": 1409840580371
+        },
+        "volume": "50",
+        "member": "http://id.crossref.org/member/311",
+        "bib_source": "dx.doi.org",
+        "container-type": "journal"
+      },
+      "uri": "http://dx.doi.org/10.1046/j.1532-5415.2002.50157.x",
+      "uri_source": "crossref",
+      "score": 3.020302,
+      "citation_groups": [
+        "35"
+      ],
+      "original_citation": "ReubenDB, ChehAI, HarrisTB, FerrucciL, RoweJW, et al. (2002) Peripheral blood markers of inflammation predict mortality and functional decline in high-functioning community-dwelling older persons. J Am Geriatr Soc 50: 638–644."
+    }
+  ],
+  "citation_groups": [
+    {
+      "id": "1",
+      "references": [
+        "pone.0107541-Niimura1"
+      ],
+      "context": {
+        "text_before": "Olfaction is a critical, if underappreciated, component of human physiology. Although potentially less dependent on olfaction than many other mammals ",
+        "citation": "[1]",
+        "text_after": ", humans still rely on this ancestral system which plays",
+        "truncated_after": true
+      },
+      "word_position": 22,
+      "section": "Introduction"
+    },
+    {
+      "id": "2",
+      "references": [
+        "pone.0107541-Mennella1",
+        "pone.0107541-Hays1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "an essential role in health and behavior. For example, the olfactory system maintains adequate nutrition through appetite and food preferences ",
+        "citation": "[2], [3]",
+        "text_after": ", enables detection of environmental hazards and pathogens, is associated",
+        "truncated_after": true
+      },
+      "word_position": 52,
+      "section": "Introduction"
+    },
+    {
+      "id": "3",
+      "references": [
+        "pone.0107541-Jacob1",
+        "pone.0107541-Jacob2",
+        "pone.0107541-Doucet1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "food preferences [2], [3], enables detection of environmental hazards and pathogens, is associated with memory, emotions and intimate social relationships ",
+        "citation": "[4], [5] [6]",
+        "text_after": " and is linked neuroanatomically with key parts of the central",
+        "truncated_after": true
+      },
+      "word_position": 70,
+      "section": "Introduction"
+    },
+    {
+      "id": "4",
+      "references": [
+        "pone.0107541-WelgeLussen1",
+        "pone.0107541-Burton1",
+        "pone.0107541-GarciaEsparcia1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "emotions and intimate social relationships [4], [5] [6] and is linked neuroanatomically with key parts of the central nervous system ",
+        "citation": "[7]–[9]",
+        "text_after": ". Finally, normal olfactory function depends on cellular regeneration of",
+        "truncated_after": true
+      },
+      "word_position": 85,
+      "section": "Introduction"
+    },
+    {
+      "id": "5",
+      "references": [
+        "pone.0107541-Pagano1",
+        "pone.0107541-Roy1",
+        "pone.0107541-Schwob1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "the central nervous system [7]–[9]. Finally, normal olfactory function depends on cellular regeneration of the olfactory neuroepithelium, bulb and hippocampus ",
+        "citation": "[10]–[12]",
+        "text_after": ", a capacity impaired by telomere shortening which is a",
+        "truncated_after": true
+      },
+      "word_position": 101,
+      "section": "Introduction"
+    },
+    {
+      "id": "6",
+      "references": [
+        "pone.0107541-WatabeRudolph1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "neuroepithelium, bulb and hippocampus [10]–[12], a capacity impaired by telomere shortening which is a hallmark of aging in many systems ",
+        "citation": "[13]",
+        "text_after": "."
+      },
+      "word_position": 117,
+      "section": "Introduction"
+    },
+    {
+      "id": "7",
+      "references": [
+        "pone.0107541-Canter1"
+      ],
+      "context": {
+        "text_before": "Mortality prediction has typically focused on proximate causes of death such as disease ",
+        "citation": "[14]",
+        "text_after": " and life-limiting conditions such as frailty [15], [16] and dementia,",
+        "truncated_after": true
+      },
+      "word_position": 131,
+      "section": "Introduction"
+    },
+    {
+      "id": "8",
+      "references": [
+        "pone.0107541-Fried1",
+        "pone.0107541-Makary1"
+      ],
+      "context": {
+        "text_before": "Mortality prediction has typically focused on proximate causes of death such as disease [14] and life-limiting conditions such as frailty ",
+        "citation": "[15], [16]",
+        "text_after": " and dementia, along with associated biomarkers. Indeed, olfactory dysfunction presages",
+        "truncated_after": true
+      },
+      "word_position": 138,
+      "section": "Introduction"
+    },
+    {
+      "id": "9",
+      "references": [
+        "pone.0107541-Wilson1",
+        "pone.0107541-Wilson2",
+        "pone.0107541-Stamps1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "presages major neurodegenerative diseases including Alzheimer's disease and Parkinson's disease, assessed both clinically and post-mortem, and even mild cognitive impairment ",
+        "citation": "[17]–[19]",
+        "text_after": ". Given that olfaction has multiple roles and relies on",
+        "truncated_after": true
+      },
+      "word_position": 169,
+      "section": "Introduction"
+    },
+    {
+      "id": "10",
+      "references": [
+        "pone.0107541-Suzman1",
+        "pone.0107541-OMuircheartaigh1",
+        "pone.0107541-Pinto1",
+        "pone.0107541-QatoDM1",
+        "pone.0107541-Waite1",
+        "pone.0107541-CalderonGarciduenas1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "olfactory function in the National Social Life, Health, and Aging Project (NSHAP), a nationally representative study of community-dwelling older adults ",
+        "citation": "[20]–[25]",
+        "text_after": ". NSHAP is the first population-based survey to objectively measure",
+        "truncated_after": true
+      },
+      "word_position": 224,
+      "section": "Introduction"
+    },
+    {
+      "id": "11",
+      "references": [
+        "pone.0107541-Schumm1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "and generated a rich array of health and social information as well as a five year follow-up that determined mortality ",
+        "citation": "[26]",
+        "text_after": ". We examined whether olfactory dysfunction predicted mortality after 5",
+        "truncated_after": true
+      },
+      "word_position": 255,
+      "section": "Introduction"
+    },
+    {
+      "id": "12",
+      "references": [
+        "pone.0107541-Suzman1",
+        "pone.0107541-OMuircheartaigh1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "in-home interviews with 3,005 community-dwelling older adults (1,454 men and 1,551 women) 57–85 years of age living throughout the US ",
+        "citation": "[20], [21]",
+        "text_after": ". Five years later, data were collected again (2010–11, Wave",
+        "truncated_after": true
+      },
+      "word_position": 337,
+      "section": "Methods"
+    },
+    {
+      "id": "13",
+      "references": [
+        "pone.0107541-Suzman1",
+        "pone.0107541-OMuircheartaigh1",
+        "pone.0107541-Lindau1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "formed a single category (“Other”). Further details regarding design, data collection, and baseline characteristics of NSHAP respondents are provided elsewhere ",
+        "citation": "[20], [21], [27]",
+        "text_after": ". The study was approved by the Institutional Review Boards",
+        "truncated_after": true
+      },
+      "word_position": 385,
+      "section": "Methods"
+    },
+    {
+      "id": "14",
+      "references": [
+        "pone.0107541-Mueller1"
+      ],
+      "context": {
+        "text_before": "Olfactory function was assessed using a validated odor identification test presented using felt-tipped pens ",
+        "citation": "[28]",
+        "text_after": " (Burghart Messtechnik, Wedel, Germany). To accommodate the survey's logistical and",
+        "truncated_after": true
+      },
+      "word_position": 431,
+      "section": "Methods"
+    },
+    {
+      "id": "15",
+      "references": [
+        "pone.0107541-Schumm1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "Respondents were asked to identify each by choosing from a set of four picture/word prompts in a forced choice protocol ",
+        "citation": "[26]",
+        "text_after": "; refusals were coded as incorrect (for test details, see",
+        "truncated_after": true
+      },
+      "word_position": 474,
+      "section": "Methods"
+    },
+    {
+      "id": "16",
+      "references": [
+        "pone.0107541-Pinto1",
+        "pone.0107541-Kern1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "set of four picture/word prompts in a forced choice protocol [26]; refusals were coded as incorrect (for test details, see ",
+        "citation": "[22], [29]",
+        "text_after": "). The target odors were rose, leather, orange, fish, and",
+        "truncated_after": true
+      },
+      "word_position": 484,
+      "section": "Methods"
+    },
+    {
+      "id": "17",
+      "references": [
+        "pone.0107541-Mueller2"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "rose, leather, orange, fish, and peppermint. The number of incorrectly identified odors yielded an empiric score (normosmia cutoff based on ",
+        "citation": "[30]",
+        "text_after": "), which was used to categorize severity of olfactory dysfunction:",
+        "truncated_after": true
+      },
+      "word_position": 510,
+      "section": "Methods"
+    },
+    {
+      "id": "18",
+      "references": [
+        "pone.0107541-OMuircheartaigh2"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "Age was categorized into groups (57–64 years, 65–74 years, 75–85 years) according to the sampling strategy of the overall study ",
+        "citation": "[31]",
+        "text_after": ". Socioeconomic status was measured by education (highest degree or",
+        "truncated_after": true
+      },
+      "word_position": 726,
+      "section": "Methods"
+    },
+    {
+      "id": "19",
+      "references": [
+        "pone.0107541-KatzJN1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "using only education because both measures yielded similar results. Comorbid diseases were assessed with the Charlson Index modified for NSHAP ",
+        "citation": "[32]",
+        "text_after": ". In addition, respondents reported whether a doctor had ever",
+        "truncated_after": true
+      },
+      "word_position": 782,
+      "section": "Methods"
+    },
+    {
+      "id": "20",
+      "references": [
+        "pone.0107541-Fried1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "loss, exhaustion, and lower physical activity, resulting from cumulative declines across multiple physiologic systems, and causing higher morbidity and mortality ",
+        "citation": "[15]",
+        "text_after": ") [33]."
+      },
+      "word_position": 880,
+      "section": "Methods"
+    },
+    {
+      "id": "21",
+      "references": [
+        "pone.0107541-Williams1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "exhaustion, and lower physical activity, resulting from cumulative declines across multiple physiologic systems, and causing higher morbidity and mortality [15]) ",
+        "citation": "[33]",
+        "text_after": "."
+      },
+      "word_position": 881,
+      "section": "Methods"
+    },
+    {
+      "id": "22",
+      "references": [
+        "pone.0107541-Pfeiffer1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "function (specifically memory and mental arithmetic) was measured with a modified version of the Short Portable Mental Status Questionnaire (SPMSQ) ",
+        "citation": "[34]",
+        "text_after": ". Self-rated mental health was measured by a standard 5-point",
+        "truncated_after": true
+      },
+      "word_position": 903,
+      "section": "Methods"
+    },
+    {
+      "id": "23",
+      "references": [
+        "pone.0107541-Pinto1",
+        "pone.0107541-Ewing1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "or poor). Health behaviors affecting olfaction were current smoking, based on either salivary cotinine level or self-report, and problem drinking ",
+        "citation": "[22], [35]",
+        "text_after": "."
+      },
+      "word_position": 939,
+      "section": "Methods"
+    },
+    {
+      "id": "24",
+      "references": [
+        "pone.0107541-OMuircheartaigh2"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "response rate in Wave 1, excellent for a targeted probability sample, and the non-responders were similar demographically to the responders ",
+        "citation": "[31]",
+        "text_after": ". Estimates of the prevalence and mean values in the",
+        "truncated_after": true
+      },
+      "word_position": 968,
+      "section": "Methods"
+    },
+    {
+      "id": "25",
+      "references": [
+        "pone.0107541-Binder1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "based on weights accounting for differential probabilities of non-response and selection. Design-based standard errors were calculated using the linearization method ",
+        "citation": "[36]",
+        "text_after": " together with the strata and Primary Sampling Unit indicators provided",
+        "truncated_after": true
+      },
+      "word_position": 1001,
+      "section": "Methods"
+    },
+    {
+      "id": "26",
+      "references": [
+        "pone.0107541-Administration1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "the analytic sample was 12.5%, consistent with what would be expected based on the Social Security Administration (SSA) life tables",
+        "citation": "[37]",
+        "text_after": ". Fully 39% of older adults with anosmia were dead",
+        "truncated_after": true
+      },
+      "word_position": 1383,
+      "section": "Results"
+    },
+    {
+      "id": "27",
+      "references": [
+        "pone.0107541-Pinto1"
+      ],
+      "context": {
+        "text_before": "Despite the possibility that medical conditions might account for these findings ",
+        "citation": "[22]",
+        "text_after": ", the addition of a comorbidity index, a validated summary",
+        "truncated_after": true
+      },
+      "word_position": 2045,
+      "section": "Results"
+    },
+    {
+      "id": "28",
+      "references": [
+        "pone.0107541-Locher1",
+        "pone.0107541-Cao1",
+        "pone.0107541-Flegal1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "after 5 years. However, those who were overweight had lower mortality (OR, 0.59 [95%CI 0.38, 0.92]), consistent with prior work ",
+        "citation": "[38]–[40]",
+        "text_after": ", Nonetheless, including these variables in the model did not",
+        "truncated_after": true
+      },
+      "word_position": 2636,
+      "section": "Results"
+    },
+    {
+      "id": "29",
+      "references": [
+        "pone.0107541-Keller1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "[95%CI 2.10, 6.05]) (Table S2 in File S1). We note that smoking causes increased mortality, and loss of olfactory function ",
+        "citation": "[42]",
+        "text_after": ", although studies have not always found this effect on",
+        "truncated_after": true
+      },
+      "word_position": 2843,
+      "section": "Results"
+    },
+    {
+      "id": "30",
+      "references": [
+        "pone.0107541-Mullol1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "smoking causes increased mortality, and loss of olfactory function [42], although studies have not always found this effect on olfaction ",
+        "citation": "[41]",
+        "text_after": "."
+      },
+      "word_position": 2854,
+      "section": "Results"
+    },
+    {
+      "id": "31",
+      "references": [
+        "pone.0107541-Mullol1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "for olfactory loss (male gender, lower socioeconomic status, BMI) were included in our analyses, and though they replicated prior work ",
+        "citation": "[41]",
+        "text_after": ", did not affect our results."
+      },
+      "word_position": 3150,
+      "section": "Discussion"
+    },
+    {
+      "id": "32",
+      "references": [
+        "pone.0107541-WatabeRudolph1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "serve as an indicator of deterioration in age-related regenerative capacity more broadly or as a marker of physiologic repair function ",
+        "citation": "[13]",
+        "text_after": "."
+      },
+      "word_position": 3308,
+      "section": "Discussion"
+    },
+    {
+      "id": "33",
+      "references": [
+        "pone.0107541-Doty1",
+        "pone.0107541-Prediger1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "the olfactory nerve and cause death due to direct injurious effects, consistent with the olfactory vector hypothesis of neurodegenertives diseases",
+        "citation": "[43], [44]",
+        "text_after": ". Alternatively, these exposures could be absorbed and cause systemic",
+        "truncated_after": true
+      },
+      "word_position": 3359,
+      "section": "Discussion"
+    },
+    {
+      "id": "34",
+      "references": [
+        "pone.0107541-Gan1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "has been shown to increase morbidity and mortality and decrease olfaction, although the precise mechanism of these effects is unknown ",
+        "citation": "[45]",
+        "text_after": ". Further investigation is required to distinguish which of these",
+        "truncated_after": true
+      },
+      "word_position": 3407,
+      "section": "Discussion"
+    },
+    {
+      "id": "35",
+      "references": [
+        "pone.0107541-deRuijter1",
+        "pone.0107541-Zethelius1",
+        "pone.0107541-Goldman1",
+        "pone.0107541-Kistorp1",
+        "pone.0107541-Fried2",
+        "pone.0107541-Corti1",
+        "pone.0107541-RoseroBixby1",
+        "pone.0107541-Reuben1"
+      ],
+      "context": {
+        "truncated_before": true,
+        "text_before": "functional and physiological measures, with the ability of olfaction to predict death as large as, if not exceeding, other biomarkers ",
+        "citation": "[46]–[53]",
+        "text_after": ". To our knowledge, no previous study has examined sensory",
+        "truncated_after": true
+      },
+      "word_position": 3531,
+      "section": "Discussion"
+    }
+  ],
+  "updated_by": [
+
+  ]
+}
