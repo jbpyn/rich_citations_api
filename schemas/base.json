@@ -76,8 +76,11 @@
             "type": "string"
           },
           "accessed_at": {
-            "type": "string",
-            "format": "date-time"
+              "type": "string",
+              "oneOf": [
+                  { "format": "date-time" },
+                  { "pattern": "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$" }
+              ]
           },
           "citation_groups": {
             "type": "array",
