@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141009001024) do
+ActiveRecord::Schema.define(version: 20141009214314) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -32,16 +32,16 @@ ActiveRecord::Schema.define(version: 20141009001024) do
   add_index "citation_group_references", ["reference_id"], name: "index_citation_group_references_on_reference_id"
 
   create_table "citation_groups", force: true do |t|
-    t.boolean "truncate_before"
+    t.boolean "truncated_before"
     t.text    "text_before"
     t.text    "citation"
     t.text    "text_after"
-    t.boolean "truncate_after"
+    t.boolean "truncated_after"
     t.integer "word_position"
     t.text    "section"
-    t.integer "citing_paper_id",             null: false
-    t.integer "position",                    null: false
-    t.string  "group_id",        limit: 255, null: false
+    t.integer "citing_paper_id",              null: false
+    t.integer "position",                     null: false
+    t.string  "group_id",         limit: 255, null: false
   end
 
   add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position"
