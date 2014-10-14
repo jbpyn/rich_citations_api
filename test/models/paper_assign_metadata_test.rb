@@ -60,6 +60,16 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                                     'subtitle' => ['Subtitle 1', 'Subtitle 2'] }
   end
 
+  test "it should normalize URIs" do
+    p = Paper.new
+    p.assign_metadata(
+      'uri'           => 'http://EXAMPLE.COM/%7ehello',
+      'bibliographic' => {},
+    )
+
+    assert_equal 'http://example.com/~hello', p.uri
+  end
+
   test "it should create References" do
     p = Paper.new
     p.assign_metadata('uri' => 'http://example.com/a',

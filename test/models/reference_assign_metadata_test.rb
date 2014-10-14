@@ -71,6 +71,16 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                                     'subtitle' => ['Subtitle 1', 'Subtitle 2'] }
   end
 
+  test "it should normalize URIs" do
+    c = Reference.new
+    c.assign_metadata('id'       => 'ref.x',
+                      'number'   => 2,
+                      'uri'      => 'http://EXAMPLE.COM/%7ehello',
+                      'bibliographic' => {})
+
+    assert_equal 'http://example.com/~hello', c.uri
+  end
+
   test "it should update an existing papers metadata if it is provided" do
     citing = Paper.create!(uri:'http://example.org/citing')
 
