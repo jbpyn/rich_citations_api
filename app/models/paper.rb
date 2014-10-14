@@ -74,7 +74,7 @@ class Paper < Base
     citation_groups = metadata.delete('citation_groups')
     create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
 
-    self.uri           = metadata.delete('uri')
+    self.uri           = normalize_uri(metadata.delete('uri'))
     self.uri_source    = metadata.delete('uri_source')
     self.bib_source    = metadata.delete('bib_source')
     self.word_count    = metadata.delete('word_count')

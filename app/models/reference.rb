@@ -73,7 +73,8 @@ class Reference < Base
   #       Cited records when they are automatically generated (Have a random_citation_uri)
   def assign_metadata(metadata)
     metadata = metadata.dup
-    uri      = metadata.delete('uri') || random_citation_uri
+    uri_raw  = metadata.delete('uri')
+    uri      = (uri_raw && normalize_uri(uri_raw)) || random_citation_uri
     ref_id   = metadata.delete('id')
 
     bibliographic   = metadata.delete('bibliographic')

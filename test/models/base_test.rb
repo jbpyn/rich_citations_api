@@ -22,7 +22,7 @@ require 'test_helper'
 
 module Test
 class Paper < ::Base
-  public :sanitize_html
+  public :sanitize_html, :normalize_uri
 end
 end
 
@@ -61,4 +61,11 @@ class BaseTest < ActiveSupport::TestCase
     assert_equal '<a rel="nofollow">Text</a>',           @model.sanitize_html('<a src="javascript:foo">Text</a>')
   end
 
+  test 'it should normalize URIs properly' do
+    assert_equal 'http://example.org/~hello', @model.normalize_uri('http://EXAMPLE.org/%7ehello')
+    assert_equal 'http://example.org/', @model.normalize_uri('http://example.org//'), 'remove useless trailing slash'
+    assert_equal 'http://example.org/path/', @model.normalize_uri('http://example.org/path/'), 'do not remove trailing slash'
+    assert_equal 'http://example.org/q', @model.normalize_uri('http://example.org/q?'), 'remove empty query'
+    assert_equal 'http://example.org/q#a', @model.normalize_uri('http://example.org/q#a'), 'do remove fragment'
+  end
 end

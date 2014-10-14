@@ -32,4 +32,10 @@ class Base < ActiveRecord::Base
   SANITIZER = Rails::Html::PermitScrubber.new
   SANITIZER.tags = %w[a em i strong b u cite q mark abbr sub sup s wbr]
 
+  def normalize_uri(uri)
+    u = PostRank::URI.parse(uri)
+    u.path = u.path.squeeze('/')
+    u.query = nil if u.query && u.query.empty?
+    u.to_s
+  end
 end
