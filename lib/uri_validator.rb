@@ -21,13 +21,17 @@
 require 'uri'
 
 class UriValidator < ActiveModel::EachValidator
+  def self.valid_uri?(uri)
+    return false if uri.nil?
+    parsed = URI.parse(uri)
+    return false if parsed.scheme.nil?
+    true
+  rescue URI::InvalidURIError
+    false
+  end
 
   def validate_each(record, attribute, value)
     return if value.blank?
-    parsed = URI.parse(value)
-    record.errors.add(attribute, 'must be a URI') if parsed.scheme.nil?
-  rescue URI::InvalidURIError
-    record.errors.add(attribute, 'must be a URI')
+    record.errors.add(attribute, 'must be a URI') unless UriValidator.valid_uri?(value)
   end
-
 end
