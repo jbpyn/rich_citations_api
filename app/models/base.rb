@@ -35,7 +35,7 @@ class Base < ActiveRecord::Base
   def normalize_uri(uri)
     u = PostRank::URI.parse(uri)
     u.path = u.path.squeeze('/')
-    u.query = nil if u.query && u.query.empty?
+    u.query = u.query.presence
     u.to_s
   end
 end
