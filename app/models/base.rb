@@ -33,6 +33,7 @@ class Base < ActiveRecord::Base
   SANITIZER.tags = %w[a em i strong b u cite q mark abbr sub sup s wbr]
 
   def normalize_uri(uri)
+    return uri unless uri.match(/^http/)
     u = PostRank::URI.parse(uri)
     u.path = u.path.squeeze('/')
     u.query = u.query.presence

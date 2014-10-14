@@ -67,5 +67,6 @@ class BaseTest < ActiveSupport::TestCase
     assert_equal 'http://example.org/path/', @model.normalize_uri('http://example.org/path/'), 'do not remove trailing slash'
     assert_equal 'http://example.org/q', @model.normalize_uri('http://example.org/q?'), 'remove empty query'
     assert_equal 'http://example.org/q#a', @model.normalize_uri('http://example.org/q#a'), 'do remove fragment'
+    assert_equal 'urn:isbn:3-900051-07-0', @model.normalize_uri('urn:isbn:3-900051-07-0'), 'works with URNs'
   end
 end
