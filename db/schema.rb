@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015201831) do
+ActiveRecord::Schema.define(version: 20141015221831) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
