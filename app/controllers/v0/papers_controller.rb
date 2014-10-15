@@ -48,6 +48,7 @@ module V0
     def show
       respond_to do |format|
         format.json do
+          head :ok and return if request.head?
           include_cited = 'cited'.in?(includes)
           render  json: @paper.metadata(include_cited)
         end
