@@ -39,7 +39,17 @@ module V0
             response.location = papers_url(uri:paper)
             render text:'Document Created', status: :created
           else
-            render text:'Invalid Metadata', status: :unprocessable_entity
+            text = "Invalid Metadata:\n"
+            ([paper] + paper.references + paper.citation_groups).each do |ref|
+              unless ref.valid?
+                ref.errors.messages.each do |k,v|
+                  next if (v == ["is invalid"]) # useless
+                  val = (ref.respond_to?(k) && ref.send(k)) || '(unknown)'
+                  text << "  #{k} #{v.join('; ')} #{val}\n"
+                end
+              end
+            end
+            render text:text, status: :unprocessable_entity
           end
         end
       end
