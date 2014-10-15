@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141010230045) do
+ActiveRecord::Schema.define(version: 20141015201831) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20141010230045) do
     t.float    "score"
   end
 
-  add_index "references", ["cited_paper_id", "number"], name: "index_references_on_cited_paper_id_and_number", unique: true
+  add_index "references", ["citing_paper_id", "number"], name: "index_references_on_citing_paper_id_and_number", unique: true
   add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id"
 
   create_table "users", force: true do |t|

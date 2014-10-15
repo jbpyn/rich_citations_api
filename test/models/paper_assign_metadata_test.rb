@@ -248,4 +248,25 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal AuditLogEntry.count, 0
   end
 
+  test 'can create 2 papers that reference the same paper with the same number' do
+    shared = { 'uri_source'    => 'foo',
+               'bib_source'    => 'bar',
+               'word_count'    => 101,
+               'bibliographic' => {},
+               'references'    => [ { 'id' => 'ref.1',
+                                      'uri' => 'http://example.com/c1',
+                                      'number' => 1,
+                                      'bibliographic' => {}
+                                    } ],
+               'citation_groups' => [
+                 { 'id' => 'group-1', 'context' => DUMMY_CONTEXT, 'section' => 'First',  'references' => ['ref.1'] }
+               ]
+             }
+    p1 = Paper.new
+    p1.assign_metadata(shared.merge('uri' => 'http://example.com/a'))
+    p1.save!
+    p2 = Paper.new
+    p2.assign_metadata(shared.merge('uri' => 'http://example.com/b'))
+    p2.save!
+  end
 end
