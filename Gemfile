@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.0.beta1'
-gem 'sqlite3'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 
@@ -15,9 +14,14 @@ gem 'postrank-uri'
 
 group :production do
   gem 'rails_12factor'
+  gem 'pg'
 end
 
 group :test do
   gem 'rake'
-  gem "mocha"
+  gem 'mocha'
+end
+
+group :test, :development do
+  gem 'sqlite3'
 end
