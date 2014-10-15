@@ -63,8 +63,7 @@ module V0
 
     def paper_required
       render(status: :bad_request, text: 'uri not provided') and return unless params[:uri].present?
-      uri = URI.decode_www_form_component( params[:uri] )
-      @paper = Paper.for_uri(uri)
+      @paper = Paper.for_uri(params[:uri])
       render(status: :not_found, text: 'Not Found') and return unless @paper
       @paper
     end

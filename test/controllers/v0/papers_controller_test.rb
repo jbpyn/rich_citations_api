@@ -63,8 +63,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
     test "It should GET a paper" do
       create_paper(paper_uri)
 
-      uri = URI.encode_www_form_component(paper_uri)
-      get :show, uri:uri
+      get :show, uri: paper_uri
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
@@ -80,8 +79,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
     test "It should GET a paper including cited metadata" do
       create_paper(paper_uri)
 
-      uri = URI.encode_www_form_component(paper_uri)
-      get :show, uri:uri, include:'cited'
+      get :show, uri: paper_uri, include: 'cited'
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
