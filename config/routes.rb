@@ -20,6 +20,8 @@
 
 Rails.application.routes.draw do
 
+  root 'doc#index'
+
   #@note simple versioning. Add something more robust later.
 
   version0_api = lambda do

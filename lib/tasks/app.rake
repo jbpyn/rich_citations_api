@@ -36,6 +36,12 @@ namespace :app do
       end
     end
 
+    desc 'Build API docs with pandoc'
+    task :docbuild => :environment do
+      md = File.join(Rails.root, 'docs', 'citation-api.md')
+      html = File.join(Rails.root, 'app', 'views', 'doc', 'index.html')
+      system("pandoc #{md} > #{html}")
+    end
   end
 
 end
