@@ -76,6 +76,24 @@ class ::V0::PapersControllerTest < ActionController::TestCase
                      }
     end
 
+    test "It should GET a paper via DOI" do
+      doi = '10.1/123'
+      paper_uri = "http://dx.doi.org/#{URI.encode_www_form_component(doi)}"
+      create_paper(paper_uri)
+
+      get :show, doi: doi
+
+      assert_response :success
+      assert_equal    @response.content_type, Mime::JSON
+      assert_equal    @response.json,
+                     { 'uri'           => paper_uri,
+                       'bibliographic' => { 'title' => 'Title' },
+                       'references'    => [
+                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
+                       ]
+                     }
+    end
+
     test "It should GET a paper including cited metadata" do
       create_paper(paper_uri)
 
@@ -92,7 +110,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
           }
     end
 
-    test "It should render a 400 if you don't provide the uri param to a GET request" do
+    test "It should render a 400 if you don't provide the uri or doi param to a GET request" do
       id = URI.encode_www_form_component(paper_uri)
       get :show
 

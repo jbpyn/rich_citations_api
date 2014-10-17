@@ -72,8 +72,11 @@ module V0
     end
 
     def paper_required
-      render(status: :bad_request, text: 'uri not provided') and return unless params[:uri].present?
-      @paper = Paper.for_uri(params[:uri])
+      unless params[:uri].present? || params[:doi].present?
+        render(status: :bad_request, text: 'neither uri nor doi provided') and return
+      end
+      uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
+      @paper = Paper.for_uri(uri)
       render(status: :not_found, text: 'Not Found') and return unless @paper
       @paper
     end
