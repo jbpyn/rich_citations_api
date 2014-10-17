@@ -57,10 +57,15 @@ module V0
 
     def show
       respond_to do |format|
+        head :ok and return if request.head?
+        include_cited = 'cited'.in?(includes)
+        format.all do
+          # pretty print if the client did not ask for JSON
+          # specifically for better display in browser
+          render json: MultiJson.dump(@paper.metadata(include_cited), pretty: true), content_type: 'application/json'
+        end
         format.json do
-          head :ok and return if request.head?
-          include_cited = 'cited'.in?(includes)
-          render  json: @paper.metadata(include_cited)
+          render json: @paper.metadata(include_cited)
         end
       end
     end

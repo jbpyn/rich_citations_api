@@ -76,6 +76,23 @@ class ::V0::PapersControllerTest < ActionController::TestCase
                      }
     end
 
+    test "It should GET a paper with */* accept" do
+      @request.headers['Accept'] = '*/*'
+      create_paper(paper_uri)
+
+      get :show, uri: paper_uri
+
+      assert_response :success
+      assert_equal    @response.content_type, Mime::JSON
+      assert_equal    @response.json,
+                     { 'uri'           => paper_uri,
+                       'bibliographic' => { 'title' => 'Title' },
+                       'references'    => [
+                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
+                       ]
+                     }
+    end
+
     test "It should GET a paper via DOI" do
       doi = '10.1/123'
       paper_uri = "http://dx.doi.org/#{URI.encode_www_form_component(doi)}"
