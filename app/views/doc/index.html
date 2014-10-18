@@ -31,7 +31,7 @@
 <pre><code>GET http://api.richcitations.org/v0/papers?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%252Fjournal.pone.0000000</code></pre>
 <p>This returns JSON describing the paper and its references:</p>
 <pre><code>{
-    &quot;id&quot;: &quot;http://dx.doi.org/10.1371%2Fjournal.pone.0000000&quot;,
+    &quot;uri&quot;: &quot;http://dx.doi.org/10.1371%2Fjournal.pone.0000000&quot;,
     &quot;word_count&quot;: 4567,
     &quot;references&quot;: { … },
     &quot;bibliographic&quot;: { … },
@@ -40,7 +40,7 @@
 <h2 id="references">References</h2>
 <p>The <code>references</code> part of the JSON is a hash with the key being the unique identifier for the paper as cited in another paper and the fields.</p>
 <pre><code>&quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;: {
-    &quot;id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;,
+    &quot;uri&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;,
     &quot;citing_id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000&quot;,
     &quot;cited_id&quot;: &quot;http://dx.doi.org/10.1234/1&quot;,
     &quot;index&quot;: 1,
@@ -79,7 +79,7 @@
 <pre><code>GET http://api.richcitations.org/v0/paper?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%2Fjournal.pone.0000000
 
 {
-    &quot;id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000&quot;,
+    &quot;uri&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000&quot;,
     &quot;word_count&quot;: 4567,
     &quot;bibliographic&quot;: {
         &quot;source&quot;: &quot;CrossRef&quot;,
@@ -104,7 +104,7 @@
     },
     &quot;references&quot;: {
         &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;: {
-            &quot;id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;,
+            &quot;uri&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;,
             &quot;citing_id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000&quot;,
             &quot;cited_id&quot;: &quot;http://dx.doi.org/10.1234/1&quot;,
             &quot;index&quot;: 1,
@@ -114,7 +114,7 @@
             &quot;citation_groups&quot;: [ (see below) ],
         },
         &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Roe1&quot;: {
-            &quot;id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Roe1&quot;,
+            &quot;uri&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Roe1&quot;,
             &quot;citing_id&quot;: &quot;http://dx.doi.org/10.1371/journal.pone.0000000&quot;,
             &quot;cited_id&quot;: &quot;http://dx.doi.org/10.1234/1&quot;,
             &quot;index&quot;: 1,
