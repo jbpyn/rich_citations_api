@@ -41,7 +41,7 @@ This returns JSON describing the paper and its references:
 
 ```
 {
-    "id": "http://dx.doi.org/10.1371%2Fjournal.pone.0000000",
+    "uri": "http://dx.doi.org/10.1371%2Fjournal.pone.0000000",
     "word_count": 4567,
     "references": { … },
     "bibliographic": { … },
@@ -57,7 +57,7 @@ fields.
 
 ```
 "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1": {
-    "id": "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1",
+    "uri": "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1",
     "citing_id": "http://dx.doi.org/10.1371/journal.pone.0000000",
     "cited_id": "http://dx.doi.org/10.1234/1",
     "index": 1,
@@ -125,7 +125,7 @@ citation groups in the `citation_groups` field.
 GET http://api.richcitations.org/v0/paper?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%2Fjournal.pone.0000000
 
 {
-    "id": "http://dx.doi.org/10.1371/journal.pone.0000000",
+    "uri": "http://dx.doi.org/10.1371/journal.pone.0000000",
     "word_count": 4567,
     "bibliographic": {
         "source": "CrossRef",
@@ -150,7 +150,7 @@ GET http://api.richcitations.org/v0/paper?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%
     },
     "references": {
         "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1": {
-            "id": "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1",
+            "uri": "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1",
             "citing_id": "http://dx.doi.org/10.1371/journal.pone.0000000",
             "cited_id": "http://dx.doi.org/10.1234/1",
             "index": 1,
@@ -160,7 +160,7 @@ GET http://api.richcitations.org/v0/paper?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%
             "citation_groups": [ (see below) ],
         },
         "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Roe1": {
-            "id": "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Roe1",
+            "uri": "http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Roe1",
             "citing_id": "http://dx.doi.org/10.1371/journal.pone.0000000",
             "cited_id": "http://dx.doi.org/10.1234/1",
             "index": 1,
