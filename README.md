@@ -1,5 +1,6 @@
 Rich Citations API
 ==================
+Live version: http://api.richcitations.org/
 
 (c) 2014 PLOS Labs
 
