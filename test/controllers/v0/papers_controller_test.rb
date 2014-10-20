@@ -67,13 +67,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json,
-                     { 'uri'           => paper_uri,
-                       'bibliographic' => { 'title' => 'Title' },
-                       'references'    => [
-                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
-                       ]
-                     }
+      assert_equal    @response.json, metadata(paper_uri)
     end
 
     test "It should GET a paper with */* accept" do
@@ -84,13 +78,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json,
-                     { 'uri'           => paper_uri,
-                       'bibliographic' => { 'title' => 'Title' },
-                       'references'    => [
-                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
-                       ]
-                     }
+      assert_equal    @response.json, metadata(paper_uri)
     end
 
     test "It should GET a paper via DOI" do
@@ -102,13 +90,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json,
-                     { 'uri'           => paper_uri,
-                       'bibliographic' => { 'title' => 'Title' },
-                       'references'    => [
-                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
-                       ]
-                     }
+      assert_equal    @response.json, metadata(paper_uri)
     end
 
     test "It should GET a paper including cited metadata" do
@@ -118,13 +100,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json,
-          { 'uri'           => paper_uri,
-            'bibliographic' => { 'title' => 'Title' },
-            'references'    => [
-                { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title' => 'Title'}, 'number' => 1, 'accessed_at' => '2012-04-23T18:25:43.511Z' }
-            ]
-          }
+      assert_equal    @response.json, metadata(paper_uri)
     end
 
     test "It should render a 400 if you don't provide the uri or doi param to a GET request" do
