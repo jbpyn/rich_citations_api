@@ -62,10 +62,10 @@ module V0
         format.all do
           # pretty print if the client did not ask for JSON
           # specifically for better display in browser
-          render json: MultiJson.dump(@paper.metadata(include_cited), pretty: true), content_type: 'application/json'
+          render json: MultiJson.dump(@paper.metadata(true), pretty: true), content_type: 'application/json'
         end
         format.json do
-          render json: @paper.metadata(include_cited)
+          render json: @paper.metadata(true)
         end
       end
     end
