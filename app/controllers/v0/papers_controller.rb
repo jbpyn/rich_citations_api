@@ -20,7 +20,6 @@
 
 module V0
   class PapersController < ::ApiController
-
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
@@ -63,6 +62,18 @@ module V0
           # pretty print if the client did not ask for JSON
           # specifically for better display in browser
           render json: MultiJson.dump(@paper.metadata(true), pretty: true), content_type: 'application/json'
+        end
+        format.csv do
+          @mentions = []
+          mention_counter = {}
+          @paper.citation_groups.each do |group|
+            group.references.each do |ref|
+              mention_counter[ref.ref_id] ||= 0
+              @mentions.push(count: mention_counter[ref.ref_id] += 1, group: group, reference: ref)
+            end
+          end
+          headers['Content-Disposition'] = "attachment; filename=rich_citations.csv"
+          render content_type: 'text/csv'
         end
         format.json do
           render json: @paper.metadata(true)
