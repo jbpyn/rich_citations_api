@@ -34,14 +34,14 @@ return CSV.generate(force_quotes: true) do |csv|
   # @mentions will contain :count (the count of the mention of the
   # reference), :reference and :group
   @mentions.each do |mention|
-    ref, group = mention[:reference], mention[:group]
+    ref, group, paper = mention[:reference], mention[:group], mention[:paper]
     ref_id = ref.ref_id
     bibliographic = ref.bibliographic
     authors = bibliographic['author'] || []
     issn = bibliographic['ISSN']
     issn = issn.join(', ') if issn.is_a? Array
     mention_id = "#{ref_id}-#{mention[:count]}"
-    csv << [@paper.uri,
+    csv << [paper.uri,
             mention_id,
             group.group_id,
             group.word_position,
