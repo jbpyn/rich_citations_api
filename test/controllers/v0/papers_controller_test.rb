@@ -129,6 +129,14 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_equal    @response.content_type, Mime::JSON
       assert_equal    @response.json, metadata(paper_uri)
     end
+    
+    test 'It should GET random papers' do
+      get :show, random: 10, include: 'cited'
+      assert_response :success
+      assert_equal Mime::JSON, @response.content_type
+      assert_equal({ 'papers' => [papers(:a).metadata(true)] },
+                   @response.json)
+    end
 
     test 'It should output CSV if requested' do
       p = Paper.new

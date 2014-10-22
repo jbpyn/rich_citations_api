@@ -61,40 +61,55 @@ module V0
         format.all do
           # pretty print if the client did not ask for JSON
           # specifically for better display in browser
-          render json: MultiJson.dump(@paper.metadata(true), pretty: true), content_type: 'application/json'
+          render json: MultiJson.dump(get_json(true), pretty: true), content_type: 'application/json'
+        end
+        format.json do
+          render json: get_json(true)
         end
         format.csv do
           @mentions = []
           mention_counter = {}
-          @paper.citation_groups.each do |group|
-            group.references.each do |ref|
-              mention_counter[ref.ref_id] ||= 0
-              @mentions.push(count: mention_counter[ref.ref_id] += 1, group: group, reference: ref)
+          (@papers || [@paper]).each do |paper|
+            paper.citation_groups.each do |group|
+              group.references.each do |ref|
+                mention_counter[ref.ref_id] ||= 0
+                @mentions.push(paper: paper, count: mention_counter[ref.ref_id] += 1, group: group, reference: ref)
+              end
             end
           end
           headers['Content-Disposition'] = "attachment; filename=rich_citations.csv"
           render content_type: 'text/csv'
-        end
-        format.json do
-          render json: @paper.metadata(true)
         end
       end
     end
 
     private
 
+    def get_json(include_cited)
+      if @papers
+        {'papers' => @papers.map {|paper| paper.metadata(include_cited)} }
+      else
+        @paper.metadata(include_cited)
+      end
+    end
+    
     def includes
       params[:include] ? params[:include].split(',') : []
     end
 
     def paper_required
-      unless params[:uri].present? || params[:doi].present?
+      unless params[:uri].present? || params[:doi].present? || params[:random].present?
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end
       uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
-      @paper = Paper.for_uri(uri)
-      render(status: :not_found, text: 'Not Found') and return unless @paper
-      @paper
+      if params[:random]
+        max = params[:random].to_i
+        max = 100 if (max > 100)
+        @papers = Reference.all.group(:citing_paper_id).shuffle[0..max].map(&:citing_paper)
+      else
+        @paper = Paper.for_uri(uri)
+        render(status: :not_found, text: 'Not Found') and return unless @paper
+      end
     end
 
     def uploaded_metadata
