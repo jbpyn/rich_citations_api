@@ -152,6 +152,40 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 ", @response.body
     end
 
+    test 'It should output JSONP if requested' do
+      p = Paper.new
+      p.assign_metadata(metadata_with_group(paper_uri))
+      p.save!
+
+      get :show, uri: paper_uri, format: 'js'
+
+      assert_response :success
+      assert_equal 'text/javascript', @response.content_type
+      assert_equal "jsonpCallback({\"uri\":\"http://example.com/a\",\"bibliographic\":{\"title\":\"Title\"}," +
+                       "\"references\":[{\"number\":1,\"uri\":\"http://example.com/c1\",\"id\":\"ref.1\",\"accessed_at\":\"2012-04-23T18:25:43.511Z\"" +
+                       ",\"citation_groups\":[\"group-1\"],\"bibliographic\":{\"title\":\"Title\"}}],\"citation_groups\":[{\"id\":\"group-1\"," +
+                       "\"section\":\"First\",\"context\":{\"truncated_before\":false,\"text_before\":\"Lorem ipsum\"," +
+                       "\"citation\":\"[1]\",\"text_after\":\"dolor\",\"truncated_after\":true},\"references\":[\"ref.1\"]}]});",
+                   @response.body
+    end
+
+    test 'It should accept a callback name for JSONP' do
+      p = Paper.new
+      p.assign_metadata(metadata_with_group(paper_uri))
+      p.save!
+
+      get :show, uri: paper_uri, callback:'myCallbackName', format: 'js'
+
+      assert_response :success
+      assert_equal 'text/javascript', @response.content_type
+      assert_equal "myCallbackName({\"uri\":\"http://example.com/a\",\"bibliographic\":{\"title\":\"Title\"}," +
+                       "\"references\":[{\"number\":1,\"uri\":\"http://example.com/c1\",\"id\":\"ref.1\",\"accessed_at\":\"2012-04-23T18:25:43.511Z\"" +
+                       ",\"citation_groups\":[\"group-1\"],\"bibliographic\":{\"title\":\"Title\"}}],\"citation_groups\":[{\"id\":\"group-1\"," +
+                       "\"section\":\"First\",\"context\":{\"truncated_before\":false,\"text_before\":\"Lorem ipsum\"," +
+                       "\"citation\":\"[1]\",\"text_after\":\"dolor\",\"truncated_after\":true},\"references\":[\"ref.1\"]}]});",
+                   @response.body
+    end
+
     test "It should render a 400 if you don't provide the uri or doi param to a GET request" do
       id = URI.encode_www_form_component(paper_uri)
       get :show
