@@ -5,6 +5,8 @@ in scientific articles and stores this information in a centralized
 database. This alpha API allows you to access and scrape the Rich
 Citations database.
 
+[Project Code Repository](https://github.com/ploslabs/rich_citations_api)
+
 ## Terminology
 For the definitions below, assume that you are reading a paper A, that contains in-text citations and references to other papers, including paper B.
 
