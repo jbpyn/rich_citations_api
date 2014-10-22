@@ -138,9 +138,9 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, uri: paper_uri, format: 'csv'
 
       assert_response :success
-      assert_equal    'text/csv', @response.content_type
-      assert_equal    "citing_paper_uri,citation_id,reference_id,reference_number,original_reference,citation_group_id,cited_paper_uri,cited_paper_uri_source,word_position,section,type,title,journal,author_count,author1,author2,author3,author4,author5,author_string
-http://example.com/a,ref.1_1,ref.1,1,,group-1,http://example.com/c1,,,First,,Title,,0,,,,,,\"\"
+      assert_equal 'text/csv', @response.content_type
+      assert_equal "citing_paper_uri,mention_id,citation_group_id,citation_group_word_position,citation_group_section,reference_number,reference_id,reference_mention_count,reference_uri,reference_uri_source,reference_type,reference_title,reference_journal,reference_issn,reference_author_count,reference_author1,reference_author2,reference_author3,reference_author4,reference_author5,reference_author_string,reference_original_text
+http://example.com/a,ref.1-1,group-1,,First,1,ref.1,1,http://example.com/c1,,,Title,,,0,,,,,,\"\",
 ", @response.body
     end
 

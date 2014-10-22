@@ -9,25 +9,27 @@ end
 
 return CSV.generate do |csv|
   csv << %w(citing_paper_uri
-            citation_id
-            reference_id
-            reference_number
-            original_reference
+            mention_id
             citation_group_id
-            cited_paper_uri
-            cited_paper_uri_source
-            word_position
-            section
-            type
-            title
-            journal
-            author_count
-            author1
-            author2
-            author3
-            author4
-            author5
-            author_string)
+            citation_group_word_position
+            citation_group_section
+            reference_number
+            reference_id
+            reference_mention_count
+            reference_uri
+            reference_uri_source
+            reference_type
+            reference_title
+            reference_journal
+            reference_issn
+            reference_author_count
+            reference_author1
+            reference_author2
+            reference_author3
+            reference_author4
+            reference_author5
+            reference_author_string
+            reference_original_text)
 
   # @mentions will contain :count (the count of the mention of the
   # reference), :reference and :group
@@ -36,26 +38,30 @@ return CSV.generate do |csv|
     ref_id = ref.ref_id
     bibliographic = ref.bibliographic
     authors = bibliographic['author'] || []
-    citation_id = "#{ref_id}_#{mention[:count]}"
+    issn = bibliographic['ISSN']
+    issn = issn.join(', ') if issn.is_a? Array
+    mention_id = "#{ref_id}-#{mention[:count]}"
     csv << [@paper.uri,
-            citation_id,
-            ref_id,
-            ref.number,
-            ref.original_citation,
+            mention_id,
             group.group_id,
-            ref.uri,
-            ref.uri_source,
             group.word_position,
             group.section,
+            ref.number,
+            ref_id,
+            ref.citation_groups.size,
+            ref.uri,
+            ref.uri_source,
             bibliographic['type'],
             bibliographic['title'],
             bibliographic['container-title'],
+            issn,
             authors.size,
             format_author(authors[0]),
             format_author(authors[1]),
             format_author(authors[2]),
             format_author(authors[3]),
             format_author(authors[4]),
-            authors.map {|a| format_author(a) }.join('; ')]
+            authors.map {|a| format_author(a) }.join('; '),
+            ref.original_citation]
   end
 end
