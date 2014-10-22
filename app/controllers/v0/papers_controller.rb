@@ -104,7 +104,7 @@ module V0
       uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
       if params[:random]
         max = params[:random].to_i
-        max = 100 if (max > 100)
+        max = 100 if (max > 100 && authenticated_user.blank?)
         @papers = Reference.all.group(:citing_paper_id).shuffle[0..max].map(&:citing_paper)
       else
         @paper = Paper.for_uri(uri)
