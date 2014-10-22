@@ -26,8 +26,8 @@ class ::V0::PapersControllerTest < ActionController::TestCase
     @controller = V0::PapersController.new
   end
 
-  def metadata(paper_uri)
-    { 'uri'           => paper_uri,
+  def metadata(uri)
+    { 'uri'           => uri,
       'bibliographic' => { 'title' => 'Title' },
       'references'    => [
         { 'id' => 'ref.1',
@@ -35,6 +35,33 @@ class ::V0::PapersControllerTest < ActionController::TestCase
           'bibliographic' => {'title' => 'Title'},
           'number' => 1,
           'accessed_at' => '2012-04-23T18:25:43.511Z'
+        }
+      ]
+    }
+  end
+
+  def metadata_with_group(uri)
+    { 'uri'           => uri,
+      'bibliographic' => { 'title' => 'Title' },
+      'references'    => [
+        { 'id' => 'ref.1',
+          'uri' => 'http://example.com/c1',
+          'bibliographic' => {'title' => 'Title'},
+          'number' => 1,
+          'accessed_at' => '2012-04-23T18:25:43.511Z'
+        }
+      ],
+      'citation_groups' => [
+        { 'id' => 'group-1',
+          'context' => {
+            'text_before' => 'Lorem ipsum',
+            'truncated_before' => false,
+            'citation' => '[1]',
+            'text_after' =>'dolor',
+            'truncated_after' => true
+          },
+          'section' => 'First',
+          'references' => ['ref.1']
         }
       ]
     }
@@ -49,9 +76,9 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       @request.headers['Content-Type'] = Mime::JSON
     end
 
-    def create_paper(paper_uri)
+    def create_paper(uri)
       p = Paper.new
-      p.assign_metadata( metadata(paper_uri) )
+      p.assign_metadata( metadata(uri) )
       p.save!
     end
 
@@ -83,14 +110,14 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
     test "It should GET a paper via DOI" do
       doi = '10.1/123'
-      paper_uri = "http://dx.doi.org/#{URI.encode_www_form_component(doi)}"
-      create_paper(paper_uri)
+      doi_uri = "http://dx.doi.org/#{URI.encode_www_form_component(doi)}"
+      create_paper(doi_uri)
 
       get :show, doi: doi
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, metadata(paper_uri)
+      assert_equal    @response.json, metadata(doi_uri)
     end
 
     test "It should GET a paper including cited metadata" do
@@ -101,6 +128,20 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
       assert_equal    @response.json, metadata(paper_uri)
+    end
+
+    test 'It should output CSV if requested' do
+      p = Paper.new
+      p.assign_metadata(metadata_with_group(paper_uri))
+      p.save!
+
+      get :show, uri: paper_uri, format: 'csv'
+
+      assert_response :success
+      assert_equal    'text/csv', @response.content_type
+      assert_equal    "citing_paper_uri,citation_id,reference_id,reference_number,original_reference,citation_group_id,cited_paper_uri,cited_paper_uri_source,word_position,section,type,title,journal,author_count,author1,author2,author3,author4,author5,author_string
+http://example.com/a,ref.1_1,ref.1,1,,group-1,http://example.com/c1,,,First,,Title,,0,,,,,,\"\"
+", @response.body
     end
 
     test "It should render a 400 if you don't provide the uri or doi param to a GET request" do
