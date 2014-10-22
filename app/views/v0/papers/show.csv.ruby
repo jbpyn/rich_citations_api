@@ -10,8 +10,11 @@ return CSV.generate do |csv|
   csv << %w(citing_paper_uri
             citation_id
             reference_id
+            reference_number
+            original_reference
             citation_group_id
             cited_paper_uri
+            cited_paper_uri_source
             word_position
             section
             type
@@ -33,8 +36,16 @@ return CSV.generate do |csv|
     bibliographic = ref.bibliographic
     authors = bibliographic['author'] || []
     citation_id = "#{ref_id}_#{mention[:count]}"
-    csv << [@paper.uri, citation_id, ref_id, group.group_id, ref.uri,
-            group.word_position, group.section,
+    csv << [@paper.uri,
+            citation_id,
+            ref_id,
+            ref.number,
+            ref.original_citation,
+            group.group_id,
+            ref.uri,
+            ref.uri_source,
+            group.word_position,
+            group.section,
             bibliographic['type'],
             bibliographic['title'],
             bibliographic['container-title'],

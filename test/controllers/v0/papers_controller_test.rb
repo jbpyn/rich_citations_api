@@ -138,10 +138,10 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, uri: paper_uri, format: 'csv'
 
       assert_response :success
-      assert_equal    @response.content_type, 'text/csv'
-      assert_equal    @response.body, "citing_paper_uri,citation_id,reference_id,citation_group_id,cited_paper_uri,word_position,section,type,title,journal,author_count,author1,author2,author3,author4,author5,author_string
-http://example.com/a,ref.1_1,ref.1,group-1,http://example.com/c1,,First,,Title,,0,,,,,,\"\"
-"
+      assert_equal    'text/csv', @response.content_type
+      assert_equal    "citing_paper_uri,citation_id,reference_id,reference_number,original_reference,citation_group_id,cited_paper_uri,cited_paper_uri_source,word_position,section,type,title,journal,author_count,author1,author2,author3,author4,author5,author_string
+http://example.com/a,ref.1_1,ref.1,1,,group-1,http://example.com/c1,,,First,,Title,,0,,,,,,\"\"
+", @response.body
     end
 
     test "It should render a 400 if you don't provide the uri or doi param to a GET request" do
