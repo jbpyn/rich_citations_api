@@ -20,6 +20,8 @@
 
 module V0
   class PapersController < ::ApiController
+    include ActionController::Live
+
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
@@ -67,18 +69,22 @@ module V0
           render json: get_json(true)
         end
         format.csv do
-          @mentions = []
           mention_counter = {}
-          (@papers || [@paper]).each do |paper|
-            paper.citation_groups.each do |group|
-              group.references.each do |ref|
-                mention_counter[ref.ref_id] ||= 0
-                @mentions.push(paper: paper, count: mention_counter[ref.ref_id] += 1, group: group, reference: ref)
+          headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
+          headers['Content-Type'] = 'text/csv'
+          streamer = Renderer::CsvStreamer.new(response.stream)
+          begin
+            (@papers || [@paper]).each do |paper|
+              paper.citation_groups.each do |group|
+                group.references.each do |ref|
+                  mention_counter[ref.ref_id] ||= 0
+                  streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
+                end
               end
             end
+          ensure
+            streamer.close
           end
-          headers['Content-Disposition'] = "attachment; filename=rich_citations.csv"
-          render content_type: 'text/csv'
         end
       end
     end
