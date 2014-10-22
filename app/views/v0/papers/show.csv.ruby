@@ -7,7 +7,7 @@ def format_author(a)
   "#{a['family']}, #{a['given']}"
 end
 
-return CSV.generate do |csv|
+return CSV.generate(force_quotes: true) do |csv|
   csv << %w(citing_paper_uri
             mention_id
             citation_group_id
