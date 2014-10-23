@@ -57,17 +57,28 @@ module V0
     end
 
     def show
+      head :ok and return if request.head?
+      include_cited = true # 'cited'.in?(includes)
+
       respond_to do |format|
-        head :ok and return if request.head?
-        include_cited = 'cited'.in?(includes)
+
         format.all do
           # pretty print if the client did not ask for JSON
           # specifically for better display in browser
-          render json: MultiJson.dump(get_json(true), pretty: true), content_type: 'application/json'
+          render json: MultiJson.dump(get_json(include_cited), pretty: true), content_type: 'application/json'
         end
+
         format.json do
-          render json: get_json(true)
+          render json: get_json(include_cited)
         end
+
+        format.js do
+          callback = params[:callback] || 'jsonpCallback'
+          json     = MultiJson.dump(get_json(include_cited))
+          jsonp    = "#{callback}(#{json});"
+          render text: jsonp
+        end
+
         format.csv do
           mention_counter = {}
           headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
@@ -108,6 +119,7 @@ module V0
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end
       uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
+
       if params[:random]
         max = params[:random].to_i
         max = 100 if (max > 100 && authenticated_user.blank?)
@@ -131,5 +143,6 @@ module V0
         render(status: :unprocessable_entity, text: msg)
       end
     end
+
   end
 end
