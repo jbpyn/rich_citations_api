@@ -51,6 +51,9 @@ This returns JSON describing the paper and its references:
 }
 ```
 
+You can also request JSONP with the same protocol. In this case an optional 'callback' parameter is accepted which defaults to 'jsonpCallback'
+
+
 ## References
 
 The `references` part of the JSON is a hash with the key being the
