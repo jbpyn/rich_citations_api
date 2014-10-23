@@ -152,6 +152,16 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 ", @response.body
     end
 
+    test 'It should output CSV Citegraph fields if requested' do
+      get :show, format: 'csv', fields: 'citegraph'
+      assert_response :success
+      assert_equal 'text/csv', @response.content_type
+      assert_equal "\"citing_paper_uri\",\"reference_uri\"
+\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/2\"
+\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/3\"
+", @response.body.to_s
+    end
+    
     test 'It should output JSONP if requested' do
       p = Paper.new
       p.assign_metadata(metadata_with_group(paper_uri))
