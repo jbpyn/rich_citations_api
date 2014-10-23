@@ -2,9 +2,9 @@ require 'csv'
 
 module Renderer
   class CsvStreamer < ::Renderer::Base
-    def initialize(io, options={force_quotes: true})
+    def initialize(io)
       @io = io
-      @options = options
+      @options = { force_quotes: true }
       headers = %w(citing_paper_uri
                    mention_id
                    citation_group_id
