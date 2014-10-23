@@ -80,21 +80,34 @@ module V0
         end
 
         format.csv do
-          mention_counter = {}
           headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
-          headers['Content-Type'] = 'text/csv'
-          streamer = Renderer::CsvStreamer.new(response.stream)
-          begin
-            (@papers || [@paper]).each do |paper|
-              paper.citation_groups.each do |group|
-                group.references.each do |ref|
-                  mention_counter[ref.ref_id] ||= 0
-                  streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
+          headers['Content-Type'] = Mime::CSV.to_s
+          if params[:fields] == 'citegraph'
+            streamer = Renderer::CsvCitegraphStreamer.new(response.stream)
+            begin
+              Reference.all.joins('LEFT OUTER JOIN "papers" "cited_papers" ON "cited_papers"."id"  = "references"."cited_paper_id"').
+                joins('LEFT OUTER JOIN papers "citing_papers" ON  "citing_papers"."id" = "references"."citing_paper_id"').
+                pluck('citing_papers.uri', 'cited_papers.uri').each do |d|
+                streamer.write_line(d[0], d[1])
+              end
+            ensure
+              streamer.close
+            end
+          else
+            mention_counter = {}
+            streamer = Renderer::CsvStreamer.new(response.stream)
+            begin
+              (@papers || [@paper]).each do |paper|
+                paper.citation_groups.each do |group|
+                  group.references.each do |ref|
+                    mention_counter[ref.ref_id] ||= 0
+                    streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
+                  end
                 end
               end
+            ensure
+              streamer.close
             end
-          ensure
-            streamer.close
           end
         end
       end
@@ -115,6 +128,9 @@ module V0
     end
 
     def paper_required
+      # very special
+      return true if params[:format] == 'csv' && params[:fields] == 'citegraph'
+      
       unless params[:uri].present? || params[:doi].present? || params[:random].present?
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end
