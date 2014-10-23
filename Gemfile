@@ -12,6 +12,7 @@ gem 'oj'
 gem 'acts_as_list'
 gem 'json-schema'
 gem 'rails-html-sanitizer'
+gem 'postgresql_cursor'
 gem 'postrank-uri'
 
 group :production do

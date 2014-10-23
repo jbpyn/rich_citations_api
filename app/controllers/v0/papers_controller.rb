@@ -85,10 +85,18 @@ module V0
           if params[:fields] == 'citegraph'
             streamer = Renderer::CsvCitegraphStreamer.new(response.stream)
             begin
-              Reference.all.joins('LEFT OUTER JOIN "papers" "cited_papers" ON "cited_papers"."id"  = "references"."cited_paper_id"').
-                joins('LEFT OUTER JOIN papers "citing_papers" ON  "citing_papers"."id" = "references"."citing_paper_id"').
-                pluck('citing_papers.uri', 'cited_papers.uri').each do |d|
-                streamer.write_line(d[0], d[1])
+              q = Reference
+                  .joins('LEFT OUTER JOIN "papers" "cited_papers"  ON "cited_papers"."id"  = "references"."cited_paper_id"')
+                  .joins('LEFT OUTER JOIN "papers" "citing_papers" ON "citing_papers"."id" = "references"."citing_paper_id"')
+              if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
+                # use postgres_cursor
+                q.select('citing_papers.uri as citing', 'cited_papers.uri as cited').each_row do |d|
+                  streamer.write_line(d['citing'], d['cited'])
+                end
+              else
+                q.pluck('citing_papers.uri', 'cited_papers.uri').each do |d|
+                  streamer.write_line(d[0], d[1])
+                end
               end
             ensure
               streamer.close

@@ -65,6 +65,8 @@ GEM
       mini_portile (= 0.6.0)
     oj (2.10.2)
     pg (0.17.1)
+    postgresql_cursor (0.5.1)
+      activerecord (>= 3.2.0)
     postrank-uri (1.0.18)
       addressable (~> 2.3.0)
       nokogiri (~> 1.6.1)
@@ -135,6 +137,7 @@ DEPENDENCIES
   multi_json
   oj
   pg
+  postgresql_cursor
   postrank-uri
   puma
   rails (= 4.2.0.beta1)
