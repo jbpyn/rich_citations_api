@@ -22,6 +22,7 @@ class ApiController < ::ApplicationController
 
   # protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token # Allow JSONP requests
+  before_filter      :add_cors_headers!
 
   protected
 
@@ -49,6 +50,18 @@ class ApiController < ::ApplicationController
   end
 
   private
+
+  def add_cors_headers!
+    if request.headers['Origin']
+      # logger.debug("CORS header detected from #{request.headers['Origin']}")
+
+      response.headers['Access-Control-Allow-Origin']      = request.headers['Origin']
+      response.headers['Access-Control-Allow-Methods']     = 'POST, PUT, DELETE, GET, OPTIONS, HEAD'
+      response.headers['Access-Control-Allow-Headers']     = request.headers['Access-Control-Request-Headers']
+      response.headers['Access-Control-Allow-Credentials'] = 'true'
+      response.headers['Access-Control-Max-Age']           = 14*24*60*60 #Cache the access control for 14 days
+    end
+  end
 
   def get_api_key
     if request.headers['Authorization'] && request.headers['Authorization'].start_with?('api-key ')

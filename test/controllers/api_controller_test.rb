@@ -102,4 +102,31 @@ class ApiControllerTest < ActionController::TestCase
     end
   end
 
+  test "It should return no CORS headers by default" do
+    with_mock_routes do
+      get :no_authentication
+
+      assert_nil @response.headers['Access-Control-Allow-Origin']
+      assert_nil @response.headers['Access-Control-Allow-Methods']
+      assert_nil @response.headers['Access-Control-Allow-Headers']
+      assert_nil @response.headers['Access-Control-Allow-Credentials']
+      assert_nil @response.headers['Access-Control-Max-Age']
+    end
+  end
+
+  test "It should return CORS headers if an Origin header is supplied" do
+    with_mock_routes do
+      @request.headers['Origin'] = 'http://www.from.com'
+      @request.headers['Access-Control-Request-Headers'] = 'header1, header2'
+
+      get :no_authentication
+
+      assert_equal 'http://www.from.com', @response.headers['Access-Control-Allow-Origin']
+      assert_not_nil                      @response.headers['Access-Control-Allow-Methods']
+      assert_equal 'header1, header2',    @response.headers['Access-Control-Allow-Headers']
+      assert_equal 'true',                @response.headers['Access-Control-Allow-Credentials']
+      assert_equal 14*24*60*60,           @response.headers['Access-Control-Max-Age']
+    end
+  end
+
 end
