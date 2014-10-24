@@ -103,9 +103,20 @@ module V0
             mention_counter = {}
             streamer = Renderer::CsvStreamer.new(response.stream)
             begin
-              (@papers || [@paper]).each do |paper|
+              papers = if @paper_ids
+                         Paper.where(id: @paper_ids).includes(citation_groups:
+                                                                { citation_group_references:
+                                                                    { reference: :cited_paper } })
+                       else
+                         [@paper]
+                       end
+              papers.each do |paper|
                 paper.citation_groups.each do |group|
-                  group.references.each do |ref|
+                  group.citation_group_references.each do |cgr|
+                    # iterating over .references instead of
+                    #   citation_group_references increases the
+                    #   database hits
+                    ref = cgr.reference
                     mention_counter[ref.ref_id] ||= 0
                     streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
                   end
@@ -122,8 +133,8 @@ module V0
     private
 
     def get_json(include_cited)
-      if @papers
-        {'papers' => @papers.map {|paper| paper.metadata(include_cited)} }
+      if @paper_ids
+        { 'papers' => Paper.where(id: @paper_ids).map { |paper| paper.metadata(include_cited) } }
       else
         @paper.metadata(include_cited)
       end
@@ -145,7 +156,8 @@ module V0
       if params[:random]
         max = params[:random].to_i
         max = 100 if (max > 100 && authenticated_user.blank?)
-        @papers = Reference.all.select(:citing_paper_id).reorder('').group(:citing_paper_id).shuffle[0..max].map(&:citing_paper)
+        @paper_ids = Reference.all.select(:citing_paper_id).reorder('').group(:citing_paper_id)
+                     .shuffle[0..(max - 1)].map(&:citing_paper_id)
       else
         @paper = Paper.for_uri(uri)
         render(status: :not_found, text: 'Not Found') and return unless @paper
