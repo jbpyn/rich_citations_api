@@ -39,6 +39,13 @@ class Paper < Base
     uri
   end
   
+  # counter cache only updates when using create, force it other times
+  def update_mention_counts
+    self.references.each do |ref|
+      ref.update_mention_count
+    end
+  end
+  
   def self.for_uri(uri)
     where(uri:uri).first
   end
@@ -101,6 +108,7 @@ class Paper < Base
   def update_metadata(metadata, updating_user)
     return false unless assign_metadata(metadata)
     saved = self.save
+    self.update_mention_counts
     AuditLogEntry.create(paper:self, user:updating_user) if saved
     saved
   end

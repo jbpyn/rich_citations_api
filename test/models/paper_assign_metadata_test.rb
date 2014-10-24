@@ -125,7 +125,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   
   test "it should create Citation Groups" do
     p = Paper.new
-    p.assign_metadata(
+    p.update_metadata({
             'uri' => 'http://example.com/a',
             'bibliographic' => {},
             'references' => [
@@ -135,7 +135,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
             'citation_groups' => [
                 { 'id' => 'group-1', 'context' => DUMMY_CONTEXT, 'section' => 'First',  'references' => ['ref.1','ref.2'] },
                 { 'id' => 'group-2', 'context' => DUMMY_CONTEXT, 'section' => 'Second', 'references' => ['ref.2'] }
-            ])
+            ]}, nil)
 
     assert_equal p.citation_groups.size, 2
     assert_equal p.citation_groups[0].group_id, 'group-1'
@@ -145,6 +145,11 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal p.citation_groups[0].text_before, DUMMY_CONTEXT['text_before']
     assert_equal p.citation_groups[0].text_after, DUMMY_CONTEXT['text_after']
     assert_equal p.citation_groups[0].citation, DUMMY_CONTEXT['citation']
+    assert_equal p.references[0], p.citation_groups[0].references[0]
+    assert_equal p.references[1], p.citation_groups[0].references[1]
+    assert_equal p.references[1], p.citation_groups[1].references[0]
+    assert_equal 1, p.references[0].mention_count
+    assert_equal 2, p.references[1].mention_count
   end
 
   test "it should not create anything if it there is an error in a Citation Group" do

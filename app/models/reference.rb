@@ -25,11 +25,11 @@ class Reference < Base
   belongs_to :citing_paper, class: Paper, inverse_of: :references
 
   has_many   :citation_group_references, -> { order(:position) },
+             counter_cache: 'mention_count',
              inverse_of: :reference, dependent: :destroy
   has_many   :citation_groups, -> { order('citation_groups.position') },
              through: :citation_group_references, class: CitationGroup,
              inverse_of: :references
-
 
   # validations
   validates  :citing_paper, presence:true
@@ -37,6 +37,11 @@ class Reference < Base
   validates  :number,       presence:true, uniqueness: {scope: :citing_paper}
   validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}, uri:true
   validates  :ref_id,       presence:true, uniqueness: {scope: :citing_paper}
+
+  def update_mention_count
+    self.mention_count = citation_group_references.count
+    self.save!
+  end
 
   default_scope -> { order(:number) }
 
