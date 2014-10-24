@@ -146,6 +146,8 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, uri: paper_uri, format: 'csv'
 
       assert_response :success
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
       assert_equal 'text/csv', @response.content_type
       assert_equal "\"citing_paper_uri\",\"mention_id\",\"citation_group_id\",\"citation_group_word_position\",\"citation_group_section\",\"reference_number\",\"reference_id\",\"reference_mention_count\",\"reference_uri\",\"reference_uri_source\",\"reference_type\",\"reference_title\",\"reference_journal\",\"reference_issn\",\"reference_author_count\",\"reference_author1\",\"reference_author2\",\"reference_author3\",\"reference_author4\",\"reference_author5\",\"reference_author_string\",\"reference_original_text\"
 \"http://example.com/a\",\"ref.1-1\",\"group-1\",\"\",\"First\",\"1\",\"ref.1\",\"1\",\"http://example.com/c1\",\"\",\"\",\"Title\",\"\",\"\",\"0\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
@@ -155,6 +157,8 @@ class ::V0::PapersControllerTest < ActionController::TestCase
     test 'It should output CSV Citegraph fields if requested' do
       get :show, format: 'csv', fields: 'citegraph'
       assert_response :success
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
       assert_equal 'text/csv', @response.content_type
       assert_equal "\"citing_paper_uri\",\"reference_uri\"
 \"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/2\"
