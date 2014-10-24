@@ -157,7 +157,7 @@ module V0
         max = params[:random].to_i
         max = 100 if (max > 100 && authenticated_user.blank?)
         @paper_ids = Reference.all.select(:citing_paper_id).reorder('').group(:citing_paper_id)
-                     .shuffle[0..(max - 1)].map(&:citing_paper_id)
+                     .order('random()').limit(100).map(&:citing_paper_id)
       else
         @paper = Paper.for_uri(uri)
         render(status: :not_found, text: 'Not Found') and return unless @paper
