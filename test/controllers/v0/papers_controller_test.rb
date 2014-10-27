@@ -140,8 +140,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
     test 'It should output CSV if requested' do
       p = Paper.new
-      p.assign_metadata(metadata_with_group(paper_uri))
-      p.save!
+      p.update_metadata(metadata_with_group(paper_uri), nil)
 
       get :show, uri: paper_uri, format: 'csv'
 
