@@ -174,9 +174,9 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       # is there a better way to ensure that a streaming response has finished?
       sleep(1)
       assert_equal 'text/csv', @response.content_type
-      assert_equal "\"citing_paper_uri\",\"reference_uri\"
-\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/2\"
-\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/3\"
+      assert_equal "\"citing_paper_uri\",\"reference_uri\",\"mention_count\"
+\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/2\",\"1\"
+\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/3\",\"2\"
 ", @response.body.to_s
     end
     
