@@ -118,9 +118,9 @@ module V0
               if @paper_ids
                 @paper_ids.each do |paper_id|
                   dump_paper.call(Paper.where(id: paper_id)
-                                   .includes(citation_groups:
-                                               { citation_group_references:
-                                                   { reference: :cited_paper } }))
+                          .includes(citation_groups:
+                                      { citation_group_references:
+                                          { reference: :cited_paper } }).first)
                 end
               else
                 dump_paper.call(@paper)
