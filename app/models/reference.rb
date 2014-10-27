@@ -39,8 +39,7 @@ class Reference < Base
   validates  :ref_id,       presence:true, uniqueness: {scope: :citing_paper}
 
   def update_mention_count
-    self.mention_count = citation_group_references.count
-    self.save!
+    update_column('mention_count', citation_group_references.count)
   end
 
   default_scope -> { order(:number) }
