@@ -44,7 +44,7 @@ module Renderer
                                    group.section,
                                    ref.number,
                                    ref_id,
-                                   ref.citation_groups.size,
+                                   ref.mention_count,
                                    ref.uri,
                                    ref.uri_source,
                                    bibliographic['type'],
