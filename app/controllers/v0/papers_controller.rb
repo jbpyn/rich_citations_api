@@ -103,14 +103,7 @@ module V0
             mention_counter = {}
             streamer = Renderer::CsvStreamer.new(response.stream)
             begin
-              papers = if @paper_ids
-                         Paper.where(id: @paper_ids).includes(citation_groups:
-                                                                { citation_group_references:
-                                                                    { reference: :cited_paper } })
-                       else
-                         [@paper]
-                       end
-              papers.each do |paper|
+              dump_paper = lambda do |paper|
                 paper.citation_groups.each do |group|
                   group.citation_group_references.each do |cgr|
                     # iterating over .references instead of
@@ -121,6 +114,16 @@ module V0
                     streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
                   end
                 end
+              end
+              if @paper_ids
+                @paper_ids.each do |paper_id|
+                  dump_paper.call(Paper.where(id: paper_id)
+                                   .includes(citation_groups:
+                                               { citation_group_references:
+                                                   { reference: :cited_paper } }))
+                end
+              else
+                dump_paper.call(@paper)
               end
             ensure
               streamer.close
