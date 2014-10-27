@@ -21,7 +21,7 @@
 class Paper < Base
 
   # relationships
-  has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper
+  has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper, counter_cache: 'references_count'
   has_many :referenced_by,  foreign_key: :cited_paper_id,   class: Reference, inverse_of: :cited_paper
   has_many :cited_papers,   through:     :references,       class: Paper,     inverse_of:  :citing_papers
   has_many :citing_papers,  through:     :referenced_by,    class: Paper,     inverse_of:  :cited_papers
@@ -40,6 +40,12 @@ class Paper < Base
   end
 
   after_save :update_mention_counts
+  after_save :update_references_count
+
+  def update_references_count
+    # cannot seem to get counter_cache to work without this
+    update_column('references_count', references.count)
+  end
   
   # counter cache only updates when using create, force it other times
   def update_mention_counts

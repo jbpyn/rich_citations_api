@@ -65,7 +65,19 @@ class PaperTest < ActiveSupport::TestCase
 
     assert_equal(a.cited_papers(true), [b, c])
   end
+  
+  test 'should update references_count' do
+    a = Paper.new(uri: "http://example.org/a")
+    b = Paper.new(uri: "http://example.org/b")
+    c = Paper.new(uri: "http://example.org/c")
+    a.references += [new_reference(number: 0, cited_paper: b),
+                     new_reference(number: 1, cited_paper: c)]
+    a.save
+    a.reload
+    assert_equal(a.references_count, 2)
+  end
 
+  
   test 'should have a list of audit log entries' do
     u = User.new(full_name:'Smith, Just call me Smith')
     p = Paper.new(uri: "http://example.org/a")
