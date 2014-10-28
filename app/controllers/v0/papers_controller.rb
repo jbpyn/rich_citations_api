@@ -65,11 +65,11 @@ module V0
         format.all do
           # pretty print if the client did not ask for JSON
           # specifically for better display in browser
-          render json: MultiJson.dump(get_json(include_cited), pretty: true), content_type: 'application/json'
+          render text: MultiJson.dump(get_json(include_cited), pretty: true), content_type: Mime::JSON
         end
 
         format.json do
-          render json: get_json(include_cited)
+          render text: MultiJson.dump(get_json(include_cited), pretty: params[:pretty].present?), content_type: Mime::JSON
         end
 
         format.js do

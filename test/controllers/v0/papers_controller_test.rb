@@ -115,6 +115,15 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_equal    @response.json, papers(:paper_a).metadata(true)
     end
     
+    test 'it should pretty print JSON when asked' do
+      get :show, uri: papers(:paper_a).uri, pretty: 't'
+
+      assert_response :success
+      assert_equal Mime::JSON, @response.content_type
+      assert_equal MultiJson.dump(papers(:paper_a).metadata(true), pretty: true),
+                   @response.body
+    end
+
     test 'It should GET random papers' do
       get :show, random: 10, include: 'cited'
       assert_response :success
