@@ -1,0 +1,12 @@
+cg_a_1:
+  id: 1
+  truncated_before: false
+  truncated_after: false
+  text_before: 'foo'
+  text_after: 'bar'
+  citation: 'baz'
+  word_position: 11
+  section: 'Introduction'
+  citing_paper_id: 1
+  position: 1
+  group_id: 'a_1'

@@ -96,7 +96,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not update a cited paper if there is an error in a Reference" do
-    cited = papers(:a)
+    cited = papers(:paper_a)
     paper = Paper.new
     paper.assign_metadata('references' => [
                 { 'id' => 'ref.1', 'uri' => cited.uri, 'bibliographic' => {'title'=>'1'} },
@@ -167,7 +167,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should not update a cited paper if there is an error in a Citation Group" do
-    cited = papers(:a)
+    cited = papers(:paper_a)
     paper = Paper.new
     paper.assign_metadata(
             'references' => [

@@ -1,0 +1,11 @@
+cgr_a_1_1:
+  id: 1
+  citation_group_id: 1
+  reference_id: 1
+  position: 1
+
+cgr_a_1_2:
+  id: 2
+  citation_group_id: 1
+  reference_id: 2
+  position: 2

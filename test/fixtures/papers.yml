@@ -1,24 +1,36 @@
-a:
-  uri: 'http://dx.doi.org%2F10.1234/1'
+paper_a:
+  id: 1
+  uri: 'http://dx.doi.org/10.1234%2F1'
   bibliographic: '{}'
+  references_count: 2
 
-b:
-  uri: 'http://dx.doi.org%2F10.1234/2'
+paper_b:
+  id: 2
+  uri: 'http://dx.doi.org/10.1234%2F2'
   bibliographic: '{}'
+  references_count: 0
 
-c:
-  uri: 'http://dx.doi.org%2F10.1234/3'
+paper_c:
+  id: 3
+  uri: 'http://dx.doi.org/10.1234%2F3'
   bibliographic: '{}'
+  references_count: 0
 
-d:
-  uri: 'http://dx.doi.org%2F10.1234/4'
+paper_d:
+  id: 4
+  uri: 'http://dx.doi.org/10.1234%2F4'
   bibliographic: '{}'
+  references_count: 0
 
-e:
-  uri: 'http://dx.doi.org%2F10.1234/5'
+paper_e:
+  id: 5
+  uri: 'http://dx.doi.org/10.1234%2F5'
   bibliographic: '{}'
+  references_count: 0
 
-f:
-  uri: 'http://dx.doi.org%2F10.1234/6'
+paper_f:
+  id: 6
+  uri: 'http://dx.doi.org/10.1234%2F6'
   bibliographic: '{}'
+  references_count: 0
   

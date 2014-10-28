@@ -21,7 +21,6 @@
 require 'test_helper'
 
 class ::V0::PapersControllerTest < ActionController::TestCase
-
   def setup
     @controller = V0::PapersController.new
   end
@@ -76,96 +75,80 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       @request.headers['Content-Type'] = Mime::JSON
     end
 
-    def create_paper(uri)
-      p = Paper.new
-      p.assign_metadata( metadata(uri) )
-      p.save!
-    end
-
     test "It should not authenticate the user" do
       @controller.expects(:authentication_required!).never
       get :show, id:'123'
     end
 
     test "It should GET a paper" do
-      create_paper(paper_uri)
-
-      get :show, uri: paper_uri
+      get :show, uri: papers(:paper_a).uri
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, metadata(paper_uri)
+      assert_equal    @response.json, papers(:paper_a).metadata(true)
     end
 
     test "It should GET a paper with */* accept" do
       @request.headers['Accept'] = '*/*'
-      create_paper(paper_uri)
-
-      get :show, uri: paper_uri
+      get :show, uri: papers(:paper_a).uri
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, metadata(paper_uri)
+      assert_equal    @response.json, papers(:paper_a).metadata(true)
     end
 
     test "It should GET a paper via DOI" do
-      doi = '10.1/123'
-      doi_uri = "http://dx.doi.org/#{URI.encode_www_form_component(doi)}"
-      create_paper(doi_uri)
+      doi = '10.1234/1'
 
       get :show, doi: doi
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, metadata(doi_uri)
+      assert_equal    @response.json, papers(:paper_a).metadata(true)
     end
 
     test "It should GET a paper including cited metadata" do
-      create_paper(paper_uri)
-
-      get :show, uri: paper_uri, include: 'cited'
+      get :show, uri: papers(:paper_a).uri, include: 'cited'
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, metadata(paper_uri)
+      assert_equal    @response.json, papers(:paper_a).metadata(true)
     end
     
     test 'It should GET random papers' do
       get :show, random: 10, include: 'cited'
       assert_response :success
       assert_equal Mime::JSON, @response.content_type
-      assert_equal({ 'papers' => [papers(:a).metadata(true)] },
+      assert_equal({ 'papers' => [papers(:paper_a).metadata(true)] },
                    @response.json)
     end
 
     test 'It should output CSV if requested' do
-      p = Paper.new
-      p.update_metadata(metadata_with_group(paper_uri), nil)
-      
-      get :show, uri: paper_uri, format: 'csv'
-        
-      assert_response :success
+      csv_resp = <<'EOS'
+"citing_paper_uri","mention_id","citation_group_id","citation_group_word_position","citation_group_section","reference_number","reference_id","reference_mention_count","reference_uri","reference_uri_source","reference_type","reference_title","reference_journal","reference_issn","reference_author_count","reference_author1","reference_author2","reference_author3","reference_author4","reference_author5","reference_author_string","reference_original_text"
+"http://dx.doi.org/10.1234%2F1","ref-1-1","a_1","11","Introduction","1","ref-1","1","uri://foo","","","","","","0","","","","","","",""
+"http://dx.doi.org/10.1234%2F1","ref-2-1","a_1","11","Introduction","2","ref-2","2","uri://bar","","","","","","0","","","","","","",""
+EOS
+      get :show, uri: papers(:paper_a).uri, format: 'csv'
       # is there a better way to ensure that a streaming response has finished?
       sleep(1)
+      assert_response :success
       assert_equal 'text/csv', @response.content_type
-      assert_equal "\"citing_paper_uri\",\"mention_id\",\"citation_group_id\",\"citation_group_word_position\",\"citation_group_section\",\"reference_number\",\"reference_id\",\"reference_mention_count\",\"reference_uri\",\"reference_uri_source\",\"reference_type\",\"reference_title\",\"reference_journal\",\"reference_issn\",\"reference_author_count\",\"reference_author1\",\"reference_author2\",\"reference_author3\",\"reference_author4\",\"reference_author5\",\"reference_author_string\",\"reference_original_text\"
-\"http://example.com/a\",\"ref.1-1\",\"group-1\",\"\",\"First\",\"1\",\"ref.1\",\"1\",\"http://example.com/c1\",\"\",\"\",\"Title\",\"\",\"\",\"0\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
-", @response.body
+      assert_equal csv_resp, @response.body
     end
 
     test 'it should dump random CSV' do
-      assert_nothing_raised do
-      p = Paper.new
-      p.update_metadata(metadata_with_group(paper_uri), nil)
-
+      csv_resp = <<-'EOS'
+"citing_paper_uri","mention_id","citation_group_id","citation_group_word_position","citation_group_section","reference_number","reference_id","reference_mention_count","reference_uri","reference_uri_source","reference_type","reference_title","reference_journal","reference_issn","reference_author_count","reference_author1","reference_author2","reference_author3","reference_author4","reference_author5","reference_author_string","reference_original_text"
+"http://dx.doi.org/10.1234%2F1","ref-1-1","a_1","11","Introduction","1","ref-1","1","uri://foo","","","","","","0","","","","","","",""
+"http://dx.doi.org/10.1234%2F1","ref-2-1","a_1","11","Introduction","2","ref-2","2","uri://bar","","","","","","0","","","","","","",""
+EOS
       get :show, random: 10, format: 'csv'
-
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
       assert_response :success
       assert_equal Mime::CSV, @response.content_type
-      assert_equal "\"citing_paper_uri\",\"mention_id\",\"citation_group_id\",\"citation_group_word_position\",\"citation_group_section\",\"reference_number\",\"reference_id\",\"reference_mention_count\",\"reference_uri\",\"reference_uri_source\",\"reference_type\",\"reference_title\",\"reference_journal\",\"reference_issn\",\"reference_author_count\",\"reference_author1\",\"reference_author2\",\"reference_author3\",\"reference_author4\",\"reference_author5\",\"reference_author_string\",\"reference_original_text\"
-\"http://example.com/a\",\"ref.1-1\",\"group-1\",\"\",\"First\",\"1\",\"ref.1\",\"1\",\"http://example.com/c1\",\"\",\"\",\"Title\",\"\",\"\",\"0\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
-", @response.body
-      end
+      assert_equal csv_resp, @response.body
     end
     
     test 'It should output CSV Citegraph fields if requested' do
@@ -175,55 +158,38 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       sleep(1)
       assert_equal 'text/csv', @response.content_type
       assert_equal "\"citing_paper_uri\",\"reference_uri\",\"mention_count\"
-\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/2\",\"1\"
-\"http://dx.doi.org%2F10.1234/1\",\"http://dx.doi.org%2F10.1234/3\",\"2\"
+\"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F2\",\"1\"
+\"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F3\",\"2\"
 ", @response.body.to_s
     end
     
     test 'It should output JSONP if requested' do
-      p = Paper.new
-      p.assign_metadata(metadata_with_group(paper_uri))
-      p.save!
-
-      get :show, uri: paper_uri, format: 'js'
+      get :show, uri: papers(:paper_a).uri, format: 'js'
 
       assert_response :success
       assert_equal 'text/javascript', @response.content_type
-      assert_equal "jsonpCallback({\"uri\":\"http://example.com/a\",\"bibliographic\":{\"title\":\"Title\"}," +
-                       "\"references\":[{\"number\":1,\"uri\":\"http://example.com/c1\",\"id\":\"ref.1\",\"accessed_at\":\"2012-04-23T18:25:43.511Z\"" +
-                       ",\"citation_groups\":[\"group-1\"],\"bibliographic\":{\"title\":\"Title\"}}],\"citation_groups\":[{\"id\":\"group-1\"," +
-                       "\"section\":\"First\",\"context\":{\"truncated_before\":false,\"text_before\":\"Lorem ipsum\"," +
-                       "\"citation\":\"[1]\",\"text_after\":\"dolor\",\"truncated_after\":true},\"references\":[\"ref.1\"]}]});",
+      assert_equal 'jsonpCallback({"uri":"http://dx.doi.org/10.1234%2F1","bibliographic":{},"references":[{"number":1,"uri":"uri://foo","id":"ref-1","citation_groups":["a_1"],"bibliographic":{}},{"number":2,"uri":"uri://bar","id":"ref-2","citation_groups":["a_1"],"bibliographic":{}}],"citation_groups":[{"id":"a_1","word_position":11,"section":"Introduction","context":{"truncated_before":false,"text_before":"foo","citation":"baz","text_after":"bar","truncated_after":false},"references":["ref-1","ref-2"]}]});',
                    @response.body
     end
 
     test 'It should accept a callback name for JSONP' do
-      p = Paper.new
-      p.assign_metadata(metadata_with_group(paper_uri))
-      p.save!
-
-      get :show, uri: paper_uri, callback:'myCallbackName', format: 'js'
+      get :show, uri: papers(:paper_a).uri, callback:'myCallbackName', format: 'js'
 
       assert_response :success
       assert_equal 'text/javascript', @response.content_type
-      assert_equal "myCallbackName({\"uri\":\"http://example.com/a\",\"bibliographic\":{\"title\":\"Title\"}," +
-                       "\"references\":[{\"number\":1,\"uri\":\"http://example.com/c1\",\"id\":\"ref.1\",\"accessed_at\":\"2012-04-23T18:25:43.511Z\"" +
-                       ",\"citation_groups\":[\"group-1\"],\"bibliographic\":{\"title\":\"Title\"}}],\"citation_groups\":[{\"id\":\"group-1\"," +
-                       "\"section\":\"First\",\"context\":{\"truncated_before\":false,\"text_before\":\"Lorem ipsum\"," +
-                       "\"citation\":\"[1]\",\"text_after\":\"dolor\",\"truncated_after\":true},\"references\":[\"ref.1\"]}]});",
+      assert_equal 'myCallbackName({"uri":"http://dx.doi.org/10.1234%2F1","bibliographic":{},"references":[{"number":1,"uri":"uri://foo","id":"ref-1","citation_groups":["a_1"],"bibliographic":{}},{"number":2,"uri":"uri://bar","id":"ref-2","citation_groups":["a_1"],"bibliographic":{}}],"citation_groups":[{"id":"a_1","word_position":11,"section":"Introduction","context":{"truncated_before":false,"text_before":"foo","citation":"baz","text_after":"bar","truncated_after":false},"references":["ref-1","ref-2"]}]});',
                    @response.body
     end
 
     test "It should render a 400 if you don't provide the uri or doi param to a GET request" do
-      id = URI.encode_www_form_component(paper_uri)
+      id = URI.encode_www_form_component(papers(:paper_a).uri)
       get :show
 
       assert_response :bad_request
     end
 
     test "It should render a 404 if you GET a paper that doesn't exist" do
-      uri = URI.encode_www_form_component(paper_uri)
-      get :show, uri:uri
+      get :show, uri: 'http://example.org/NOSUCHPAPER'
 
       assert_response :not_found
     end

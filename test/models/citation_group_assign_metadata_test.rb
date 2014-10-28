@@ -59,9 +59,9 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test 'it should work with missing truncate' do
-    r1 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:e), ref_id:'ref-1', number: 1, uri:'uri://1')
-    r2 = Reference.new(citing_paper: papers(:d), cited_paper: papers(:f), ref_id:'ref-2', number: 2, uri:'uri://2')
-    g = CitationGroup.new(citing_paper: papers(:a), references: [r1, r2])
+    r1 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_e), ref_id:'ref-1', number: 1, uri:'uri://1')
+    r2 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_f), ref_id:'ref-2', number: 2, uri:'uri://2')
+    g = CitationGroup.new(citing_paper: papers(:paper_a), references: [r1, r2])
     g.assign_metadata('id'              => 'group-1',
                       'context' => {
                         'text_before'      => 'text before',
@@ -76,7 +76,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
   end
   
   test "it should assign references" do
-    p = papers(:a)
+    p = papers(:paper_a)
     g = CitationGroup.new(citing_paper:p)
     g.assign_metadata('references'      => ['ref-2', 'ref-1'])
 
@@ -86,7 +86,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should round-trip the metadata" do
-    p = papers(:a)
+    p = papers(:paper_a)
     g = CitationGroup.new(citing_paper:p)
 
     metadata = { 'id'              => 'group-1',
@@ -106,7 +106,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should raise an exception if a reference does not exist" do
-    p = papers(:a)
+    p = papers(:paper_a)
     g = CitationGroup.new(citing_paper:p)
 
     assert_raises(RuntimeError) {
