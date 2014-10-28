@@ -159,8 +159,7 @@ module V0
       if params[:random]
         max = params[:random].to_i
         max = 100 if max > 100 && authenticated_user.blank?
-        @paper_ids = Paper.where('"papers"."id" IN (SELECT DISTINCT "citing_paper_id" from "references")')
-                     .select('id').shuffle[0..(max - 1)].map(&:id)
+        @paper_ids = Paper.where('references_count > 0').select('id').reorder('random()').limit(max).map(&:id)
       else
         @paper = Paper.for_uri(uri)
         render(status: :not_found, text: 'Not Found') and return unless @paper
