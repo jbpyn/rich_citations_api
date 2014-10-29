@@ -239,11 +239,6 @@ EOS
       assert_equal('show', route[:action])
       assert_equal('v0/papers', route[:controller])
       assert_equal(paper_uri, Rack::Utils.parse_nested_query(URI.parse(response.headers['Location']).query)['uri'])
-                   
-      @request.headers['Accept'] = Mime::JSON
-      get :show, uri: paper_uri
-      assert_response :success
-      assert_equal @response.content_type, Mime::JSON
     end
 
     test "It should create an audit log entry" do
