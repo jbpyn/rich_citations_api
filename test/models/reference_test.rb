@@ -85,7 +85,7 @@ class ReferenceTest < ActiveSupport::TestCase
     p  = Paper.new(uri: 'http://example.org/a')
     c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p)
 
-    assert_equal(c1.metadata, {
+    assert_equal(c1.to_json, {
                                   'uri'        => 'http://example.org/3',
                                   'id'         => 'ref.3',
                                   'number'     => 3
@@ -96,7 +96,7 @@ class ReferenceTest < ActiveSupport::TestCase
     p  = Paper.new(uri: 'http://example.org/a')
     c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p)
 
-    assert_equal(c1.metadata(true), {
+    assert_equal(c1.to_json(true), {
                                        'uri'           => 'http://example.org/3',
                                        'id'            => 'ref.3',
                                        'number'        => 3,

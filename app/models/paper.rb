@@ -123,13 +123,13 @@ class Paper < Base
   def references_metadata(include_cited_papers=false)
     return nil if references.empty?
 
-    references.map { |r| r.metadata(include_cited_papers) }
+    references.map { |r| r.to_json(include_cited_papers) }
   end
 
   def citation_groups_metadata
     return nil if citation_groups.empty?
 
-    citation_groups.map { |g| g.metadata }
+    citation_groups.map { |g| g.to_json }
   end
 
   def create_references_from_metadata(metadata)

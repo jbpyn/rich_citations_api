@@ -113,7 +113,7 @@ class PaperTest < ActiveSupport::TestCase
     p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'})
     p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'})
 
-    assert_equal(p.metadata, {
+    assert_equal(p.to_json, {
                                  'uri'           => 'http://example.org/a',
                                  'bibliographic' => {'title' => 'Citing 1' },
                                  'word_count'    => 101,
@@ -131,7 +131,7 @@ class PaperTest < ActiveSupport::TestCase
     p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'})
     p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'})
 
-    assert_equal(p.metadata(true), {
+    assert_equal(p.to_json(true), {
                                  'uri'           => 'http://example.org/a',
                                  'bibliographic' => {'title' => 'Citing 1' },
                                  'references'    => [

@@ -102,7 +102,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
                  'section'         => 'Introduction' }
 
     g.assign_metadata(metadata)
-    assert_equal metadata, g.metadata
+    assert_equal metadata, g.to_json
   end
 
   test "it should raise an exception if a reference does not exist" do

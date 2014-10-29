@@ -203,7 +203,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     r.assign_metadata(metadata)
     r.citation_groups << [ CitationGroup.new(group_id:'group-2'), CitationGroup.new(group_id:'group-1') ]
 
-    assert_equal(r.metadata(true), metadata)
+    assert_equal(r.to_json(true), metadata)
   end
 
   test "it should raise an exception if the cited paper does not exist and no bibliographic data is provided" do
