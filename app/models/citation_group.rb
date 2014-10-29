@@ -32,42 +32,11 @@ class CitationGroup < Base
 
   acts_as_list scope: :citing_paper
 
-  def metadata
-    { 'id'              => group_id,
-      'word_position'   => word_position,
-      'section'         => section,
-      'context' => {
-        'truncated_before' => truncated_before,
-        'text_before'      => text_before,
-        'citation'         => citation,
-        'text_after'       => text_after,
-        'truncated_after'  => truncated_after
-      }.compact,
-      'references'      => references.map(&:ref_id).presence
-    }.compact
+  def to_json
+    ::Serializer::CitationGroup.to_json(self)
   end
 
-  alias to_json metadata
-
-  def assign_metadata(metadata)
-    metadata = metadata.dup
-    group_id = metadata.delete('id')
-    context = (metadata.delete('context') || {}).dup
-    reference_ids = metadata.delete('references')
-    reference_ids && reference_ids.each do |ref_id|
-      reference = citing_paper.reference_for_id(ref_id)
-      raise "Reference #{ref_id.inspect} not found in citation group #{group_id.inspect}" unless reference
-      self.references << reference
-    end
-
-    self.group_id         = group_id
-    self.truncated_before = context.delete('truncated_before') || false
-    self.text_before      = sanitize_html( context.delete('text_before') )
-    self.citation         = sanitize_html( context.delete('citation') )
-    self.text_after       = sanitize_html( context.delete('text_after') )
-    self.truncated_after  = context.delete('truncated_after') || false
-    self.word_position    = metadata.delete('word_position')
-    self.section          = metadata.delete('section')
+  def assign_metadata(json)
+    ::Serializer::CitationGroup.set_from_json(json, self)
   end
-
 end
