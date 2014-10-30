@@ -1,6 +1,6 @@
 require 'csv'
-module Renderer
-  class CsvCitegraphStreamer < ::Renderer::Base
+module Serializer
+  class CsvCitegraphStreamer
     def initialize(io)
       @io = io
       @options = { force_quotes: true }

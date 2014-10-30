@@ -83,7 +83,7 @@ module V0
           headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
           headers['Content-Type'] = Mime::CSV.to_s
           if params[:fields] == 'citegraph'
-            streamer = Renderer::CsvCitegraphStreamer.new(response.stream)
+            streamer = Serializer::CsvCitegraphStreamer.new(response.stream)
             begin
               q = Reference
                   .joins('LEFT OUTER JOIN "papers" "cited_papers"  ON "cited_papers"."id"  = "references"."cited_paper_id"')
@@ -101,7 +101,7 @@ module V0
             end
           else
             mention_counter = {}
-            streamer = Renderer::CsvStreamer.new(response.stream)
+            streamer = Serializer::CsvStreamer.new(response.stream)
             begin
               dump_paper = lambda do |paper|
                 paper.citation_groups.each do |group|

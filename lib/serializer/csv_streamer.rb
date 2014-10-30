@@ -1,7 +1,7 @@
 require 'csv'
 
-module Renderer
-  class CsvStreamer < ::Renderer::Base
+module Serializer
+  class CsvStreamer
     def initialize(io)
       @io = io
       @options = { force_quotes: true }
@@ -52,12 +52,12 @@ module Renderer
                                    bibliographic['container-title'],
                                    issn,
                                    authors.size,
-                                   format_author(authors[0]),
-                                   format_author(authors[1]),
-                                   format_author(authors[2]),
-                                   format_author(authors[3]),
-                                   format_author(authors[4]),
-                                   authors.map {|a| format_author(a) }.join('; '),
+                                   Helper.format_author(authors[0]),
+                                   Helper.format_author(authors[1]),
+                                   Helper.format_author(authors[2]),
+                                   Helper.format_author(authors[3]),
+                                   Helper.format_author(authors[4]),
+                                   authors.map {|a| Helper.format_author(a) }.join('; '),
                                    ref.original_citation], @options))
     end
 

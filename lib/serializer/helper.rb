@@ -21,6 +21,12 @@
 module Serializer
   # Generic helper methods for Serializer mixins
   class Helper
+    def self.format_author(a)
+      return nil if a.nil?
+      return a['literal'] if a['literal'].present?
+      "#{a['family']}, #{a['given']}"
+    end
+
     def self.normalize_uri(uri)
       return uri unless uri.match(/^http/)
       u = PostRank::URI.parse(uri)
