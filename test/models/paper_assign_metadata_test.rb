@@ -31,13 +31,14 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should assign metadata to a paper" do
     p = Paper.new
-    p.assign_metadata('uri'           => 'http://example.com/a',
+    uri = mk_random_uri
+    p.assign_metadata('uri'           => uri,
                       'uri_source'    => 'foo',
                       'bib_source'    => 'bar',
                       'word_count'    => 101,
                       'bibliographic' => { 'title' => 'Title' })
 
-    assert_equal p.uri,           'http://example.com/a'
+    assert_equal uri, p.uri
     assert_equal p.bibliographic, { 'title' => 'Title' }
     assert_equal p.uri_source, 'foo'
     assert_equal p.bib_source, 'bar'
@@ -47,7 +48,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should clean html attributes" do
     p = Paper.new
     p.assign_metadata(
-        'uri'           => 'http://example.com/a',
+        'uri'           => mk_random_uri,
         'bibliographic' => {
             'title'           => '<span>Title</span>',
             'container-title' => '<span>Publication</span>',
@@ -109,7 +110,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test 'it should work with references that have an accessed_at field' do
     p = Paper.new
-    p.assign_metadata('uri' => 'http://example.com/a',
+    p.assign_metadata('uri' => mk_random_uri,
                       'bibliographic' => {},
                       'references' => [
                         { 'id' => 'ref.1',
@@ -126,7 +127,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should create Citation Groups" do
     p = Paper.new
     p.update_metadata({
-            'uri' => 'http://example.com/a',
+            'uri' => mk_random_uri,
             'bibliographic' => {},
             'references' => [
                 { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} , 'number' => 1},
@@ -184,7 +185,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test "it should round trip metadata" do
-    metadata = { 'uri'           => 'http://example.com/a',
+    metadata = { 'uri'           => mk_random_uri,
                  'bibliographic' => { 'title' => 'Title' },
                  'references'    => [
                     { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'number' => 1,
@@ -206,7 +207,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p.save!
     p.reload
 
-    assert_equal(p.metadata(true), metadata)
+    assert_equal(p.to_json(include_cited: true), metadata)
   end
 
   test "it should update metadata" do

@@ -85,7 +85,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).metadata(true)
+      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
     end
 
     test "It should GET a paper with */* accept" do
@@ -94,7 +94,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).metadata(true)
+      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
     end
 
     test "It should GET a paper via DOI" do
@@ -104,7 +104,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).metadata(true)
+      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
     end
 
     test "It should GET a paper including cited metadata" do
@@ -112,7 +112,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).metadata(true)
+      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
     end
     
     test 'it should pretty print JSON when asked' do
@@ -120,7 +120,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal Mime::JSON, @response.content_type
-      assert_equal MultiJson.dump(papers(:paper_a).metadata(true), pretty: true),
+      assert_equal MultiJson.dump(papers(:paper_a).to_json(include_cited: true), pretty: true),
                    @response.body
     end
 
@@ -128,7 +128,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, random: 10, include: 'cited'
       assert_response :success
       assert_equal Mime::JSON, @response.content_type
-      assert_equal({ 'papers' => [papers(:paper_a).metadata(true)] },
+      assert_equal({ 'papers' => [papers(:paper_a).to_json(include_cited: true)] },
                    @response.json)
     end
 
@@ -247,7 +247,7 @@ EOS
 
       post :create, metadata(paper_uri).to_json
 
-      paper = Paper.for_uri(paper_uri)
+      paper = Paper.find_by(uri: paper_uri)
       assert_equal paper.audit_log_entries.count, 1
       assert_equal user.audit_log_entries.count,  1
       assert_equal AuditLogEntry.count, 1
@@ -261,14 +261,14 @@ EOS
       data.delete('uri')
       post :create, data.to_json
 
-      paper = Paper.for_uri(paper_uri)
+      paper = Paper.find_by(uri: paper_uri)
       assert_equal user.audit_log_entries.count,  0
       assert_equal AuditLogEntry.count, 0
     end
 
     test "It should create the paper's records" do
       post :create, metadata(paper_uri).to_json
-      paper = Paper.for_uri(paper_uri)
+      paper = Paper.find_by(uri: paper_uri)
       assert_not_nil paper
       assert_equal   paper.references.length, 1
       assert Paper.exists?(uri:'http://example.com/c1')

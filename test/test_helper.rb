@@ -42,6 +42,10 @@ class ActiveSupport::TestCase
     result.save! if save
     result
   end
+
+  def mk_random_uri
+    "urn:uuid:#{SecureRandom.uuid}"
+  end
 end
 
 class ActionController::TestResponse

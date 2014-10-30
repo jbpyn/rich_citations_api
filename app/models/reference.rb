@@ -20,13 +20,15 @@
 
 class Reference < Base
 
+  include ::Serializer::Reference
+  
   # relationships
   belongs_to :cited_paper,  class: Paper, inverse_of: :referenced_by, validate:true, autosave:true
   belongs_to :citing_paper, class: Paper, inverse_of: :references
 
   has_many   :citation_group_references, -> { order(:position) },
              counter_cache: 'mention_count',
-             inverse_of: :reference, dependent: :destroy
+             inverse_of: :reference, dependent: :destroy, autosave: true
   has_many   :citation_groups, -> { order('citation_groups.position') },
              through: :citation_group_references, class: CitationGroup,
              inverse_of: :references
@@ -54,73 +56,11 @@ class Reference < Base
   delegate :uri_source,
            to: :cited_paper
 
-  def metadata(include_cited_paper=false)
-    result = { 'number'            => number,
-               'uri'               => uri,
-               'uri_source'        => uri_source,
-               'id'                => ref_id,
-               'original_citation' => original_citation,
-               'accessed_at'       => accessed_at,
-               'score'             => score,
-               'citation_groups'   => citation_groups.map(&:group_id).presence
-             }
-
-    if include_cited_paper && cited_paper
-      result.merge!(
-          'bib_source'    => cited_paper.bib_source,
-          'word_count'    => cited_paper.word_count,
-          'bibliographic' => bibliographic
-      )
-    end
-
-    result.compact
-  end
-  alias to_json metadata
-
-  #@todo: This method needs to make sure that it doesn't leave orphan
-  #       Cited records when they are automatically generated (Have a random_citation_uri)
-  def assign_metadata(metadata)
-    metadata = metadata.dup
-    uri_raw  = metadata.delete('uri')
-    uri      = (uri_raw && normalize_uri(uri_raw)) || random_citation_uri
-    ref_id   = metadata.delete('id')
-
-    bibliographic   = metadata.delete('bibliographic')
-    #@todo We ignore this data for now but should really validate it against paper/citation_groups/references
-    citation_groups = metadata.delete('citation_groups')
-    cited_paper     = Paper.for_uri(uri)
-
-    unless cited_paper || bibliographic
-      raise "Cannot assign metadata unless the paper exists or bibliographic metadata is provided for #{ref_id}" #@todo
-    end
-
-    if bibliographic
-      cited_paper ||= Paper.new(uri:uri)
-      cited_paper.assign_bibliographic_metadata(bibliographic)
-    end
-
-    cited_paper.uri_source = metadata.delete('uri_source')
-    cited_paper.bib_source = metadata.delete('bib_source')
-    cited_paper.word_count = metadata.delete('word_count')
-
-    self.uri               = uri
-    self.ref_id            = ref_id
-    self.number            = metadata.delete('number')
-    self.original_citation = sanitize_html( metadata.delete('original_citation') )
-    self.accessed_at       = metadata.delete('accessed_at')
-    self.score             = metadata.delete('score')
-    self.cited_paper       = cited_paper
+  def assign_metadata(json)
+    set_from_json(json)
   end
 
   def is_random_uri?
     /^cited:/ === uri
   end
-
-  private
-
-  def random_citation_uri
-    "cited:#{SecureRandom.uuid}"
-  end
-
-
 end

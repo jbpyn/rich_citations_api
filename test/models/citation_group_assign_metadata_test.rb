@@ -33,7 +33,8 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
                         'truncated_after'  => true
                       },
                       'word_position'   => 42,
-                      'section'         => 'Introduction')
+                      'section'         => 'Introduction',
+                      'references'      => [])
 
     assert_equal g.group_id,         'group-1'
     assert_equal g.truncated_before, true
@@ -51,7 +52,8 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
                       'context' => {
                         'text_before'     => '<span>text before</span>',
                         'citation'        => '<span>t e x t</span>',
-                        'text_after'      => '<span>text after</span>'})
+                        'text_after'      => '<span>text after</span>'},
+                      'references' => [])
 
     assert_equal g.text_before,     'text before'
     assert_equal g.citation,        't e x t'
@@ -68,7 +70,8 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
                         'citation'         => 't e x t',
                         'text_after'       => 'text after',
                         'truncated_after'  => false
-                      })
+                      },
+                      'references' => [])
     g.save!
     g.reload
     assert_equal(false, g.truncated_before)
@@ -102,7 +105,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
                  'section'         => 'Introduction' }
 
     g.assign_metadata(metadata)
-    assert_equal metadata, g.metadata
+    assert_equal metadata, g.to_json
   end
 
   test "it should raise an exception if a reference does not exist" do
