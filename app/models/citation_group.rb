@@ -19,6 +19,8 @@
 # THE SOFTWARE.
 
 class CitationGroup < Base
+  include ::Serializer::CitationGroup
+
   belongs_to :citing_paper, foreign_key: :citing_paper_id, class: Paper, inverse_of: :citation_groups
   has_many   :citation_group_references, -> { order(:position) },
              inverse_of: :citation_group, dependent: :destroy
@@ -32,11 +34,7 @@ class CitationGroup < Base
 
   acts_as_list scope: :citing_paper
 
-  def to_json
-    ::Serializer::CitationGroup.to_json(self)
-  end
-
   def assign_metadata(json)
-    ::Serializer::CitationGroup.set_from_json(json, self)
+    set_from_json(json)
   end
 end

@@ -137,9 +137,9 @@ module V0
 
     def get_json(include_cited)
       if @paper_ids
-        { 'papers' => Paper.where(id: @paper_ids).map { |paper| paper.metadata(include_cited) } }
+        { 'papers' => Paper.where(id: @paper_ids).map { |paper| paper.to_json(include_cited: true) } }
       else
-        @paper.metadata(include_cited)
+        @paper.to_json(include_cited: true)
       end
     end
     
@@ -164,7 +164,7 @@ module V0
         end
         @paper_ids = all_paper_ids.shuffle[0..(max - 1)]
       else
-        @paper = Paper.for_uri(uri)
+        @paper = Paper.find_by(uri: uri)
         render(status: :not_found, text: 'Not Found') and return unless @paper
       end
     end

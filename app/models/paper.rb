@@ -31,8 +31,6 @@ class Paper < Base
   # validations
   validates :uri, presence:true, uri:true, uniqueness:true
 
-  JSON_SCHEMA = JSON.parse(File.read(File.join(Rails.root, 'schemas', 'base.json')))
-
   json_attribute :bibliographic
 
   def to_param
@@ -42,110 +40,30 @@ class Paper < Base
   after_save :update_mention_counts
   after_save :update_references_count
 
+  include ::Serializer::Paper
+
   def update_references_count
     # cannot seem to get counter_cache to work without this
     update_column('references_count', references.count)
   end
-  
+
   # counter cache only updates when using create, force it other times
   def update_mention_counts
     references.each(&:update_mention_count)
   end
-  
-  def self.for_uri(uri)
-    where(uri:uri).first
-  end
 
   def reference_for_id(ref_id)
-    references.detect{ |ref| ref.ref_id == ref_id }
+    references.find { |ref| ref.ref_id == ref_id }
   end
 
-  def metadata(include_cited_paper=false)
-    { 'uri'             => uri,
-      'bibliographic'   => bibliographic,
-      'references'      => references_metadata(include_cited_paper),
-      'uri_source'      => uri_source,
-      'bib_source'      => bib_source,
-      'word_count'      => word_count,
-      'citation_groups' => citation_groups_metadata
-    }.compact
-  end
-  alias to_json metadata
-
-  def assign_metadata(metadata)
-    return false unless JSON::Validator.validate(JSON_SCHEMA, metadata)
-
-    metadata = metadata.dup
-
-    # This is order dependent
-
-    assign_bibliographic_metadata( metadata.delete('bibliographic') )
-
-    references = metadata.delete('references')
-    create_references_from_metadata(references) if references.present?
-
-    citation_groups = metadata.delete('citation_groups')
-    create_citation_groups_from_metadata(citation_groups) if citation_groups.present?
-
-    self.uri           = normalize_uri(metadata.delete('uri'))
-    self.uri_source    = metadata.delete('uri_source')
-    self.bib_source    = metadata.delete('bib_source')
-    self.word_count    = metadata.delete('word_count')
-    true
+  def assign_metadata(json)
+    set_from_json(json)
   end
 
-  def assign_bibliographic_metadata(metadata)
-    if metadata.present?
-      metadata = metadata.dup
-
-      metadata['title']           = sanitize_html(metadata['title'] )
-      metadata['container-title'] = sanitize_html(metadata['container-title'] )
-      metadata['abstract']        = sanitize_html(metadata['abstract'])
-
-      subtitles = metadata['subtitle']
-      if subtitles.present?
-        subtitles.each_index do |i| subtitles[i] = sanitize_html(subtitles[i]) end
-      end
-    end
-
-    self.bibliographic = metadata && metadata.compact
-  end
-
-  def update_metadata(metadata, updating_user)
-    return false unless assign_metadata(metadata)
+  def update_metadata(json, updating_user)
+    return false unless assign_metadata(json)
     saved = self.save
     AuditLogEntry.create(paper:self, user:updating_user) if saved
     saved
   end
-
-  private
-
-  def references_metadata(include_cited_papers=false)
-    return nil if references.empty?
-
-    references.map { |r| r.to_json(include_cited_papers) }
-  end
-
-  def citation_groups_metadata
-    return nil if citation_groups.empty?
-
-    citation_groups.map { |g| g.to_json }
-  end
-
-  def create_references_from_metadata(metadata)
-    metadata && metadata.each do |metadata|
-      reference = Reference.new
-      references << reference
-      reference.assign_metadata(metadata)
-    end
-  end
-
-  def create_citation_groups_from_metadata(metadata)
-    metadata && metadata.each do |metadata|
-      citation_group = CitationGroup.new
-      citation_groups << citation_group
-      citation_group.assign_metadata(metadata)
-    end
-  end
-
 end

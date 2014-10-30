@@ -18,8 +18,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Base < ActiveRecord::Base
-  self.abstract_class = true
+module Serializer
+  # Generic class methods to inject into classes that mixin a
+  # Serializer Module
+  module ClassMethods
+    def new_from_json(json)
+      g = new
+      g.set_from_json(json)
+      g
+    end
 
-  extend JsonAttributes
+    def new_from_json_array(json)
+      return [] unless json.present?
+      json.map { |d| new_from_json(d) }
+    end
+  end
 end

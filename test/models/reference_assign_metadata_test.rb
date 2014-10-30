@@ -129,7 +129,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   test "it should create a cited paper if necessary" do
     citing = Paper.create!(uri:'http://example.org/citing')
 
-    p = Paper.for_uri('http://example.org/a')
+    p = Paper.find_by(uri: 'http://example.org/a')
     assert_nil(p)
 
     c = Reference.new(citing_paper:citing)
@@ -143,7 +143,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number, 2
 
-    p = Paper.for_uri('http://example.org/a')
+    p = Paper.find_by(uri: 'http://example.org/a')
     assert_equal c.cited_paper, p
     assert_equal(p.bibliographic, {'title' => 'Title'})
   end
@@ -162,7 +162,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_equal c.ref_id, 'ref.x'
     assert_equal c.number, 2
 
-    p = Paper.for_uri(c.uri)
+    p = Paper.find_by(uri: c.uri)
     assert_equal c.cited_paper, p
     assert_equal(p.bibliographic, {'title' => 'Title'})
   end
@@ -170,7 +170,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
   test "it should not create a reference or the cited paper if there are errors" do
     citing = Paper.create!(uri:'http://example.org/citing')
 
-    p = Paper.for_uri('http://example.org/a')
+    p = Paper.find_by(uri: 'http://example.org/a')
     assert_nil(p)
 
     c = Reference.new(citing_paper:citing)
@@ -181,7 +181,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
     assert_equal c.save, false
 
-    p = Paper.for_uri('http://example.org/a')
+    p = Paper.find_by(uri: 'http://example.org/a')
     assert_nil(p)
   end
 
@@ -203,11 +203,11 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     r.assign_metadata(metadata)
     r.citation_groups << [ CitationGroup.new(group_id:'group-2'), CitationGroup.new(group_id:'group-1') ]
 
-    assert_equal(r.to_json(true), metadata)
+    assert_equal(r.to_json(include_cited: true), metadata)
   end
 
   test "it should raise an exception if the cited paper does not exist and no bibliographic data is provided" do
-    p = Paper.for_uri('http://example.org/a')
+    p = Paper.find_by(uri: 'http://example.org/a')
     assert_nil(p)
 
     c = Reference.new
@@ -218,5 +218,4 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
     }
   end
-
 end

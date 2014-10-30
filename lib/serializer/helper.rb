@@ -18,8 +18,34 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-class Base < ActiveRecord::Base
-  self.abstract_class = true
+module Serializer
+  # Generic helper methods for Serializer mixins
+  class Helper
+    def self.normalize_uri(uri)
+      return uri unless uri.match(/^http/)
+      u = PostRank::URI.parse(uri)
+      u.path = u.path.squeeze('/')
+      u.query = u.query.presence
+      u.to_s
+    end
 
-  extend JsonAttributes
+    def self.sanitize_html(html)
+      if html.is_a? Array
+        html.map { |s| sanitize_html(s) }
+      else
+        html.present? ? Loofah.fragment(html).scrub!(Helper::SANITIZER).scrub!(:strip).scrub!(:nofollow).to_s.presence : nil
+      end
+    end
+
+    def self.sanitize_json_fields(json, field_list)
+      json = json.dup
+      field_list.each do |field|
+        json[field] = self.sanitize_html(json[field])
+      end
+      json
+    end
+
+    SANITIZER = Rails::Html::PermitScrubber.new
+    SANITIZER.tags = %w(a em i strong b u cite q mark abbr sub sup s wbr)
+  end
 end
