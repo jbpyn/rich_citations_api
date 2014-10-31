@@ -30,18 +30,18 @@ class JsonAttributesTest < ActiveSupport::TestCase
 
   test "it should read the attribute as JSON" do
     p = Paper.new
-    p.write_attribute('bibliographic','{ "a":1 }')
+    p[:bibliographic] = '{ "a":1 }'
     assert_equal p.bibliographic, { 'a' => 1 }
   end
 
   test "it should write the attribute as JSON" do
     p = Paper.new
     p.bibliographic = { 'a' => 1 }
-    assert_equal p.read_attribute('bibliographic'),'{ "a":1}'
+    assert_equal p.read_attribute('bibliographic'), '{"a":1}'
   end
 
   test "it should round-trip JSON" do
-    p = Paper.new('http://example.com/a')
+    p = Paper.new(uri: 'http://example.com/a')
     p.bibliographic = { 'a' => 1 }
     assert_equal p.bibliographic, { 'a' => 1 }
     p.save!
@@ -52,7 +52,7 @@ class JsonAttributesTest < ActiveSupport::TestCase
   end
 
   test "it should the attribute to nil" do
-    p = Paper.new('http://example.com/a')
+    p = Paper.new(uri: 'http://example.com/a')
     p.bibliographic = { 'a' => 1 }
     assert_equal p.bibliographic, { 'a' => 1 }
     p.save!
