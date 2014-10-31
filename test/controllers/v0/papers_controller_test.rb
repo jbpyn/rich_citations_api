@@ -146,6 +146,13 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_equal({'papers' => [{ 'uri' => 'http://dx.doi.org/10.1234%2F1' }]}, @response.json)
     end
 
+    test 'It should return all docs with uris when requested' do
+      get :show, all: 't', fields: 'uri'
+      assert_equal Mime::JSON, @response.content_type
+      assert_response :success
+      assert_equal({'papers' => [{ 'uri' => 'http://dx.doi.org/10.1234%2F1' }]}, @response.json)
+    end
+
     test 'It should output CSV if requested' do
       csv_resp = <<'EOS'
 "citing_paper_uri","mention_id","citation_group_id","citation_group_word_position","citation_group_section","reference_number","reference_id","reference_mention_count","reference_uri","reference_uri_source","reference_type","reference_title","reference_journal","reference_issn","reference_author_count","reference_author1","reference_author2","reference_author3","reference_author4","reference_author5","reference_author_string","reference_original_text"
