@@ -25,7 +25,6 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
-    before_action :clean_fields, :only => [:show]
     
     def create
       respond_to do |format|
@@ -136,28 +135,24 @@ module V0
 
     private
 
-    def clean_fields
-      @fields = if params[:fields]
-                  params[:fields].split(/,/).map(&:to_sym)
-                else
-                  nil
-                end
+    def fields
+      @fields ||= params[:fields] && params[:fields].split(/,/).map(&:to_sym)
     end
 
     def get_json(include_cited)
       if @paper_ids
         q = Paper.where(id: @paper_ids)
         # improve selection if we only need the URI
-        q = q.select('uri') if @fields == [:uri]
+        q = q.select('uri') if fields == [:uri]
         papers = q.map do |paper|
-          paper.to_json(include_cited: true, fields: @fields)
+          paper.to_json(include_cited: true, fields: fields)
         end
         { 'papers' => papers }
       else
-        @paper.to_json(include_cited: true, fields: @fields)
+        @paper.to_json(include_cited: true, fields: fields)
       end
     end
-    
+
     def includes
       params[:include] ? params[:include].split(',') : []
     end
@@ -165,7 +160,7 @@ module V0
     def paper_required
       # very special
       return true if params[:format] == 'csv' && params[:fields] == 'citegraph'
-      
+
       unless params[:uri].present? || params[:doi].present? || params[:random].present?
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end
