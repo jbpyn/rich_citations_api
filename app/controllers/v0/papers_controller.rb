@@ -146,7 +146,10 @@ module V0
 
     def get_json(include_cited)
       if @paper_ids
-        papers = Paper.where(id: @paper_ids).map do |paper|
+        q = Paper.where(id: @paper_ids)
+        # improve selection if we only need the URI
+        q = q.select('uri') if @fields == [:uri]
+        papers = q.map do |paper|
           paper.to_json(include_cited: true, fields: @fields)
         end
         { 'papers' => papers }
