@@ -26,4 +26,18 @@ class LazyFieldedJsonTest < ActiveSupport::TestCase
     t.add(:foo) { 'bar' }
     assert_equal({ foo: 'bar' }.with_indifferent_access, t.build)
   end
+
+  test 'will not call arg for unused fields' do
+    foo_called = false
+    bar_called = false
+    t = Serializer::LazyFieldedJson.new([:foo])
+    t.add(:foo) do
+      foo_called = true
+      'foo'
+    end
+    t.add(:bar) { bar_called = true }
+    assert_equal({ foo: 'foo' }.with_indifferent_access, t.build)
+    assert foo_called
+    assert_not bar_called
+  end
 end
