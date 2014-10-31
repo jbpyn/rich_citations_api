@@ -25,6 +25,7 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
+    before_action :clean_fields, :only => [:show]
     
     def create
       respond_to do |format|
@@ -135,11 +136,22 @@ module V0
 
     private
 
+    def clean_fields
+      @fields = if params[:fields]
+                  params[:fields].split(/,/).map(&:to_sym)
+                else
+                  nil
+                end
+    end
+
     def get_json(include_cited)
       if @paper_ids
-        { 'papers' => Paper.where(id: @paper_ids).map { |paper| paper.to_json(include_cited: true) } }
+        papers = Paper.where(id: @paper_ids).map do |paper|
+          paper.to_json(include_cited: true, fields: @fields)
+        end
+        { 'papers' => papers }
       else
-        @paper.to_json(include_cited: true)
+        @paper.to_json(include_cited: true, fields: @fields)
       end
     end
     

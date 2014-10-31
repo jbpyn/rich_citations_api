@@ -28,14 +28,18 @@ module Serializer
     end
 
     def to_json(opts = { include_cited: false })
-      { 'uri'             => uri,
-        'bibliographic'   => bibliographic,
-        'references'      => references.map { |r| r.to_json(opts) },
-        'uri_source'      => uri_source,
-        'bib_source'      => bib_source,
-        'word_count'      => word_count,
-        'citation_groups' => citation_groups.map { |g| g.to_json(opts) }.presence
-      }.compact
+      result = LazyFieldedJson.new(
+        opts.compact.fetch(:fields, [:uri, :bibliographic, :references,
+                                     :uri_source, :bib_source, :word_count,
+                                     :citation_groups]))
+      result.add(:uri) { uri }
+      result.add(:bibliographic) { bibliographic }
+      result.add(:references) { references.map { |r| r.to_json(opts) } }
+      result.add(:uri_source) { uri_source }
+      result.add(:bib_source) { bib_source }
+      result.add(:word_count) { word_count }
+      result.add(:citation_groups) { citation_groups.map { |g| g.to_json(opts) }.presence }
+      result.build
     end
 
     def assign_bibliographic_metadata(json)
