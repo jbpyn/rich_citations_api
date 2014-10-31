@@ -24,23 +24,23 @@ module Serializer
       base.extend ::Serializer::ClassMethods
     end
 
-    def to_json(opts = { include_cited: false })
-      retval = { 'number'            => self.number,
-                 'uri'               => self.uri,
-                 'uri_source'        => self.uri_source,
-                 'id'                => self.ref_id,
-                 'original_citation' => self.original_citation,
-                 'accessed_at'       => self.accessed_at,
-                 'score'             => self.score,
-                 'citation_groups'   => self.citation_groups.map(&:group_id).presence }
-
-      if opts[:include_cited]
-        retval.merge!(
-          'bib_source'    => self.cited_paper.bib_source,
-          'word_count'    => self.cited_paper.word_count,
-          'bibliographic' => self.bibliographic)
-      end
-      retval.compact
+    def to_json(opts = { })
+      result = LazyFieldedJson.new(
+        opts.compact.fetch(:fields, [:number, :uri, :uri_source, :id, :original_citation,
+                                     :accessed_at, :score, :citation_groups, :bib_source, :word_count, :bibliographic
+                                    ]))
+      result.add(:number) { self.number }
+      result.add(:uri) { self.uri }
+      result.add(:uri_source) { self.uri_source }
+      result.add(:id) { self.ref_id }
+      result.add(:original_citation) { self.original_citation }
+      result.add(:accessed_at) { self.accessed_at }
+      result.add(:score) { self.score }
+      result.add(:citation_groups) { self.citation_groups.map(&:group_id).presence }
+      result.add(:bib_source) { self.cited_paper.bib_source }
+      result.add(:word_count) { self.cited_paper.word_count }
+      result.add(:bibliographic) { self.bibliographic }
+      result.build
     end
 
     def set_from_json(json)

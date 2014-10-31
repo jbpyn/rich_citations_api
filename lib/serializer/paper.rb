@@ -27,11 +27,11 @@ module Serializer
       base.extend ClassMethods
     end
 
-    def to_json(opts = { include_cited: false })
+    def to_json(opts = {})
       result = LazyFieldedJson.new(
-        opts.compact.fetch(:fields, [:uri, :bibliographic, :references,
-                                     :uri_source, :bib_source, :word_count,
-                                     :citation_groups]))
+        opts.compact.fetch(:fields_paper, [:uri, :bibliographic, :references,
+                                           :uri_source, :bib_source, :word_count,
+                                           :citation_groups]))
       result.add(:uri) { uri }
       result.add(:bibliographic) { bibliographic }
       result.add(:references) { references.map { |r| r.to_json(opts) } }
