@@ -135,14 +135,28 @@ module V0
 
     private
 
+    def fields
+      @fields ||= params[:fields] && params[:fields].split(/,/).map(&:to_sym)
+    end
+
     def get_json(include_cited)
       if @paper_ids
-        { 'papers' => Paper.where(id: @paper_ids).map { |paper| paper.to_json(include_cited: true) } }
+        q = if @paper_ids == :all
+              Paper.where('references_count > 0')
+            else
+              Paper.where(id: @paper_ids)
+            end
+        # improve selection if we only need the URI
+        q = q.select('uri') if fields == [:uri]
+        papers = q.map do |paper|
+          paper.to_json(include_cited: true, fields: fields)
+        end
+        { 'papers' => papers }
       else
-        @paper.to_json(include_cited: true)
+        @paper.to_json(include_cited: true, fields: fields)
       end
     end
-    
+
     def includes
       params[:include] ? params[:include].split(',') : []
     end
@@ -150,13 +164,14 @@ module V0
     def paper_required
       # very special
       return true if params[:format] == 'csv' && params[:fields] == 'citegraph'
-      
-      unless params[:uri].present? || params[:doi].present? || params[:random].present?
+
+      unless params[:uri].present? || params[:doi].present? || params[:random].present? || params[:all].present?
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end
-      uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
 
-      if params[:random]
+      if params[:all]
+        @paper_ids = :all
+      elsif params[:random]
         max = params[:random].to_i
         max = 100 if max > 100 && authenticated_user.blank?
         all_paper_ids = Rails.cache.fetch('top_paper_ids', expire: 1.hour) do
@@ -164,6 +179,7 @@ module V0
         end
         @paper_ids = all_paper_ids.shuffle[0..(max - 1)]
       else
+        uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
         @paper = Paper.find_by(uri: uri)
         render(status: :not_found, text: 'Not Found') and return unless @paper
       end
