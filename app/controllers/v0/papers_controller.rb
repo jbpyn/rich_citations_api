@@ -25,6 +25,7 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
+    before_action :extract_fields, only: [:show]
     
     def create
       respond_to do |format|
@@ -58,23 +59,22 @@ module V0
 
     def show
       head :ok and return if request.head?
-      include_cited = true # 'cited'.in?(includes)
 
       respond_to do |format|
 
         format.all do
           # pretty print if the client did not ask for JSON
           # specifically for better display in browser
-          render text: MultiJson.dump(get_json(include_cited), pretty: true), content_type: Mime::JSON
+          render text: MultiJson.dump(get_json, pretty: true), content_type: Mime::JSON
         end
 
         format.json do
-          render text: MultiJson.dump(get_json(include_cited), pretty: params[:pretty].present?), content_type: Mime::JSON
+          render text: MultiJson.dump(get_json, pretty: params[:pretty].present?), content_type: Mime::JSON
         end
 
         format.js do
           callback = params[:callback] || 'jsonpCallback'
-          json     = MultiJson.dump(get_json(include_cited))
+          json     = MultiJson.dump(get_json)
           jsonp    = "#{callback}(#{json});"
           render text: jsonp
         end
@@ -135,11 +135,19 @@ module V0
 
     private
 
-    def fields
-      @fields ||= params[:fields] && params[:fields].split(/,/).map(&:to_sym)
+    def extract_fields
+      @fields = { paper: nil, reference: nil }
+      if params[:fields].is_a? String
+        # only top level, papers fields
+        @fields[:paper] = params[:fields].split(/,/).map(&:to_sym)
+      elsif params[:fields].is_a? Hash
+        params[:fields].each do |k, v|
+          @fields[k.to_sym] = v.split(/,/).map(&:to_sym)
+        end
+      end
     end
 
-    def get_json(include_cited)
+    def get_json
       if @paper_ids
         q = if @paper_ids == :all
               Paper.where('references_count > 0')
@@ -147,18 +155,14 @@ module V0
               Paper.where(id: @paper_ids)
             end
         # improve selection if we only need the URI
-        q = q.select('uri') if fields == [:uri]
+        q = q.select('uri') if @fields[:paper] == [:uri]
         papers = q.map do |paper|
-          paper.to_json(include_cited: true, fields: fields)
+          paper.to_json(mk_json_opts)
         end
         { 'papers' => papers }
       else
-        @paper.to_json(include_cited: true, fields: fields)
+        @paper.to_json(mk_json_opts)
       end
-    end
-
-    def includes
-      params[:include] ? params[:include].split(',') : []
     end
 
     def paper_required
@@ -199,5 +203,8 @@ module V0
       end
     end
 
+    def mk_json_opts
+      { fields_paper: @fields[:paper], fields_reference: @fields[:reference] }
+    end
   end
 end

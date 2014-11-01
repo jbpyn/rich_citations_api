@@ -81,16 +81,6 @@ class ReferenceTest < ActiveSupport::TestCase
     assert_not c.valid?
   end
 
-  test 'References should be able to return their metadata' do
-    p  = Paper.new(uri: 'http://example.org/a')
-    c1 = new_reference(number:3, bibliographic: {'title' => 'cited 1'}, citing_paper: p)
-
-    assert_equal({ 'uri'        => 'http://example.org/3',
-                   'id'         => 'ref.3',
-                   'number'     => 3
-                 }, c1.to_json)
-  end
-
   test 'References should be able to return their metadata including cited metadata' do
     p  = Paper.new(uri: 'http://example.org/a')
     c1 = new_reference(number: 3, bibliographic: { 'title' => 'cited 1' }, citing_paper: p)
@@ -99,7 +89,6 @@ class ReferenceTest < ActiveSupport::TestCase
                    'id'            => 'ref.3',
                    'number'        => 3,
                    'bibliographic' => { 'title' => 'cited 1' }
-                 }, c1.to_json(include_cited: true))
+                 }, c1.to_json)
   end
-
 end

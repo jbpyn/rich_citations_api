@@ -118,8 +118,10 @@ class PaperTest < ActiveSupport::TestCase
                    'bibliographic' => {'title' => 'Citing 1' },
                    'word_count'    => 101,
                    'references'    => [
-                     { 'uri' => 'http://example.org/0', 'number' => 0, 'id' => 'ref.0' },
-                     { 'uri' => 'http://example.org/1', 'number' => 1, 'id' => 'ref.1' }
+                     { 'uri' => 'http://example.org/0', 'number' => 0, 'id' => 'ref.0',
+                       'bibliographic' => { 'title' => 'cited 1' } },
+                     { 'uri' => 'http://example.org/1', 'number' => 1, 'id' => 'ref.1',
+                       'bibliographic' => { 'title' => 'cited 2'} }
                    ]
                  }, p.to_json)
   end
@@ -139,7 +141,7 @@ class PaperTest < ActiveSupport::TestCase
                      {"uri"=>"http://example.org/1", "number"=>1, "id"=>'ref.1',
                       "bibliographic"=>{"title"=>"cited 2"} }
                    ]
-                 }, p.to_json(include_cited: true))
+                 }, p.to_json)
   end
 
   test 'Can add citation groups to a paper' do

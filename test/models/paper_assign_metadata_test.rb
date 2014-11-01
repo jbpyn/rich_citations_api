@@ -207,7 +207,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     p.save!
     p.reload
 
-    assert_equal(p.to_json(include_cited: true), metadata)
+    assert_equal(p.to_json, metadata)
   end
 
   test "it should update metadata" do

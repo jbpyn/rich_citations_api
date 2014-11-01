@@ -85,7 +85,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
+      assert_equal    @response.json, papers(:paper_a).to_json
     end
 
     test "It should GET a paper with */* accept" do
@@ -94,7 +94,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
+      assert_equal    @response.json, papers(:paper_a).to_json
     end
 
     test "It should GET a paper via DOI" do
@@ -104,7 +104,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
+      assert_equal    @response.json, papers(:paper_a).to_json
     end
 
     test "It should GET a paper including cited metadata" do
@@ -112,7 +112,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal    @response.content_type, Mime::JSON
-      assert_equal    @response.json, papers(:paper_a).to_json(include_cited: true)
+      assert_equal    @response.json, papers(:paper_a).to_json
     end
     
     test 'it should pretty print JSON when asked' do
@@ -120,7 +120,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
       assert_response :success
       assert_equal Mime::JSON, @response.content_type
-      assert_equal MultiJson.dump(papers(:paper_a).to_json(include_cited: true), pretty: true),
+      assert_equal MultiJson.dump(papers(:paper_a).to_json, pretty: true),
                    @response.body
     end
 
@@ -128,12 +128,19 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, random: 10, include: 'cited'
       assert_response :success
       assert_equal Mime::JSON, @response.content_type
-      assert_equal({ 'papers' => [papers(:paper_a).to_json(include_cited: true)] },
+      assert_equal({ 'papers' => [papers(:paper_a).to_json] },
                    @response.json)
     end
 
     test 'It should return only uris when requested' do
       get :show, doi: '10.1234/1', fields: 'uri'
+      assert_equal Mime::JSON, @response.content_type
+      assert_response :success
+      assert_equal({ 'uri' => 'http://dx.doi.org/10.1234%2F1' }, @response.json)
+    end
+
+    test 'It should return only uris when requested with fields[paper]' do
+      get :show, doi: '10.1234/1', fields: { paper: 'uri' }
       assert_equal Mime::JSON, @response.content_type
       assert_response :success
       assert_equal({ 'uri' => 'http://dx.doi.org/10.1234%2F1' }, @response.json)
