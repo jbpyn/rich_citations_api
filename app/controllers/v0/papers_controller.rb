@@ -81,7 +81,7 @@ module V0
 
         format.csv do
           headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
-          headers['Content-Type'] = Mime::CSV
+          headers['Content-Type'] = Mime::CSV.to_s
           if params[:fields] == 'citegraph'
             streamer = Serializer::CsvCitegraphStreamer.new(response.stream)
             begin
