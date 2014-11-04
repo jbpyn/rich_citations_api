@@ -33,6 +33,16 @@ class Paper < Base
 
   json_attribute :bibliographic
 
+  # scope to preload everything in the paper
+  scope :load_all, lambda {
+    includes(citation_groups:
+               { citation_group_references:
+                   { reference: :cited_paper } })
+  }
+
+  # only papers that cite another paper
+  scope :citing, -> { where('references_count > 0') }
+
   def to_param
     uri
   end

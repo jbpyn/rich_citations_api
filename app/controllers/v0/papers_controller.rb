@@ -115,12 +115,9 @@ module V0
                   end
                 end
               end
-              if @paper_ids
-                @paper_ids.each do |paper_id|
-                  dump_paper.call(Paper.where(id: paper_id)
-                          .includes(citation_groups:
-                                      { citation_group_references:
-                                          { reference: :cited_paper } }).first)
+              if @paper_q
+                @paper_q.load_all.each do |paper|
+                  dump_paper.call(paper)
                 end
               else
                 dump_paper.call(@paper)
@@ -148,15 +145,10 @@ module V0
     end
 
     def get_json
-      if @paper_ids
-        q = if @paper_ids == :all
-              Paper.where('references_count > 0')
-            else
-              Paper.where(id: @paper_ids)
-            end
+      if @paper_q
         # improve selection if we only need the URI
-        q = q.select('uri') if @fields[:paper] == [:uri]
-        papers = q.map do |paper|
+        @paper_q = @paper_q.select('uri') if @fields[:paper] == [:uri]
+        papers = @paper_q.map do |paper|
           paper.to_json(mk_json_opts)
         end
         { 'papers' => papers }
@@ -174,14 +166,14 @@ module V0
       end
 
       if params[:all]
-        @paper_ids = :all
+        @paper_q = Paper.citing
       elsif params[:random]
         max = params[:random].to_i
         max = 100 if max > 100 && authenticated_user.blank?
         all_paper_ids = Rails.cache.fetch('top_paper_ids', expire: 1.hour) do
           Paper.where('references_count > 0').select('id').map(&:id)
         end
-        @paper_ids = all_paper_ids.shuffle[0..(max - 1)]
+        @paper_q = Paper.where(id: all_paper_ids.shuffle[0..(max - 1)])
       else
         uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
         @paper = Paper.find_by(uri: uri)
