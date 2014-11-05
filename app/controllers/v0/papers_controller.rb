@@ -102,7 +102,7 @@ module V0
             mention_counter = {}
             streamer = Serializer::CsvStreamer.new(response.stream)
             begin
-              dump_paper = lambda do |paper|
+              @paper_q.load_all.find_each do |paper|
                 paper.citation_groups.each do |group|
                   group.citation_group_references.each do |cgr|
                     # iterating over .references instead of
@@ -113,9 +113,6 @@ module V0
                     streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
                   end
                 end
-              end
-              @paper_q.load_all.find_each do |paper|
-                dump_paper.call(paper)
               end
             ensure
               streamer.close
