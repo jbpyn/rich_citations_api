@@ -21,18 +21,15 @@
 require 'csv'
 
 module Serializer
-  class CsvCitegraphStreamer
-    def initialize(io)
+  class CsvStreamerRaw
+    def initialize(io, headers)
       @io = io
       @options = { force_quotes: true }
-      headers = %w(citing_paper_uri
-                   reference_uri
-                   mention_count)
       @io.write(CSV.generate_line(headers, @options))
     end
 
-    def write_line(citing_paper_uri, reference_uri, mention_count)
-      @io.write(CSV.generate_line([citing_paper_uri, reference_uri, mention_count], @options))
+    def write_line_raw(*args)
+      @io.write(CSV.generate_line(args, @options))
     end
 
     def close

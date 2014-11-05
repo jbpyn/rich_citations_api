@@ -82,13 +82,17 @@ module V0
           headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
           headers['Content-Type'] = Mime::CSV.to_s
           if params[:fields] == 'citegraph'
-            streamer = Serializer::CsvCitegraphStreamer.new(response.stream)
+            streamer = Serializer::CsvStreamerRaw
+                       .new(response.stream,
+                            %w(citing_paper_uri
+                               reference_uri
+                               mention_count))
             begin
               q = Reference
                   .joins('LEFT OUTER JOIN "papers" "cited_papers"  ON "cited_papers"."id"  = "references"."cited_paper_id"')
                   .joins('LEFT OUTER JOIN "papers" "citing_papers" ON "citing_papers"."id" = "references"."citing_paper_id"')
                   .select('citing_papers.uri as citing', 'cited_papers.uri as cited', 'mention_count')
-              f = -> (d) { streamer.write_line(d['citing'], d['cited'], d['mention_count']) }
+              f = -> (d) { streamer.write_line_raw(d['citing'], d['cited'], d['mention_count']) }
               if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
                 # use postgres_cursor
                 q.each_row(&f)
