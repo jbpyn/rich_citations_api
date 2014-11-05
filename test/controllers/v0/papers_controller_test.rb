@@ -199,7 +199,18 @@ EOS
 \"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F3\",\"2\"
 ", @response.body.to_s
     end
-    
+
+    test 'It should output CSV with only a URI field if requested' do
+      get :show, format: 'csv', fields: 'uri', all: 't'
+      assert_response :success
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
+      assert_equal 'text/csv', @response.content_type
+      assert_equal "\"citing_paper_uri\"
+\"http://dx.doi.org/10.1234%2F1\"
+", @response.body.to_s
+    end
+
     test 'It should output JSONP if requested' do
       get :show, uri: papers(:paper_a).uri, format: 'js'
 

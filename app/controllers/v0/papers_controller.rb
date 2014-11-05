@@ -102,6 +102,15 @@ module V0
             ensure
               streamer.close
             end
+          elsif fields[:paper] == [:uri]
+            streamer = Serializer::CsvStreamerRaw.new(response.stream, %w(citing_paper_uri))
+            begin
+              @paper_q.find_each do |r|
+                streamer.write_line_raw(r.uri)
+              end
+            ensure
+              streamer.close
+            end
           else
             streamer = Serializer::CsvStreamer.new(response.stream)
             begin
@@ -170,7 +179,7 @@ module V0
       end
 
       # improve selection if we only need the URI
-      @paper_q = @paper_q.select('uri') if fields[:paper] == [:uri]
+      @paper_q = @paper_q.select('id', 'uri') if fields[:paper] == [:uri]
     end
 
     # return true if the user requested more than one paper
