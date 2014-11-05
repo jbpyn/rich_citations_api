@@ -154,9 +154,6 @@ module V0
     end
 
     def paper_required
-      # very special
-      return true if params[:format] == 'csv' && params[:fields] == 'citegraph'
-
       unless params[:uri].present? || params[:doi].present? || params[:random].present? || params[:all].present?
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end

@@ -189,7 +189,7 @@ EOS
     end
     
     test 'It should output CSV Citegraph fields if requested' do
-      get :show, format: 'csv', fields: 'citegraph'
+      get :show, format: 'csv', fields: 'citegraph', all: 't'
       assert_response :success
       # is there a better way to ensure that a streaming response has finished?
       sleep(1)
