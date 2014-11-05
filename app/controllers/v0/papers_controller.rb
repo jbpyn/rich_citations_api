@@ -115,7 +115,7 @@ module V0
                   end
                 end
               end
-              @paper_q.load_all.each do |paper|
+              @paper_q.load_all.find_each do |paper|
                 dump_paper.call(paper)
               end
             ensure
