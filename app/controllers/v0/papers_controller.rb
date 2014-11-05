@@ -103,7 +103,6 @@ module V0
               streamer.close
             end
           else
-            mention_counter = {}
             streamer = Serializer::CsvStreamer.new(response.stream)
             begin
               @paper_q.load_all.find_each do |paper|
@@ -112,9 +111,7 @@ module V0
                     # iterating over .references instead of
                     #   citation_group_references increases the
                     #   database hits
-                    ref = cgr.reference
-                    mention_counter[ref.ref_id] ||= 0
-                    streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
+                    streamer.write_line(paper, group, cgr.reference)
                   end
                 end
               end

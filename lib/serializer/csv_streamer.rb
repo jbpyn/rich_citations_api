@@ -23,6 +23,7 @@ require 'csv'
 module Serializer
   class CsvStreamer < CsvStreamerRaw
     def initialize(io)
+      @mention_counter = {}
       super(io,
             %w(citing_paper_uri
                mention_id
@@ -48,12 +49,14 @@ module Serializer
                reference_original_text))
     end
 
-    def write_line(paper, group, ref, count)
+    def write_line(paper, group, ref)
       ref_id = ref.ref_id
       bibliographic = ref.bibliographic
       authors = bibliographic['author'] || []
       issn = bibliographic['ISSN']
       issn = issn.join(', ') if issn.is_a? Array
+      @mention_counter[ref_id] ||= 0
+      count = @mention_counter[ref.ref_id] += 1
       mention_id = "#{ref_id}-#{count}"
       write_line_raw(paper.uri,
                      mention_id,
