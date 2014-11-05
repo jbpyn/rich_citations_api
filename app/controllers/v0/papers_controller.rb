@@ -115,12 +115,8 @@ module V0
                   end
                 end
               end
-              if @paper_q
-                @paper_q.load_all.each do |paper|
-                  dump_paper.call(paper)
-                end
-              else
-                dump_paper.call(@paper)
+              @paper_q.load_all.each do |paper|
+                dump_paper.call(paper)
               end
             ensure
               streamer.close
@@ -145,15 +141,15 @@ module V0
     end
 
     def get_json
-      if @paper_q
-        # improve selection if we only need the URI
-        @paper_q = @paper_q.select('uri') if @fields[:paper] == [:uri]
-        papers = @paper_q.map do |paper|
-          paper.to_json(mk_json_opts)
-        end
-        { 'papers' => papers }
+      # improve selection if we only need the URI
+      q = @paper_q
+      q = q.select('uri') if @fields[:paper] == [:uri]
+      opts = mk_json_opts
+      retval = q.map { |p| p.to_json(opts) }
+      if plural_query
+        { 'papers' => retval }
       else
-        @paper.to_json(mk_json_opts)
+        retval[0]
       end
     end
 
@@ -176,9 +172,14 @@ module V0
         @paper_q = Paper.where(id: all_paper_ids.shuffle[0..(max - 1)])
       else
         uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
-        @paper = Paper.find_by(uri: uri)
-        render(status: :not_found, text: 'Not Found') and return unless @paper
+        @paper_q = Paper.where(uri: uri)
+        render(status: :not_found, text: 'Not Found') and return unless @paper_q.size > 0
       end
+    end
+
+    # return true if the user requested more than one paper
+    def plural_query
+      params[:all] || params[:random]
     end
 
     def uploaded_metadata
