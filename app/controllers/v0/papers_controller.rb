@@ -25,7 +25,6 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
-    before_action :extract_fields, only: [:show]
     
     def create
       respond_to do |format|
@@ -128,24 +127,23 @@ module V0
 
     private
 
-    def extract_fields
-      @fields = { paper: nil, reference: nil }
-      if params[:fields].is_a? String
-        # only top level, papers fields
-        @fields[:paper] = params[:fields].split(/,/).map(&:to_sym)
-      elsif params[:fields].is_a? Hash
-        params[:fields].each do |k, v|
-          @fields[k.to_sym] = v.split(/,/).map(&:to_sym)
+    def fields
+      if @fields.nil?
+        @fields = { paper: nil, reference: nil }
+        if params[:fields].is_a? String
+          # only top level, papers fields
+          @fields[:paper] = params[:fields].split(/,/).map(&:to_sym)
+        elsif params[:fields].is_a? Hash
+          params[:fields].each do |k, v|
+            @fields[k.to_sym] = v.split(/,/).map(&:to_sym)
+          end
         end
       end
+      @fields
     end
 
     def get_json
-      # improve selection if we only need the URI
-      q = @paper_q
-      q = q.select('uri') if @fields[:paper] == [:uri]
-      opts = mk_json_opts
-      retval = q.map { |p| p.to_json(opts) }
+      retval = @paper_q.map { |p| p.to_json(json_opts) }
       if plural_query
         { 'papers' => retval }
       else
@@ -172,6 +170,9 @@ module V0
         @paper_q = Paper.where(uri: uri)
         render(status: :not_found, text: 'Not Found') and return unless @paper_q.size > 0
       end
+
+      # improve selection if we only need the URI
+      @paper_q = @paper_q.select('uri') if fields[:paper] == [:uri]
     end
 
     # return true if the user requested more than one paper
@@ -193,8 +194,11 @@ module V0
       end
     end
 
-    def mk_json_opts
-      { fields_paper: @fields[:paper], fields_reference: @fields[:reference] }
+    def json_opts
+      if @json_opts.nil?
+        @json_opts = { fields_paper: fields[:paper], fields_reference: fields[:reference] }
+      end
+      @json_opts
     end
   end
 end
