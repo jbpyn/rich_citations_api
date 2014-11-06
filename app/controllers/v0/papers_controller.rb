@@ -152,7 +152,7 @@ module V0
     def get_json
       retval = @paper_q.map { |p| p.to_json(json_opts) }
       if plural_query
-        { 'papers' => retval }
+        retval
       else
         retval[0]
       end
