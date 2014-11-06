@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027212643) do
+ActiveRecord::Schema.define(version: 20141106234536) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20141027212643) do
     t.datetime "created_at", null: false
   end
 
-  add_index "audit_log_entries", ["paper_id"], name: "index_audit_log_entries_on_paper_id"
-  add_index "audit_log_entries", ["user_id"], name: "index_audit_log_entries_on_user_id"
+  add_index "audit_log_entries", ["paper_id"], name: "index_audit_log_entries_on_paper_id", using: :btree
+  add_index "audit_log_entries", ["user_id"], name: "index_audit_log_entries_on_user_id", using: :btree
 
   create_table "citation_group_references", force: true do |t|
     t.integer "citation_group_id", null: false
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20141027212643) do
     t.integer "position",          null: false
   end
 
-  add_index "citation_group_references", ["citation_group_id", "position"], name: "index_citation_group_references_on_group_id_and_position"
-  add_index "citation_group_references", ["reference_id"], name: "index_citation_group_references_on_reference_id"
+  add_index "citation_group_references", ["citation_group_id", "position"], name: "index_citation_group_references_on_group_id_and_position", using: :btree
+  add_index "citation_group_references", ["reference_id"], name: "index_citation_group_references_on_reference_id", using: :btree
 
   create_table "citation_groups", force: true do |t|
     t.boolean "truncated_before"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141027212643) do
     t.string  "group_id",         limit: 255, null: false
   end
 
-  add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position"
+  add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position", using: :btree
 
   create_table "papers", force: true do |t|
     t.string   "uri",              limit: 255,             null: false
@@ -57,7 +57,8 @@ ActiveRecord::Schema.define(version: 20141027212643) do
     t.integer  "references_count",             default: 0
   end
 
-  add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true
+  add_index "papers", ["references_count"], name: "cited_paper", where: "(references_count > 0)", using: :btree
+  add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true, using: :btree
 
   create_table "references", force: true do |t|
     t.string   "uri",               limit: 255,             null: false
@@ -73,9 +74,9 @@ ActiveRecord::Schema.define(version: 20141027212643) do
     t.integer  "mention_count",                 default: 0
   end
 
-  add_index "references", ["cited_paper_id"], name: "index_references_on_cited_paper_id"
-  add_index "references", ["citing_paper_id", "number"], name: "index_references_on_citing_paper_id_and_number", unique: true
-  add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id"
+  add_index "references", ["cited_paper_id"], name: "index_references_on_cited_paper_id", using: :btree
+  add_index "references", ["citing_paper_id", "number"], name: "index_references_on_citing_paper_id_and_number", unique: true, using: :btree
+  add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "api_key",    limit: 36,  null: false
@@ -85,6 +86,6 @@ ActiveRecord::Schema.define(version: 20141027212643) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
+  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
 
 end
