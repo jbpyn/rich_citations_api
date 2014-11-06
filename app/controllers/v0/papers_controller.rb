@@ -25,7 +25,6 @@ module V0
     before_action :authentication_required!, :except => [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
-    before_action :extract_fields, only: [:show]
     
     def create
       respond_to do |format|
@@ -83,13 +82,17 @@ module V0
           headers['Content-Disposition'] = 'attachment; filename=rich_citations.csv'
           headers['Content-Type'] = Mime::CSV.to_s
           if params[:fields] == 'citegraph'
-            streamer = Serializer::CsvCitegraphStreamer.new(response.stream)
+            streamer = Serializer::CsvStreamerRaw
+                       .new(response.stream,
+                            %w(citing_paper_uri
+                               reference_uri
+                               mention_count))
             begin
               q = Reference
                   .joins('LEFT OUTER JOIN "papers" "cited_papers"  ON "cited_papers"."id"  = "references"."cited_paper_id"')
                   .joins('LEFT OUTER JOIN "papers" "citing_papers" ON "citing_papers"."id" = "references"."citing_paper_id"')
                   .select('citing_papers.uri as citing', 'cited_papers.uri as cited', 'mention_count')
-              f = -> (d) { streamer.write_line(d['citing'], d['cited'], d['mention_count']) }
+              f = -> (d) { streamer.write_line_raw(d['citing'], d['cited'], d['mention_count']) }
               if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
                 # use postgres_cursor
                 q.each_row(&f)
@@ -99,28 +102,27 @@ module V0
             ensure
               streamer.close
             end
+          elsif fields[:paper] == [:uri]
+            streamer = Serializer::CsvStreamerRaw.new(response.stream, %w(citing_paper_uri))
+            begin
+              @paper_q.find_each do |r|
+                streamer.write_line_raw(r.uri)
+              end
+            ensure
+              streamer.close
+            end
           else
-            mention_counter = {}
             streamer = Serializer::CsvStreamer.new(response.stream)
             begin
-              dump_paper = lambda do |paper|
+              @paper_q.load_all.find_each do |paper|
                 paper.citation_groups.each do |group|
                   group.citation_group_references.each do |cgr|
                     # iterating over .references instead of
                     #   citation_group_references increases the
                     #   database hits
-                    ref = cgr.reference
-                    mention_counter[ref.ref_id] ||= 0
-                    streamer.write_line(paper, group, ref, mention_counter[ref.ref_id] += 1)
+                    streamer.write_line(paper, group, cgr.reference)
                   end
                 end
-              end
-              if @paper_q
-                @paper_q.load_all.each do |paper|
-                  dump_paper.call(paper)
-                end
-              else
-                dump_paper.call(@paper)
               end
             ensure
               streamer.close
@@ -132,53 +134,61 @@ module V0
 
     private
 
-    def extract_fields
-      @fields = { paper: nil, reference: nil }
-      if params[:fields].is_a? String
-        # only top level, papers fields
-        @fields[:paper] = params[:fields].split(/,/).map(&:to_sym)
-      elsif params[:fields].is_a? Hash
-        params[:fields].each do |k, v|
-          @fields[k.to_sym] = v.split(/,/).map(&:to_sym)
+    def fields
+      if @fields.nil?
+        @fields = { paper: nil, reference: nil }
+        if params[:fields].is_a? String
+          # only top level, papers fields
+          @fields[:paper] = params[:fields].split(/,/).map(&:to_sym)
+        elsif params[:fields].is_a? Hash
+          params[:fields].each do |k, v|
+            @fields[k.to_sym] = v.split(/,/).map(&:to_sym)
+          end
         end
       end
+      @fields
     end
 
     def get_json
-      if @paper_q
-        # improve selection if we only need the URI
-        @paper_q = @paper_q.select('uri') if @fields[:paper] == [:uri]
-        papers = @paper_q.map do |paper|
-          paper.to_json(mk_json_opts)
-        end
-        { 'papers' => papers }
+      retval = @paper_q.map { |p| p.to_json(json_opts) }
+      if plural_query
+        retval
       else
-        @paper.to_json(mk_json_opts)
+        retval[0]
       end
     end
 
     def paper_required
-      # very special
-      return true if params[:format] == 'csv' && params[:fields] == 'citegraph'
-
       unless params[:uri].present? || params[:doi].present? || params[:random].present? || params[:all].present?
         render(status: :bad_request, text: 'neither uri nor doi provided') and return
       end
 
       if params[:all]
-        @paper_q = Paper.citing
+        @paper_q = if params[:nonciting].blank?
+                     Paper.citing
+                   else
+                     Paper.all
+                   end
       elsif params[:random]
         max = params[:random].to_i
         max = 100 if max > 100 && authenticated_user.blank?
         all_paper_ids = Rails.cache.fetch('top_paper_ids', expire: 1.hour) do
-          Paper.where('references_count > 0').select('id').map(&:id)
+          Paper.citing.select('id').map(&:id)
         end
         @paper_q = Paper.where(id: all_paper_ids.shuffle[0..(max - 1)])
       else
         uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
-        @paper = Paper.find_by(uri: uri)
-        render(status: :not_found, text: 'Not Found') and return unless @paper
+        @paper_q = Paper.where(uri: uri)
+        render(status: :not_found, text: 'Not Found') and return unless @paper_q.size > 0
       end
+
+      # improve selection if we only need the URI
+      @paper_q = @paper_q.select('id', 'uri') if fields[:paper] == [:uri]
+    end
+
+    # return true if the user requested more than one paper
+    def plural_query
+      params[:all] || params[:random]
     end
 
     def uploaded_metadata
@@ -195,8 +205,11 @@ module V0
       end
     end
 
-    def mk_json_opts
-      { fields_paper: @fields[:paper], fields_reference: @fields[:reference] }
+    def json_opts
+      if @json_opts.nil?
+        @json_opts = { fields_paper: fields[:paper], fields_reference: fields[:reference] }
+      end
+      @json_opts
     end
   end
 end

@@ -128,8 +128,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, random: 10, include: 'cited'
       assert_response :success
       assert_equal Mime::JSON, @response.content_type
-      assert_equal({ 'papers' => [papers(:paper_a).to_json] },
-                   @response.json)
+      assert_equal([papers(:paper_a).to_json], @response.json)
     end
 
     test 'It should return only uris when requested' do
@@ -150,14 +149,26 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       get :show, random: 10, fields: 'uri'
       assert_equal Mime::JSON, @response.content_type
       assert_response :success
-      assert_equal({'papers' => [{ 'uri' => 'http://dx.doi.org/10.1234%2F1' }]}, @response.json)
+      assert_equal([{ 'uri' => 'http://dx.doi.org/10.1234%2F1' }], @response.json)
     end
 
     test 'It should return all docs with uris when requested' do
       get :show, all: 't', fields: 'uri'
       assert_equal Mime::JSON, @response.content_type
       assert_response :success
-      assert_equal({'papers' => [{ 'uri' => 'http://dx.doi.org/10.1234%2F1' }]}, @response.json)
+      assert_equal([{ 'uri' => 'http://dx.doi.org/10.1234%2F1' }], @response.json)
+    end
+
+    test 'It should return all citing & cited docs with uris when requested' do
+      get :show, all: 't', fields: 'uri', nonciting: 't'
+      assert_equal Mime::JSON, @response.content_type
+      assert_response :success
+      assert_equal([{ 'uri' => 'http://dx.doi.org/10.1234%2F1' },
+                    { 'uri' => 'http://dx.doi.org/10.1234%2F2' },
+                    { 'uri' => 'http://dx.doi.org/10.1234%2F3' },
+                    { 'uri' => 'http://dx.doi.org/10.1234%2F4' },
+                    { 'uri' => 'http://dx.doi.org/10.1234%2F5' },
+                    { 'uri' => 'http://dx.doi.org/10.1234%2F6' }], @response.json)
     end
 
     test 'It should output CSV if requested' do
@@ -189,7 +200,7 @@ EOS
     end
     
     test 'It should output CSV Citegraph fields if requested' do
-      get :show, format: 'csv', fields: 'citegraph'
+      get :show, format: 'csv', fields: 'citegraph', all: 't'
       assert_response :success
       # is there a better way to ensure that a streaming response has finished?
       sleep(1)
@@ -199,7 +210,34 @@ EOS
 \"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F3\",\"2\"
 ", @response.body.to_s
     end
-    
+
+    test 'It should output CSV with only a URI field if requested' do
+      get :show, format: 'csv', fields: 'uri', all: 't'
+      assert_response :success
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
+      assert_equal 'text/csv', @response.content_type
+      assert_equal "\"citing_paper_uri\"
+\"http://dx.doi.org/10.1234%2F1\"
+", @response.body.to_s
+    end
+
+    test 'It should output CSV for nonciting paper with only a URI field if requested' do
+      get :show, format: 'csv', fields: 'uri', all: 't', nonciting: 't'
+      assert_response :success
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
+      assert_equal 'text/csv', @response.content_type
+      assert_equal "\"citing_paper_uri\"
+\"http://dx.doi.org/10.1234%2F1\"
+\"http://dx.doi.org/10.1234%2F2\"
+\"http://dx.doi.org/10.1234%2F3\"
+\"http://dx.doi.org/10.1234%2F4\"
+\"http://dx.doi.org/10.1234%2F5\"
+\"http://dx.doi.org/10.1234%2F6\"
+", @response.body.to_s
+    end
+
     test 'It should output JSONP if requested' do
       get :show, uri: papers(:paper_a).uri, format: 'js'
 
