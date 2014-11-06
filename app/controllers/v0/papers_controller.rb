@@ -164,12 +164,16 @@ module V0
       end
 
       if params[:all]
-        @paper_q = Paper.citing
+        @paper_q = if params[:nonciting].blank?
+                     Paper.citing
+                   else
+                     Paper.all
+                   end
       elsif params[:random]
         max = params[:random].to_i
         max = 100 if max > 100 && authenticated_user.blank?
         all_paper_ids = Rails.cache.fetch('top_paper_ids', expire: 1.hour) do
-          Paper.where('references_count > 0').select('id').map(&:id)
+          Paper.citing.select('id').map(&:id)
         end
         @paper_q = Paper.where(id: all_paper_ids.shuffle[0..(max - 1)])
       else
