@@ -172,10 +172,7 @@ module V0
       elsif params[:random]
         max = params[:random].to_i
         max = 100 if max > 100 && authenticated_user.blank?
-        all_paper_ids = Rails.cache.fetch('top_paper_ids', expire: 1.hour) do
-          Paper.citing.select('id').map(&:id)
-        end
-        @paper_q = Paper.where(id: all_paper_ids.shuffle[0..(max - 1)])
+        @paper_q = Paper.citing.order('random()').limit(max)
       else
         uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
         @paper_q = Paper.where(uri: uri)
