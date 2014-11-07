@@ -171,9 +171,9 @@ module V0
                    end
       elsif params[:random]
         max = params[:random].to_i
-        max = 100 if max > 100 && authenticated_user.blank?
-        ids = Paper.citing.select('id').map(&:id).shuffle[0..(max - 1)]
-        @paper_q = Paper.where(id: ids)
+        count = Paper.citing.count
+        max = count if max > count
+        @paper_q = Paper.citing.offset(rand(count - max + 1)).limit(max)
       else
         uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
         @paper_q = Paper.where(uri: uri)
