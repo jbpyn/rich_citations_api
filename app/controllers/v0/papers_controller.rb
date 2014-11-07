@@ -171,7 +171,7 @@ module V0
                    end
       elsif params[:random]
         max = params[:random].to_i
-        count = Paper.citing.count
+        count = Rails.cache.fetch('paper_citing_count', :expires_in => 60.minutes) { Paper.citing.count }
         max = count if max > count
         @paper_q = Paper.citing.offset(rand(count - max + 1)).limit(max)
       else
