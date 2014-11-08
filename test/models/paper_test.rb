@@ -174,4 +174,7 @@ class PaperTest < ActiveSupport::TestCase
     assert_equal [], JSON::Validator.fully_validate_schema(Paper::JSON_SCHEMA)
   end
 
+  test 'citing scope should work' do
+    assert_equal Paper.all.reject { |p| p.cited_papers.count == 0 }.sort, Paper.citing.to_a.sort
+  end
 end
