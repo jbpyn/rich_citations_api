@@ -177,4 +177,9 @@ class PaperTest < ActiveSupport::TestCase
   test 'citing scope should work' do
     assert_equal Paper.all.reject { |p| p.cited_papers.count == 0 }.sort, Paper.citing.to_a.sort
   end
+
+  test 'random scope should work' do
+    p = Paper.random(1)
+    assert_not_nil p.first.uri
+  end
 end

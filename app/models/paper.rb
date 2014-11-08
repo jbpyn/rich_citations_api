@@ -43,6 +43,11 @@ class Paper < Base
   # only papers that cite another paper
   scope :citing, -> { where('references_count > 0') }
 
+  scope :random, -> (max) do
+    max = count if max > count
+    offset(rand(count - max + 1)).limit(max)
+  end
+  
   def to_param
     uri
   end
