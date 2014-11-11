@@ -1,5 +1,6 @@
 <h1 id="about-the-rich-citations-api-alpha">About the Rich Citations API Alpha</h1>
 <p>Rich Citations is a PLOS Labs project adding metadata to citation data in scientific articles and stores this information in a centralized database. This alpha API allows you to access and scrape the Rich Citations database.</p>
+<p><a href="https://github.com/ploslabs/rich_citations_api">Project Code Repository</a></p>
 <h2 id="terminology">Terminology</h2>
 <p>For the definitions below, assume that you are reading a paper A, that contains in-text citations and references to other papers, including paper B.</p>
 <ul>
@@ -37,6 +38,7 @@
     &quot;bibliographic&quot;: { … },
     &quot;citation_groups&quot;: [ … ]
 }</code></pre>
+<p>You can also request JSONP with the same protocol. In this case an optional 'callback' parameter is accepted which defaults to 'jsonpCallback'</p>
 <h2 id="references">References</h2>
 <p>The <code>references</code> part of the JSON is a hash with the key being the unique identifier for the paper as cited in another paper and the fields.</p>
 <pre><code>&quot;http://dx.doi.org/10.1371/journal.pone.0000000#pone.0000000-Doe1&quot;: {
@@ -142,3 +144,19 @@
         }
     ]
 }</code></pre>
+<h2 id="csv">CSV</h2>
+<p>Rich Citations also supports output in CSV format as an experimental feature. To retrieve information about an articles references in CSV format, try:</p>
+<pre><code>http://api.richcitations.org/papers?random=1&amp;format=csv</code></pre>
+<p>This will output one line for each citation in the paper, in the order in which each appears in the text. This data is highly redundant but is useful for doing analysis.</p>
+<p>If you only want to retrieve the URIs of the citing papers, you can request <code>fields=uri</code>.</p>
+<h2 id="csv-citation-graph">CSV Citation Graph</h2>
+<p>You can also retrieve a complete citation graph by accessing the following URL:</p>
+<pre><code>http://api.richcitations.org/papers?format=csv&amp;fields=citegraph&amp;all=t</code></pre>
+<p>Because is a very large file (~400 MB and 4 million lines). You will be required to have an API key to access this.</p>
+<h2 id="api-key">API Key</h2>
+<p>Please write to <script type="text/javascript">
+<!--
+h='&#112;&#108;&#x6f;&#x73;&#46;&#x6f;&#114;&#x67;';a='&#64;';n='&#112;&#108;&#x6f;&#x73;&#108;&#x61;&#98;&#x73;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#112;&#108;&#x6f;&#x73;&#108;&#x61;&#98;&#x73;&#32;&#x61;&#116;&#32;&#112;&#108;&#x6f;&#x73;&#32;&#100;&#x6f;&#116;&#32;&#x6f;&#114;&#x67;</noscript> to request an API key.</p>

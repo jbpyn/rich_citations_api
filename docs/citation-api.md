@@ -194,3 +194,36 @@ GET http://api.richcitations.org/v0/paper?uri=http%3A%2F%2Fdx.doi.org%2F10.1371%
     ]
 }
 ```
+
+## CSV
+
+Rich Citations also supports output in CSV format as an experimental
+feature. To retrieve information about an articles references in CSV
+format, try:
+
+```
+http://api.richcitations.org/papers?random=1&format=csv
+```
+
+This will output one line for each citation in the paper, in the order
+in which each appears in the text. This data is highly redundant but
+is useful for doing analysis.
+
+If you only want to retrieve the URIs of the citing papers, you can
+request `fields=uri`.
+
+## CSV Citation Graph
+
+You can also retrieve a complete citation graph by accessing the
+following URL:
+
+```
+http://api.richcitations.org/papers?format=csv&fields=citegraph&all=t
+```
+
+Because is a very large file (~400 MB and 4 million lines). You will
+be required to have an API key to access this.
+
+## API Key
+
+Please write to [ploslabs@plos.org](mailto:ploslabs@plos.org) to request an API key.
