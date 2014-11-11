@@ -95,7 +95,7 @@ module V0
               f = -> (d) { streamer.write_line_raw(d['citing'], d['cited'], d['mention_count']) }
               if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
                 # use postgres_cursor
-                q.each_row(&f)
+                q.each_row(block_size: 50_000, &f)
               else
                 q.each(&f)
               end
