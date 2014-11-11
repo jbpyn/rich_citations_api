@@ -198,17 +198,10 @@ EOS
       assert_equal Mime::CSV, @response.content_type
       assert_equal csv_resp, @response.body
     end
-    
-    test 'It should output CSV Citegraph fields if requested' do
+
+    test 'CSV Citegraph requires key' do
       get :show, format: 'csv', fields: 'citegraph', all: 't'
-      assert_response :success
-      # is there a better way to ensure that a streaming response has finished?
-      sleep(1)
-      assert_equal 'text/csv', @response.content_type
-      assert_equal "\"citing_paper_uri\",\"reference_uri\",\"mention_count\"
-\"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F2\",\"1\"
-\"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F3\",\"2\"
-", @response.body.to_s
+      assert_response :unauthorized
     end
 
     test 'It should output CSV with only a URI field if requested' do
@@ -285,6 +278,18 @@ EOS
     test "It should require authentication" do
       @controller.expects :authentication_required!
       post :create, metadata(paper_uri).to_json
+    end
+
+    test 'It should output CSV Citegraph fields if requested' do
+      get :show, format: 'csv', fields: 'citegraph', all: 't'
+      assert_response :success
+      # is there a better way to ensure that a streaming response has finished?
+      sleep(1)
+      assert_equal 'text/csv', @response.content_type
+      assert_equal "\"citing_paper_uri\",\"reference_uri\",\"mention_count\"
+\"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F2\",\"1\"
+\"http://dx.doi.org/10.1234%2F1\",\"http://dx.doi.org/10.1234%2F3\",\"2\"
+", @response.body.to_s
     end
 
     test "It should POST a new paper" do

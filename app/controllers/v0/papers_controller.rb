@@ -22,10 +22,16 @@ module V0
   class PapersController < ::ApiController
     include ActionController::Live
 
-    before_action :authentication_required!, :except => [ :show ]
+    before_action :authentication_required!, except: [ :show ]
     before_action :paper_required, except: [:create]
     before_action :validate_schema, only: [:create]
-    
+
+    before_action only: [:show] do
+      # citegraph is huge, require API key
+      authentication_required! if
+        request.format == Mime::CSV && request.params[:fields] == 'citegraph'
+    end
+
     def create
       respond_to do |format|
         format.json do
