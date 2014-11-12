@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106234536) do
+ActiveRecord::Schema.define(version: 20141112001310) do
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20141106234536) do
     t.datetime "accessed_at"
     t.float    "score"
     t.integer  "mention_count",                 default: 0
+    t.text     "self_citations"
   end
 
   add_index "references", ["cited_paper_id"], name: "index_references_on_cited_paper_id", using: :btree

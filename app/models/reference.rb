@@ -40,6 +40,7 @@ class Reference < Base
   validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}, uri:true
   validates  :ref_id,       presence:true, uniqueness: {scope: :citing_paper}
 
+  json_attribute :self_citations
   def update_mention_count
     if new_record?
       self.mention_count = citation_group_references.count

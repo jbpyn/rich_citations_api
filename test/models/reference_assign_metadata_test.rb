@@ -197,7 +197,8 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                  'score'             => 2.5,
                  'word_count'        => 99,
                  'bibliographic'     => {'title' => 'Updated Title'},
-                 'citation_groups'   => ['group-2', 'group-1' ]}
+                 'citation_groups'   => ['group-2', 'group-1' ],
+                 'self_citations'    => ['Doe, John']}
 
     r = Reference.new
     r.set_from_json(metadata)
@@ -215,7 +216,6 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
       c.set_from_json('id'            => 'ref.x',
                         'number'        => 2,
                         'uri'           => 'http://example.org/a')
-
     }
   end
 end

@@ -27,7 +27,8 @@ module Serializer
     def to_json(opts = { })
       result = LazyFieldedJson.new(
         opts.compact.fetch(:fields, [:number, :uri, :uri_source, :id, :original_citation,
-                                     :accessed_at, :score, :citation_groups, :bib_source, :word_count, :bibliographic
+                                     :accessed_at, :score, :citation_groups, :bib_source, :word_count, :bibliographic,
+                                     :self_citations
                                     ]))
       result.add(:number) { self.number }
       result.add(:uri) { self.uri }
@@ -40,6 +41,7 @@ module Serializer
       result.add(:bib_source) { self.cited_paper.bib_source }
       result.add(:word_count) { self.cited_paper.word_count }
       result.add(:bibliographic) { self.bibliographic }
+      result.add(:self_citations) { self.self_citations }
       result.build
     end
 
@@ -73,6 +75,7 @@ module Serializer
       self.accessed_at       = json['accessed_at']
       self.score             = json['score']
       self.cited_paper       = cited_paper
+      self.self_citations    = json['self_citations']
     end
 
     def random_citation_uri
