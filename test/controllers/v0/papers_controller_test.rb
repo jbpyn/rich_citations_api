@@ -71,6 +71,10 @@ class ::V0::PapersControllerTest < ActionController::TestCase
 
     def setup
       super
+      set_json_request_headers
+    end
+
+    def set_json_request_headers
       @request.headers['Accept'] = Mime::JSON
       @request.headers['Content-Type'] = Mime::JSON
     end
@@ -114,7 +118,7 @@ class ::V0::PapersControllerTest < ActionController::TestCase
       assert_equal    @response.content_type, Mime::JSON
       assert_equal    @response.json, papers(:paper_a).to_json
     end
-    
+
     test 'it should pretty print JSON when asked' do
       get :show, uri: papers(:paper_a).uri, pretty: 't'
 
@@ -271,6 +275,10 @@ EOS
     def setup
       super
       @controller.stubs :authentication_required!
+      set_json_request_headers
+    end
+
+    def set_json_request_headers
       @request.headers['Accept'] = Mime::JSON
       @request.headers['Content-Type'] = Mime::JSON
     end
@@ -301,7 +309,7 @@ EOS
       post :create, ({'foo' => 'bar'}).to_json
       assert_response(:unprocessable_entity)
     end
-    
+
     test "It should round trip data via the Location header" do
       uri = URI.encode_www_form_component(paper_uri)
       post :create, metadata(paper_uri).to_json

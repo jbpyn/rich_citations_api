@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   version0_api = lambda do
     scope controller:'papers' do
       post '/papers', action:'create'
+      put  '/papers', action:'update'
       get  '/papers', action:'show'
     end
   end

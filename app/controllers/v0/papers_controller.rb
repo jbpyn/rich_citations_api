@@ -46,17 +46,26 @@ module V0
             response.location = papers_url(uri:paper)
             render text:'Document Created', status: :created
           else
-            text = "Invalid Metadata:\n"
-            ([paper] + paper.references + paper.citation_groups).each do |ref|
-              unless ref.valid?
-                ref.errors.messages.each do |k,v|
-                  next if (v == ["is invalid"]) # useless
-                  val = (ref.respond_to?(k) && ref.send(k)) || '(unknown)'
-                  text << "  #{k} #{v.join('; ')} #{val}\n"
-                end
-              end
-            end
-            render text:text, status: :unprocessable_entity
+            render_metadata_error(paper)
+          end
+        end
+      end
+    end
+
+    def update
+      respond_to do |format|
+        format.json do
+          render status: :error, text: nil and return if (@paper_q.size != 1)
+
+          paper = @paper_q.first
+          # Easiest to just delete the old references
+          paper.references.destroy_all
+          paper.citation_groups.destroy_all
+
+          if paper.update_metadata(uploaded_metadata, authenticated_user)
+            render status: :ok, text: nil
+          else
+            render_metadata_error(paper)
           end
         end
       end
@@ -214,6 +223,20 @@ module V0
         @json_opts = { fields_paper: fields[:paper], fields_reference: fields[:reference] }
       end
       @json_opts
+    end
+
+    def render_metadata_error(paper)
+      text = "Invalid Metadata:\n"
+      ([paper] + paper.references + paper.citation_groups).each do |ref|
+        unless ref.valid?
+          ref.errors.messages.each do |k, v|
+            next if (v == ['is invalid']) # useless message
+            val = (ref.respond_to?(k) && ref.send(k)) || '(unknown)'
+            text << "  #{k} #{v.join('; ')} #{val}\n"
+          end
+        end
+      end
+      render status: :unprocessable_entity, text: text
     end
   end
 end
