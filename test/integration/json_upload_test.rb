@@ -31,7 +31,12 @@ class JsonUploadTest < ActionDispatch::IntegrationTest
       assert_equal(original, new, "#{doi_uri}: #{path}")
     end
   end
-        
+
+  def json_headers
+    { 'Accept'       => Mime::JSON.to_s,
+      'Content-Type' => Mime::JSON.to_s }
+  end
+  
   test 'complete JSON upload works' do
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', '*.json')).each do |json_file|
       doi_uri = 'http://dx.doi.org/10.1371/' + json_file.match(/(journal.*).json$/)[1]
@@ -54,5 +59,34 @@ class JsonUploadTest < ActionDispatch::IntegrationTest
       new = MultiJson.load(@response.body.to_s)
       deep_compare(doi_uri, new, original)
     end
+  end
+
+  test 'Overwriting old data should work' do
+    uri = 'http://example.org/a'
+    metadata = { 'uri'           => uri,
+                 'bibliographic' => { 'title' => 'Title' },
+                 'references'    => [
+                   { 'id' => 'ref.1',
+                     'uri' => 'http://example.com/c1',
+                     'bibliographic' => {'title' => 'Title'},
+                     'number' => 1,
+                     'accessed_at' => '2012-04-23T18:25:43.511Z'
+                   }
+                 ]
+               }
+    uri_enc = URI.encode_www_form_component(uri)
+    post_uri = "/papers?api_key=841c5d42-2ca3-42fc-8eda-87fbccc1f4ca&uri=#{uri_enc}"
+
+    post post_uri, metadata.to_json, json_headers
+    assert_response :created
+
+    new_metadata = metadata.dup
+    new_metadata['bibliographic'] = { 'title' => 'New Title' }
+
+    put post_uri, new_metadata.to_json, json_headers
+    assert_response :ok
+
+    get post_uri, {}, json_headers
+    assert_equal new_metadata, MultiJson.load(@response.body)
   end
 end
