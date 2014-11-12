@@ -353,14 +353,6 @@ EOS
       assert Paper.exists?(uri:'http://example.com/c1')
     end
 
-    test "It should fail if the paper already exists" do
-      post :create, metadata(paper_uri).to_json
-      assert_response :created
-
-      post :create, metadata(paper_uri).to_json
-      assert_response :forbidden
-    end
-
     test "It should fail for missing metadata" do
       data = metadata(paper_uri)
       data.delete('uri')
