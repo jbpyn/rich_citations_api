@@ -26,7 +26,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new
-    c.assign_metadata('id'       => 'ref.x',
+    c.set_from_json('id'       => 'ref.x',
                       'number'   => 2,
                       'original_citation'  => 'Literal Text',
                       'uri'      => 'http://example.org/a')
@@ -45,7 +45,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new
-    c.assign_metadata('id'       => 'ref.x',
+    c.set_from_json('id'       => 'ref.x',
                       'number'   => 2,
                       'uri'      => 'http://example.org/a',
                       'original_citation'  => '<span>Literal</span>'   )
@@ -57,7 +57,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new
-    c.assign_metadata('id'       => 'ref.x',
+    c.set_from_json('id'       => 'ref.x',
                       'number'   => 2,
                       'uri'      => 'http://example.org/a',
                       'bibliographic' => {
@@ -73,7 +73,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should normalize URIs" do
     c = Reference.new
-    c.assign_metadata('id'       => 'ref.x',
+    c.set_from_json('id'       => 'ref.x',
                       'number'   => 2,
                       'uri'      => 'http://EXAMPLE.COM/%7ehello',
                       'bibliographic' => {})
@@ -87,7 +87,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('id'            => 'ref.x',
+    c.set_from_json('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'http://example.org/a',
                       'uri_source'    => 'foo',
@@ -116,7 +116,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     p = Paper.create!(uri:'http://example.org/a', bibliographic:{'title' => 'Original Title'} )
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('id'            => 'ref.x',
+    c.set_from_json('id'            => 'ref.x',
                       'number'        => nil,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Updated Title'})
@@ -133,7 +133,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_nil(p)
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('id'            => 'ref.x',
+    c.set_from_json('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Title'})
@@ -152,7 +152,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     citing = Paper.create!(uri:'http://example.org/citing')
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('id'            => 'ref.x',
+    c.set_from_json('id'            => 'ref.x',
                       'number'        => 2,
                       # 'uri'           => 'http://example.org/a',
                       'bibliographic' => {'title' => 'Title'})
@@ -174,7 +174,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
     assert_nil(p)
 
     c = Reference.new(citing_paper:citing)
-    c.assign_metadata('id'            => 'ref.x',
+    c.set_from_json('id'            => 'ref.x',
                       'number'        => 2,
                       'uri'           => 'bad_uri',
                       'bibliographic' => {'title' => 'Title'})
@@ -200,7 +200,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                  'citation_groups'   => ['group-2', 'group-1' ]}
 
     r = Reference.new
-    r.assign_metadata(metadata)
+    r.set_from_json(metadata)
     r.citation_groups << [ CitationGroup.new(group_id:'group-2'), CitationGroup.new(group_id:'group-1') ]
 
     assert_equal(r.to_json, metadata)
@@ -212,7 +212,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
 
     c = Reference.new
     assert_raises(RuntimeError) {
-      c.assign_metadata('id'            => 'ref.x',
+      c.set_from_json('id'            => 'ref.x',
                         'number'        => 2,
                         'uri'           => 'http://example.org/a')
 

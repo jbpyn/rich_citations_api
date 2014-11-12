@@ -33,8 +33,4 @@ class CitationGroup < Base
   validates :group_id,                  presence:true, uniqueness:{scope: :citing_paper}
 
   acts_as_list scope: :citing_paper
-
-  def assign_metadata(json)
-    set_from_json(json)
-  end
 end

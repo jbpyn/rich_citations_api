@@ -24,7 +24,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should assign the basic metadata" do
     g = CitationGroup.new
-    g.assign_metadata('id'              => 'group-1',
+    g.set_from_json('id'              => 'group-1',
                       'context' => {
                         'truncated_before' => true,
                         'text_before'      => 'text before',
@@ -48,7 +48,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should sanitize html for the basic metadata" do
     g = CitationGroup.new
-    g.assign_metadata('id'              => 'group-1',
+    g.set_from_json('id'              => 'group-1',
                       'context' => {
                         'text_before'     => '<span>text before</span>',
                         'citation'        => '<span>t e x t</span>',
@@ -64,7 +64,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     r1 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_e), ref_id:'ref-1', number: 1, uri:'uri://1')
     r2 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_f), ref_id:'ref-2', number: 2, uri:'uri://2')
     g = CitationGroup.new(citing_paper: papers(:paper_a), references: [r1, r2])
-    g.assign_metadata('id'              => 'group-1',
+    g.set_from_json('id'              => 'group-1',
                       'context' => {
                         'text_before'      => 'text before',
                         'citation'         => 't e x t',
@@ -81,7 +81,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
   test "it should assign references" do
     p = papers(:paper_a)
     g = CitationGroup.new(citing_paper:p)
-    g.assign_metadata('references'      => ['ref-2', 'ref-1'])
+    g.set_from_json('references'      => ['ref-2', 'ref-1'])
 
     assert_equal g.references.size, 2
     assert_equal g.references[0], references(:ref_2)
@@ -104,7 +104,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
                  'word_position'   => 42,
                  'section'         => 'Introduction' }
 
-    g.assign_metadata(metadata)
+    g.set_from_json(metadata)
     assert_equal metadata, g.to_json
   end
 
@@ -113,7 +113,7 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
     g = CitationGroup.new(citing_paper:p)
 
     assert_raises(RuntimeError) {
-      g.assign_metadata('references'      => ['ref-doesnt-exist'] )
+      g.set_from_json('references'      => ['ref-doesnt-exist'] )
     }
   end
 

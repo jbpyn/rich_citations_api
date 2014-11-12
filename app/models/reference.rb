@@ -56,10 +56,6 @@ class Reference < Base
   delegate :uri_source,
            to: :cited_paper
 
-  def assign_metadata(json)
-    set_from_json(json)
-  end
-
   def is_random_uri?
     /^cited:/ === uri
   end

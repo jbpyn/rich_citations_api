@@ -71,12 +71,8 @@ class Paper < Base
     references.find { |ref| ref.ref_id == ref_id }
   end
 
-  def assign_metadata(json)
-    set_from_json(json)
-  end
-
   def update_metadata(json, updating_user)
-    return false unless assign_metadata(json)
+    return false unless set_from_json(json)
     saved = self.save
     AuditLogEntry.create(paper:self, user:updating_user) if saved
     saved

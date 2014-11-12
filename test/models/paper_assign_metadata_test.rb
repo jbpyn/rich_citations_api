@@ -32,7 +32,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should assign metadata to a paper" do
     p = Paper.new
     uri = mk_random_uri
-    p.assign_metadata('uri'           => uri,
+    p.set_from_json('uri'           => uri,
                       'uri_source'    => 'foo',
                       'bib_source'    => 'bar',
                       'word_count'    => 101,
@@ -47,7 +47,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should clean html attributes" do
     p = Paper.new
-    p.assign_metadata(
+    p.set_from_json(
         'uri'           => mk_random_uri,
         'bibliographic' => {
             'title'           => '<span>Title</span>',
@@ -63,7 +63,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should normalize URIs" do
     p = Paper.new
-    p.assign_metadata(
+    p.set_from_json(
       'uri'           => 'http://EXAMPLE.COM/%7ehello',
       'bibliographic' => {},
     )
@@ -73,7 +73,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should create References" do
     p = Paper.new
-    p.assign_metadata('uri' => 'http://example.com/a',
+    p.set_from_json('uri' => 'http://example.com/a',
                       'bibliographic' => {},
                       'references' => [
                           { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'}, 'number' => 1 },
@@ -89,7 +89,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should not create anything if it there is an error in a Reference" do
     p = Paper.new
-    p.assign_metadata('references' => [
+    p.set_from_json('references' => [
                 { 'id' => 'ref.1', 'uri' => 'bad_uri', 'bibliographic' => {'title'=>'1'} },
             ] )
 
@@ -99,7 +99,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should not update a cited paper if there is an error in a Reference" do
     cited = papers(:paper_a)
     paper = Paper.new
-    paper.assign_metadata('references' => [
+    paper.set_from_json('references' => [
                 { 'id' => 'ref.1', 'uri' => cited.uri, 'bibliographic' => {'title'=>'1'} },
             ] )
 
@@ -110,7 +110,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test 'it should work with references that have an accessed_at field' do
     p = Paper.new
-    p.assign_metadata('uri' => mk_random_uri,
+    p.set_from_json('uri' => mk_random_uri,
                       'bibliographic' => {},
                       'references' => [
                         { 'id' => 'ref.1',
@@ -155,7 +155,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
 
   test "it should not create anything if it there is an error in a Citation Group" do
     p = Paper.new
-    p.assign_metadata(
+    p.set_from_json(
             'references' => [
                 { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} },
                 { 'id' => 'ref.2', 'uri' => 'http://example.com/c2', 'bibliographic' => {'title'=>'1'} },
@@ -170,7 +170,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
   test "it should not update a cited paper if there is an error in a Citation Group" do
     cited = papers(:paper_a)
     paper = Paper.new
-    paper.assign_metadata(
+    paper.set_from_json(
             'references' => [
                 { 'id' => 'ref.1', 'uri' => 'http://example.com/c1', 'bibliographic' => {'title'=>'1'} },
             ],
@@ -203,7 +203,7 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                }
 
     p = Paper.new
-    p.assign_metadata(metadata)
+    p.set_from_json(metadata)
     p.save!
     p.reload
 
@@ -269,10 +269,10 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
                ]
              }
     p1 = Paper.new
-    p1.assign_metadata(shared.merge('uri' => 'http://example.com/a'))
+    p1.set_from_json(shared.merge('uri' => 'http://example.com/a'))
     p1.save!
     p2 = Paper.new
-    p2.assign_metadata(shared.merge('uri' => 'http://example.com/b'))
+    p2.set_from_json(shared.merge('uri' => 'http://example.com/b'))
     p2.save!
   end
 end
