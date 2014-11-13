@@ -384,7 +384,6 @@ EOS
 
       assert_response :unprocessable_entity
     end
-
-  end
+end
 
 end

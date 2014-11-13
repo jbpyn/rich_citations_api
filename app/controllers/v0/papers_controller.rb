@@ -23,7 +23,7 @@ module V0
     include ActionController::Live
 
     before_action :authentication_required!, except: [ :show ]
-    before_action :paper_required, except: [:create]
+    before_action :paper_required, except: [:create, :update]
     before_action :validate_schema, only: [:create]
 
     before_action only: [:show] do
@@ -55,15 +55,19 @@ module V0
     def update
       respond_to do |format|
         format.json do
-          render status: :error, text: nil and return if (@paper_q.size != 1)
+          paper = Paper.find_by(uri: uri_param)
+          status = if paper.nil? :created
+                   else :ok
+                   end
 
-          paper = @paper_q.first
+          paper = Paper.new if paper.nil?
+
           # Easiest to just delete the old references
           paper.references.destroy_all
           paper.citation_groups.destroy_all
 
           if paper.update_metadata(uploaded_metadata, authenticated_user)
-            render status: :ok, text: nil
+            render status: status, text: nil
           else
             render_metadata_error(paper)
           end
@@ -190,13 +194,16 @@ module V0
         max = count if max > count
         @paper_q = Paper.citing.offset(rand(count - max + 1)).limit(max)
       else
-        uri = params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
-        @paper_q = Paper.where(uri: uri)
+        @paper_q = Paper.where(uri: uri_param)
         render(status: :not_found, text: 'Not Found') and return unless @paper_q.size > 0
       end
 
       # improve selection if we only need the URI
       @paper_q = @paper_q.select('id', 'uri') if fields[:paper] == [:uri]
+    end
+
+    def uri_param
+      params[:uri] || "http://dx.doi.org/#{URI.encode_www_form_component(params[:doi])}"
     end
 
     # return true if the user requested more than one paper

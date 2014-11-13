@@ -89,6 +89,12 @@ class JsonUploadTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
+  
+  test "It should be possible to PUT a new paper" do
+    put mk_post_path(@uri), @metadata.to_json, json_headers
+    assert_response(:created)
+  end
+
   test 'Overwriting old data should work' do
     post mk_post_path(@uri), @metadata.to_json, json_headers
     assert_response :created
