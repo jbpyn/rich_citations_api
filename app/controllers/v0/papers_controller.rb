@@ -56,8 +56,10 @@ module V0
       respond_to do |format|
         format.json do
           paper = Paper.find_by(uri: uri_param)
-          status = if paper.nil? :created
-                   else :ok
+          status = if paper.nil?
+                     :created
+                   else
+                     :ok
                    end
 
           paper = Paper.new if paper.nil?
