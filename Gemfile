@@ -24,6 +24,7 @@ end
 group :test do
   gem 'rake'
   gem 'mocha'
+  gem 'memory_test_fix'
 end
 
 group :test, :development do
