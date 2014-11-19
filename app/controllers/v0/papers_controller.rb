@@ -62,12 +62,8 @@ module V0
                      :ok
                    end
 
+          paper.delete_all_references unless paper.nil?
           paper = Paper.new if paper.nil?
-
-          # Easiest to just delete the old references
-          paper.references.destroy_all
-          paper.citation_groups.destroy_all
-
           if paper.update_metadata(uploaded_metadata, authenticated_user)
             render status: status, text: nil
           else

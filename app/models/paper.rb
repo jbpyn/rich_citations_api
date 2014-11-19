@@ -57,6 +57,13 @@ class Paper < Base
 
   include ::Serializer::Paper
 
+  def delete_all_references
+    # Easiest to just delete the old references
+    CitationGroupReference.delete_all(reference: references)
+    Reference.delete_all(citing_paper: self)
+    CitationGroup.delete_all(citing_paper: self)
+  end
+
   def update_references_count
     # cannot seem to get counter_cache to work without this
     update_column('references_count', references.count)
