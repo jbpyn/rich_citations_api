@@ -45,7 +45,8 @@ class Reference < Base
     if new_record?
       self.mention_count = citation_group_references.count
     else
-      update_column('mention_count', citation_group_references.count)
+      count = citation_group_references.count
+      update_column('mention_count', count) if count != mention_count
     end
   end
 

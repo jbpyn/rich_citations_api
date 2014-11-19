@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119220542) do
+ActiveRecord::Schema.define(version: 20141119232643) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "audit_log_entries", force: true do |t|
     t.integer  "user_id",    null: false
@@ -72,7 +75,7 @@ ActiveRecord::Schema.define(version: 20141119220542) do
     t.string   "original_citation"
     t.datetime "accessed_at"
     t.float    "score"
-    t.integer  "mention_count",                 default: 0
+    t.integer  "mention_count",                 default: 1
     t.text     "self_citations"
   end
 
