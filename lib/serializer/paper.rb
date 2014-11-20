@@ -42,11 +42,11 @@ module Serializer
       result.build
     end
 
+    BIB_CLEAN_FIELDS = %w(title container-title abstract subtitle)
+
     def assign_bibliographic_metadata(json)
       return unless json.present?
-      clean = Helper.sanitize_json_fields(json,
-                                          %w(title container-title abstract subtitle))
-      self.bibliographic = clean && clean.compact
+      self.bibliographic = Helper.sanitize_json_fields(json, BIB_CLEAN_FIELDS).compact
     end
 
     def set_from_json(json)
