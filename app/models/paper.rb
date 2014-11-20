@@ -66,7 +66,7 @@ class Paper < Base
 
   def update_counts
     # counter cache only updates when using create, force it other times
-    references.each(&:update_mention_count)
+    references.includes(:citation_group_references).each(&:update_mention_count)
     # cannot seem to get counter_cache to work without this
     update_column('references_count', references.size)
   end
