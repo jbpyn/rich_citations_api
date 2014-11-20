@@ -53,8 +53,7 @@ class Paper < Base
     uri
   end
 
-  after_save :update_mention_counts
-  after_save :update_references_count
+  after_save :update_counts
 
   include ::Serializer::Paper
 
@@ -65,14 +64,11 @@ class Paper < Base
     CitationGroup.delete_all(citing_paper: self)
   end
 
-  def update_references_count
-    # cannot seem to get counter_cache to work without this
-    update_column('references_count', references.count)
-  end
-
-  # counter cache only updates when using create, force it other times
-  def update_mention_counts
+  def update_counts
+    # counter cache only updates when using create, force it other times
     references.each(&:update_mention_count)
+    # cannot seem to get counter_cache to work without this
+    update_column('references_count', references.size)
   end
 
   def reference_for_id(ref_id)
