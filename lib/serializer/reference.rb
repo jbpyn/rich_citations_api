@@ -45,15 +45,15 @@ module Serializer
       result.build
     end
 
-    def set_from_json(json)
+    def set_from_json(json, context = {})
       uri_raw  = json['uri']
       self.uri = (uri_raw && Helper.normalize_uri(uri_raw)) || random_citation_uri
       self.ref_id = json['id']
 
       bibliographic = json['bibliographic']
 
-      #@todo We ignore this data for now but should really validate it against paper/citation_groups/references
-      cited_paper     = ::Paper.find_by(uri: uri)
+      cited_paper ||= context[:papers] && context[:papers].find { |p| p.uri == uri } 
+      cited_paper ||= ::Paper.find_by(uri: uri)
 
       unless cited_paper || bibliographic
         fail "Cannot assign metadata unless the paper exists or bibliographic metadata is provided for #{ref_id}" #@todo

@@ -41,7 +41,7 @@ module Serializer
     end
 
     # Set the values in o according to the hash structure json
-    def set_from_json(json)
+    def set_from_json(json, context = {})
       self.group_id = json['id']
       self.word_position = json['word_position']
       self.section = json['section']

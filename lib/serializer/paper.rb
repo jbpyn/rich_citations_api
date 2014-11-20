@@ -49,11 +49,12 @@ module Serializer
       self.bibliographic = Helper.sanitize_json_fields(json, BIB_CLEAN_FIELDS).compact
     end
 
-    def set_from_json(json)
+    def set_from_json(json, context = {})
       return false unless JSON::Validator.validate(JSON_SCHEMA, json)
-
+      uris = json['references'] && json['references'].map { |ref| ref['uri'] }
       assign_bibliographic_metadata(json['bibliographic'])
-      ::Reference.new_from_json_array(json['references']).each do |ref|
+
+      ::Reference.new_from_json_array(json['references'], papers: ::Paper.where(uri: uris)).each do |ref|
         references << ref
       end
       json['citation_groups'].present? && json['citation_groups'].each do |json_g|

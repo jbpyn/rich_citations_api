@@ -22,15 +22,15 @@ module Serializer
   # Generic class methods to inject into classes that mixin a
   # Serializer Module
   module ClassMethods
-    def new_from_json(json)
+    def new_from_json(json, context = {})
       g = new
-      g.set_from_json(json)
+      g.set_from_json(json, context)
       g
     end
 
-    def new_from_json_array(json)
+    def new_from_json_array(json, context = {})
       return [] unless json.present?
-      json.map { |d| new_from_json(d) }
+      json.map { |d| new_from_json(d, context) }
     end
   end
 end
