@@ -30,7 +30,7 @@ class CitationGroup < Base
 
   validates :citing_paper,              presence:true
   validates :citation_group_references, presence:true
-  validates :group_id,                  presence:true, uniqueness:{scope: :citing_paper}
+  validates :group_id,                  presence:true
 
   acts_as_list scope: :citing_paper
 end

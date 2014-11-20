@@ -36,7 +36,9 @@ class ReferenceTest < ActiveSupport::TestCase
 
     assert     new_reference(number:0, citing_paper: a, cited_paper: b).save
     assert     new_reference(number:1, citing_paper: a, cited_paper: c).save
-    assert_not new_reference(number:2, citing_paper: a, cited_paper: b).save
+    assert_raise ActiveRecord::RecordNotUnique do
+      new_reference(number:2, citing_paper: a, cited_paper: b).save
+    end
   end
 
   test 'References numbers are unique for a paper combination' do
@@ -44,7 +46,9 @@ class ReferenceTest < ActiveSupport::TestCase
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
     assert     Reference.new(citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
-    assert_not Reference.new(citing_paper: a, cited_paper: c, number:1, uri:'uri://3', ref_id:'ref.2').save
+    assert_raise ActiveRecord::RecordNotUnique do
+      Reference.new(citing_paper: a, cited_paper: c, number:1, uri:'uri://3', ref_id:'ref.2').save
+    end
   end
 
   test 'References URIs are unique for a paper combination' do
@@ -52,7 +56,9 @@ class ReferenceTest < ActiveSupport::TestCase
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
     assert     Reference.new(citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
-    assert_not Reference.new(citing_paper: a, cited_paper: c, number:3, uri:'uri://1', ref_id:'ref.3').save
+    assert_raise ActiveRecord::RecordNotUnique do
+      Reference.new(citing_paper: a, cited_paper: c, number:3, uri:'uri://1', ref_id:'ref.3').save
+    end
   end
 
   test 'References Refs are unique for a paper combination' do
@@ -62,7 +68,9 @@ class ReferenceTest < ActiveSupport::TestCase
     r =     Reference.new(citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1')
     r.save
     assert r.save
-    assert_not Reference.new(citing_paper: a, cited_paper: c, number:3, uri:'uri://2', ref_id:'ref.1').save
+    assert_raise ActiveRecord::RecordNotUnique do
+      Reference.new(citing_paper: a, cited_paper: c, number:3, uri:'uri://2', ref_id:'ref.1').save
+    end
   end
 
   test 'should not save Reference without URI' do

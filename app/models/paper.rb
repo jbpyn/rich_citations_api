@@ -28,8 +28,9 @@ class Paper < Base
   has_many :audit_log_entries, inverse_of: :paper
   has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy, inverse_of: :citing_paper
 
-  # validations
-  validates :uri, presence:true, uri:true, uniqueness:true
+  # uniqueness of URI is validated with a database index. not using
+  # `uniqueness: true` here saves a database call
+  validates :uri, presence: true, uri: true
 
   json_attribute :bibliographic
 

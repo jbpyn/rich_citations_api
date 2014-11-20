@@ -33,12 +33,12 @@ class Reference < Base
              through: :citation_group_references, class: CitationGroup,
              inverse_of: :references
 
-  # validations
-  validates  :citing_paper, presence:true
-  validates  :cited_paper,                 uniqueness: {scope: :citing_paper}
-  validates  :number,       presence:true, uniqueness: {scope: :citing_paper}
-  validates  :uri,          presence:true, uniqueness: {scope: :citing_paper}, uri:true
-  validates  :ref_id,       presence:true, uniqueness: {scope: :citing_paper}
+  # uniqueness validation is done in the db schema to avoid hitting
+  # the database
+  validates :citing_paper, presence: true
+  validates :number,       presence: true
+  validates :uri,          presence: true, uri: true
+  validates :ref_id,       presence: true
 
   json_attribute :self_citations
   def update_mention_count

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119232643) do
+ActiveRecord::Schema.define(version: 20141120200625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141119232643) do
     t.string  "group_id",         limit: 255, null: false
   end
 
+  add_index "citation_groups", ["citing_paper_id", "group_id"], name: "index_citation_groups_on_citing_paper_id_and_group_id", unique: true, using: :btree
   add_index "citation_groups", ["citing_paper_id", "position"], name: "index_citation_groups_on_citing_paper_id_and_position", using: :btree
   add_index "citation_groups", ["citing_paper_id"], name: "index_citation_groups_on_citing_paper_id", using: :btree
 
@@ -80,7 +81,10 @@ ActiveRecord::Schema.define(version: 20141119232643) do
   end
 
   add_index "references", ["cited_paper_id"], name: "index_references_on_cited_paper_id", using: :btree
+  add_index "references", ["citing_paper_id", "cited_paper_id"], name: "index_references_on_citing_paper_id_and_cited_paper_id", unique: true, using: :btree
   add_index "references", ["citing_paper_id", "number"], name: "index_references_on_citing_paper_id_and_number", unique: true, using: :btree
+  add_index "references", ["citing_paper_id", "ref_id"], name: "index_references_on_citing_paper_id_and_ref_id", unique: true, using: :btree
+  add_index "references", ["citing_paper_id", "uri"], name: "index_references_on_citing_paper_id_and_uri", unique: true, using: :btree
   add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id", using: :btree
 
   create_table "users", force: true do |t|
