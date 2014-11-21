@@ -56,14 +56,10 @@ module Serializer
 
       context = context.merge(citing_paper: self, cited_papers: ::Paper.where(uri: uris))
 
-      ::Reference.new_from_json_array(json['references'], context).each do |ref|
-        references << ref
-      end
+      references << ::Reference.new_from_json_array(json['references'], context)
 
       if json['citation_groups'].present?
-        ::CitationGroup.new_from_json_array(json['citation_groups'], context).each do |g|
-          citation_groups << g
-        end
+        citation_groups << ::CitationGroup.new_from_json_array(json['citation_groups'], context)
       end
 
       self.uri           = Helper.normalize_uri(json['uri'])
