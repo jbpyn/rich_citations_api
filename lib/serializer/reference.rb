@@ -47,7 +47,7 @@ module Serializer
 
     def set_from_json(json, context = {})
       uri_raw  = json['uri']
-      self.uri = (uri_raw && Helper.normalize_uri(uri_raw)) || random_citation_uri
+      uri = (uri_raw && Helper.normalize_uri(uri_raw)) || random_citation_uri
       self.ref_id = json['id']
 
       bibliographic = json['bibliographic']
@@ -68,7 +68,6 @@ module Serializer
       cited_paper.bib_source = json['bib_source']
       cited_paper.word_count = json['word_count']
 
-      self.uri               = uri
       self.ref_id            = ref_id
       self.number            = json['number']
       self.original_citation = Helper.sanitize_html(json['original_citation'])

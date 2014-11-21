@@ -61,8 +61,8 @@ class CitationGroupAssignMetadataTest < ActiveSupport::TestCase
   end
 
   test 'it should work with missing truncate' do
-    r1 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_e), ref_id:'ref-1', number: 1, uri:'uri://1')
-    r2 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_f), ref_id:'ref-2', number: 2, uri:'uri://2')
+    r1 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_e), ref_id:'ref-1', number: 1)
+    r2 = Reference.new(citing_paper: papers(:paper_d), cited_paper: papers(:paper_f), ref_id:'ref-2', number: 2)
     g = CitationGroup.new(citing_paper: papers(:paper_a), references: [r1, r2])
     g.set_from_json('id'              => 'group-1',
                       'context' => {

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120200625) do
+ActiveRecord::Schema.define(version: 20141121210557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 20141120200625) do
   add_index "papers", ["uri"], name: "index_papers_on_uri", unique: true, using: :btree
 
   create_table "references", force: true do |t|
-    t.string   "uri",               limit: 255,             null: false
     t.integer  "number",                                    null: false
     t.integer  "citing_paper_id",                           null: false
     t.integer  "cited_paper_id"
@@ -84,7 +83,6 @@ ActiveRecord::Schema.define(version: 20141120200625) do
   add_index "references", ["citing_paper_id", "cited_paper_id"], name: "index_references_on_citing_paper_id_and_cited_paper_id", unique: true, using: :btree
   add_index "references", ["citing_paper_id", "number"], name: "index_references_on_citing_paper_id_and_number", unique: true, using: :btree
   add_index "references", ["citing_paper_id", "ref_id"], name: "index_references_on_citing_paper_id_and_ref_id", unique: true, using: :btree
-  add_index "references", ["citing_paper_id", "uri"], name: "index_references_on_citing_paper_id_and_uri", unique: true, using: :btree
   add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id", using: :btree
 
   create_table "users", force: true do |t|

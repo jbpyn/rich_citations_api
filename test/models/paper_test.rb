@@ -111,8 +111,8 @@ class PaperTest < ActiveSupport::TestCase
                   word_count: 101,
                   bibliographic: {'title' => 'Citing 1'})
 
-    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'})
-    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'})
+    p.references << new_reference(number:0, uri: 'http://example.org/0', bibliographic: {'title' => 'cited 1'})
+    p.references << new_reference(number:1, uri: 'http://example.org/1', bibliographic: {'title' => 'cited 2'})
 
     assert_equal({ 'uri'           => uri,
                    'bibliographic' => {'title' => 'Citing 1' },
@@ -130,8 +130,8 @@ class PaperTest < ActiveSupport::TestCase
     p = Paper.new(uri: 'http://example.org/a',
                   bibliographic: {'title' => 'Citing 1'})
 
-    p.references << new_reference(number:0, bibliographic: {'title' => 'cited 1'})
-    p.references << new_reference(number:1, bibliographic: {'title' => 'cited 2'})
+    p.references << new_reference(number:0, uri: 'http://example.org/0', bibliographic: {'title' => 'cited 1'})
+    p.references << new_reference(number:1, uri: 'http://example.org/1', bibliographic: {'title' => 'cited 2'})
 
     assert_equal({ 'uri'           => 'http://example.org/a',
                    'bibliographic' => {'title' => 'Citing 1' },

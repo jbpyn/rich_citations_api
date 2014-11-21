@@ -178,8 +178,8 @@ class ::V0::PapersControllerTest < ActionController::TestCase
     test 'It should output CSV if requested' do
       csv_resp = <<'EOS'
 "citing_paper_uri","mention_id","citation_group_id","citation_group_word_position","citation_group_section","reference_number","reference_id","reference_mention_count","reference_uri","reference_uri_source","reference_type","reference_title","reference_journal","reference_issn","reference_author_count","reference_author1","reference_author2","reference_author3","reference_author4","reference_author5","reference_author_string","reference_original_text"
-"http://dx.doi.org/10.1234%2F1","ref-1-1","a_1","11","Introduction","1","ref-1","1","uri://foo","","","","","","0","","","","","","",""
-"http://dx.doi.org/10.1234%2F1","ref-2-1","a_1","11","Introduction","2","ref-2","2","uri://bar","","","","","","0","","","","","","",""
+"http://dx.doi.org/10.1234%2F1","ref-1-1","a_1","11","Introduction","1","ref-1","1","http://dx.doi.org/10.1234%2F2","","","","","","0","","","","","","",""
+"http://dx.doi.org/10.1234%2F1","ref-2-1","a_1","11","Introduction","2","ref-2","2","http://dx.doi.org/10.1234%2F3","","","","","","0","","","","","","",""
 EOS
       get :show, uri: papers(:paper_a).uri, format: 'csv'
       # is there a better way to ensure that a streaming response has finished?
@@ -192,8 +192,8 @@ EOS
     test 'it should dump random CSV' do
       csv_resp = <<-'EOS'
 "citing_paper_uri","mention_id","citation_group_id","citation_group_word_position","citation_group_section","reference_number","reference_id","reference_mention_count","reference_uri","reference_uri_source","reference_type","reference_title","reference_journal","reference_issn","reference_author_count","reference_author1","reference_author2","reference_author3","reference_author4","reference_author5","reference_author_string","reference_original_text"
-"http://dx.doi.org/10.1234%2F1","ref-1-1","a_1","11","Introduction","1","ref-1","1","uri://foo","","","","","","0","","","","","","",""
-"http://dx.doi.org/10.1234%2F1","ref-2-1","a_1","11","Introduction","2","ref-2","2","uri://bar","","","","","","0","","","","","","",""
+"http://dx.doi.org/10.1234%2F1","ref-1-1","a_1","11","Introduction","1","ref-1","1","http://dx.doi.org/10.1234%2F2","","","","","","0","","","","","","",""
+"http://dx.doi.org/10.1234%2F1","ref-2-1","a_1","11","Introduction","2","ref-2","2","http://dx.doi.org/10.1234%2F3","","","","","","0","","","","","","",""
 EOS
       get :show, random: 10, format: 'csv'
       # is there a better way to ensure that a streaming response has finished?
@@ -240,7 +240,8 @@ EOS
 
       assert_response :success
       assert_equal 'text/javascript', @response.content_type
-      assert_equal 'jsonpCallback({"uri":"http://dx.doi.org/10.1234%2F1","bibliographic":{},"references":[{"number":1,"uri":"uri://foo","id":"ref-1","citation_groups":["a_1"],"bibliographic":{}},{"number":2,"uri":"uri://bar","id":"ref-2","citation_groups":["a_1"],"bibliographic":{}}],"citation_groups":[{"id":"a_1","word_position":11,"section":"Introduction","context":{"truncated_before":false,"text_before":"foo","citation":"baz","text_after":"bar","truncated_after":false},"references":["ref-1","ref-2"]}]});',
+      assert_equal 'jsonpCallback({"uri":"http://dx.doi.org/10.1234%2F1","bibliographic":{},"references":[{"number":1,"uri":"http://dx.doi.org/10.1234%2F2","id":"ref-1","citation_groups":["a_1"],"bibliographic":{}},{"number":2,"uri":"http://dx.doi.org/10.1234%2F3","id":"ref-2","citation_groups":["a_1"],"bibliographic":{}}],"citation_groups":[{"id":"a_1","word_position":11,"section":"Introduction","context":{"truncated_before":false,"text_before":"foo","citation":"baz","text_after":"bar","truncated_after":false},"references":["ref-1","ref-2"]}]});',
+
                    @response.body
     end
 
@@ -249,7 +250,7 @@ EOS
 
       assert_response :success
       assert_equal 'text/javascript', @response.content_type
-      assert_equal 'myCallbackName({"uri":"http://dx.doi.org/10.1234%2F1","bibliographic":{},"references":[{"number":1,"uri":"uri://foo","id":"ref-1","citation_groups":["a_1"],"bibliographic":{}},{"number":2,"uri":"uri://bar","id":"ref-2","citation_groups":["a_1"],"bibliographic":{}}],"citation_groups":[{"id":"a_1","word_position":11,"section":"Introduction","context":{"truncated_before":false,"text_before":"foo","citation":"baz","text_after":"bar","truncated_after":false},"references":["ref-1","ref-2"]}]});',
+      assert_equal 'myCallbackName({"uri":"http://dx.doi.org/10.1234%2F1","bibliographic":{},"references":[{"number":1,"uri":"http://dx.doi.org/10.1234%2F2","id":"ref-1","citation_groups":["a_1"],"bibliographic":{}},{"number":2,"uri":"http://dx.doi.org/10.1234%2F3","id":"ref-2","citation_groups":["a_1"],"bibliographic":{}}],"citation_groups":[{"id":"a_1","word_position":11,"section":"Introduction","context":{"truncated_before":false,"text_before":"foo","citation":"baz","text_after":"bar","truncated_after":false},"references":["ref-1","ref-2"]}]});',
                    @response.body
     end
 
