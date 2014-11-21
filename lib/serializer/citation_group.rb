@@ -45,18 +45,19 @@ module Serializer
       self.group_id = json['id']
       self.word_position = json['word_position']
       self.section = json['section']
-      context = json['context']
-      if context.present?
-        self.truncated_before = context['truncated_before'] || false
-        self.truncated_after = context['truncated_after'] || false
-        self.citation = Serializer::Helper.sanitize_html(context['citation'])
-        self.text_before = Serializer::Helper.sanitize_html(context['text_before'])
-        self.text_after = Serializer::Helper.sanitize_html(context['text_after'])
+      group_context = json['context']
+      if group_context.present?
+        self.truncated_before = group_context['truncated_before'] || false
+        self.truncated_after = group_context['truncated_after'] || false
+        self.citation = Serializer::Helper.sanitize_html(group_context['citation'])
+        self.text_before = Serializer::Helper.sanitize_html(group_context['text_before'])
+        self.text_after = Serializer::Helper.sanitize_html(group_context['text_after'])
       end
       json['references'].each do |ref_id|
-        reference = self.citing_paper.reference_for_id(ref_id)
-        raise "Reference #{ref_id.inspect} not found in citation group #{self.group_id.inspect}" unless reference
-        self.references << reference
+        paper = context[:citing_paper] || self.citing_paper
+        reference = paper.reference_for_id(ref_id)
+        fail "Reference #{ref_id.inspect} not found in citation group #{self.group_id.inspect}" unless reference
+        references << reference
       end
     end
   end

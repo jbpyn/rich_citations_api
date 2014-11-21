@@ -54,13 +54,16 @@ module Serializer
       uris = json['references'] && json['references'].map { |ref| ref['uri'] }
       assign_bibliographic_metadata(json['bibliographic'])
 
-      ::Reference.new_from_json_array(json['references'], papers: ::Paper.where(uri: uris)).each do |ref|
+      context = context.merge(citing_paper: self, cited_papers: ::Paper.where(uri: uris))
+
+      ::Reference.new_from_json_array(json['references'], context).each do |ref|
         references << ref
       end
-      json['citation_groups'].present? && json['citation_groups'].each do |json_g|
-        g = ::CitationGroup.new
-        citation_groups << g
-        g.set_from_json(json_g)
+
+      if json['citation_groups'].present?
+        ::CitationGroup.new_from_json_array(json['citation_groups'], context).each do |g|
+          citation_groups << g
+        end
       end
 
       self.uri           = Helper.normalize_uri(json['uri'])
