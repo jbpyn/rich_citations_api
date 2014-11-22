@@ -182,4 +182,31 @@ class PaperTest < ActiveSupport::TestCase
     p = Paper.random(1)
     assert_not_nil p.first.uri
   end
+
+  test 'delete_all_references should work' do
+    p = papers(:paper_a)
+    ref_ids = p.references.map(&:id)
+    cg_ids = p.citation_groups.map(&:id)
+    assert_not_empty(ref_ids)
+    assert_not_empty(cg_ids)
+    p.delete_all_references
+    assert_empty(Reference.where(id: ref_ids))
+    assert_empty(CitationGroup.where(id: cg_ids))
+    assert_empty(CitationGroupReference.where(reference_id: ref_ids))
+  end
+
+  test 'delete_all_references should delete referenced papers with random id' do
+    p = papers(:paper_a)
+    non_random_paper_ids = p.references.map(&:citing_paper_id)
+
+    a = Paper.new(uri: mk_random_uri)
+    a.save
+    random_paper_id = a.id
+    p.references += [new_reference(number: 0, cited_paper: a)]
+    p.save
+    p.delete_all_references
+
+    assert_empty(Paper.where(id: random_paper_id))
+    assert_not_empty(Paper.where(id: non_random_paper_ids))
+  end
 end

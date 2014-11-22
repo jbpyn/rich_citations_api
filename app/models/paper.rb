@@ -59,6 +59,9 @@ class Paper < Base
 
   def delete_all_references
     # Easiest to just delete the old references
+    # find all papers with random URIs
+    random_papers = references.select(&:is_random_uri?).map(&:cited_paper_id)
+    Paper.delete_all(id: random_papers)
     CitationGroupReference.delete_all(reference: references)
     Reference.delete_all(citing_paper: self)
     CitationGroup.delete_all(citing_paper: self)
