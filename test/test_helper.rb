@@ -14,17 +14,12 @@ class ActiveSupport::TestCase
   def new_reference(options={}, &block)
     save = options.delete(:save)
 
-    if options[:cited_paper] && !options.has_key?(:uri) && options[:cited_paper].uri
-      options[:uri] = options[:cited_paper].uri
-    end
-
     if options[:number]
-      options[:uri]    = "http://example.org/#{options[:number]}" unless options.has_key?(:uri)
       options[:ref_id] = "ref.#{options[:number]}"                unless options.has_key?(:ref_id)
     end
 
     if !options.has_key?(:cited_paper)
-      uri = options[:uri]
+      uri = options.delete(:uri) || mk_random_uri
       bib = options.delete(:bibliographic)
       options[:cited_paper] = Paper.new(uri:uri, bibliographic:bib)
     end
@@ -44,7 +39,7 @@ class ActiveSupport::TestCase
   end
 
   def mk_random_uri
-    "urn:uuid:#{SecureRandom.uuid}"
+    "cited:#{SecureRandom.uuid}"
   end
 end
 

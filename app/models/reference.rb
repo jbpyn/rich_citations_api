@@ -37,7 +37,6 @@ class Reference < Base
   # the database
   validates :citing_paper, presence: true
   validates :number,       presence: true
-  validates :uri,          presence: true, uri: true
   validates :ref_id,       presence: true
 
   json_attribute :self_citations
@@ -53,6 +52,9 @@ class Reference < Base
   default_scope -> { order(:number) }
 
   delegate :bibliographic,
+           to: :cited_paper
+
+  delegate :uri,
            to: :cited_paper
 
   delegate :uri_source,

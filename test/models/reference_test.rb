@@ -25,7 +25,7 @@ class ReferenceTest < ActiveSupport::TestCase
   test 'can create a Reference' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
-    reference = Reference.new(citing_paper: a, cited_paper: b, ref_id:'ref-1', number:3, uri:'uri://1')
+    reference = Reference.new(citing_paper: a, cited_paper: b, ref_id:'ref-1', number:3)
     assert reference.save
   end
 
@@ -45,19 +45,9 @@ class ReferenceTest < ActiveSupport::TestCase
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
-    assert     Reference.new(citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
+    assert     Reference.new(citing_paper: a, cited_paper: b, number:1, ref_id:'ref.1').save
     assert_raise ActiveRecord::RecordNotUnique do
-      Reference.new(citing_paper: a, cited_paper: c, number:1, uri:'uri://3', ref_id:'ref.2').save
-    end
-  end
-
-  test 'References URIs are unique for a paper combination' do
-    a = Paper.new(uri: 'http://example.org/a')
-    b = Paper.new(uri: 'http://example.org/b')
-    c = Paper.new(uri: 'http://example.org/c')
-    assert     Reference.new(citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1').save
-    assert_raise ActiveRecord::RecordNotUnique do
-      Reference.new(citing_paper: a, cited_paper: c, number:3, uri:'uri://1', ref_id:'ref.3').save
+      Reference.new(citing_paper: a, cited_paper: c, number:1, ref_id:'ref.2').save
     end
   end
 
@@ -65,33 +55,18 @@ class ReferenceTest < ActiveSupport::TestCase
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')
     c = Paper.new(uri: 'http://example.org/c')
-    r =     Reference.new(citing_paper: a, cited_paper: b, number:1, uri:'uri://1', ref_id:'ref.1')
+    r =     Reference.new(citing_paper: a, cited_paper: b, number:1, ref_id:'ref.1')
     r.save
     assert r.save
     assert_raise ActiveRecord::RecordNotUnique do
-      Reference.new(citing_paper: a, cited_paper: c, number:3, uri:'uri://2', ref_id:'ref.1').save
+      Reference.new(citing_paper: a, cited_paper: c, number:3, ref_id:'ref.1').save
     end
-  end
-
-  test 'should not save Reference without URI' do
-    a = Paper.new(uri: 'http://example.org/a')
-    b = Paper.new(uri: 'http://example.org/b')
-
-    c = Reference.new(citing_paper: a, cited_paper: b, number:3, ref_id:'ref.1')
-    assert_not c.valid?
-  end
-
-  test 'should not save Reference a bad URI' do
-    a = Paper.new(uri: 'http://example.org/a')
-    b = Paper.new(uri: 'http://example.org/b')
-
-    c = Reference.new(citing_paper: a, cited_paper: b, number:3, ref_id:'ref.1', uri:'x')
-    assert_not c.valid?
   end
 
   test 'References should be able to return their metadata including cited metadata' do
     p  = Paper.new(uri: 'http://example.org/a')
-    c1 = new_reference(number: 3, bibliographic: { 'title' => 'cited 1' }, citing_paper: p)
+    c1 = new_reference(number: 3, bibliographic: { 'title' => 'cited 1' },
+                       citing_paper: p, uri: 'http://example.org/3')
 
     assert_equal({ 'uri'           => 'http://example.org/3',
                    'id'            => 'ref.3',
