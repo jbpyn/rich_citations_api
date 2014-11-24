@@ -29,18 +29,6 @@ class ReferenceTest < ActiveSupport::TestCase
     assert reference.save
   end
 
-  test 'References are unique for a paper combination' do
-    a = Paper.new(uri: 'http://example.org/a')
-    b = Paper.new(uri: 'http://example.org/b')
-    c = Paper.new(uri: 'http://example.org/c')
-
-    assert     new_reference(number:0, citing_paper: a, cited_paper: b).save
-    assert     new_reference(number:1, citing_paper: a, cited_paper: c).save
-    assert_raise ActiveRecord::RecordNotUnique do
-      new_reference(number:2, citing_paper: a, cited_paper: b).save
-    end
-  end
-
   test 'References numbers are unique for a paper combination' do
     a = Paper.new(uri: 'http://example.org/a')
     b = Paper.new(uri: 'http://example.org/b')

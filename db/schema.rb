@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121210557) do
+ActiveRecord::Schema.define(version: 20141124223637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20141121210557) do
   end
 
   add_index "references", ["cited_paper_id"], name: "index_references_on_cited_paper_id", using: :btree
-  add_index "references", ["citing_paper_id", "cited_paper_id"], name: "index_references_on_citing_paper_id_and_cited_paper_id", unique: true, using: :btree
+  add_index "references", ["citing_paper_id", "cited_paper_id"], name: "index_references_on_citing_paper_id_and_cited_paper_id", using: :btree
   add_index "references", ["citing_paper_id", "number"], name: "index_references_on_citing_paper_id_and_number", unique: true, using: :btree
   add_index "references", ["citing_paper_id", "ref_id"], name: "index_references_on_citing_paper_id_and_ref_id", unique: true, using: :btree
   add_index "references", ["citing_paper_id"], name: "index_references_on_citing_paper_id", using: :btree
