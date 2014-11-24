@@ -52,7 +52,7 @@ module Serializer
 
       bibliographic = json['bibliographic']
 
-      cited_paper ||= context[:papers] && context[:papers].find { |p| p.uri == uri } 
+      cited_paper ||= context[:cited_papers] && context[:cited_papers].find { |p| p.uri == uri }
       cited_paper ||= ::Paper.find_by(uri: uri)
 
       unless cited_paper || bibliographic
