@@ -60,7 +60,12 @@ module Serializer
       end
 
       if bibliographic
-        cited_paper ||= ::Paper.new(uri: uri)
+        if cited_paper.nil?
+          cited_paper = ::Paper.new(uri: uri)
+          # store this for further refs to use
+          context[:cited_papers] ||= []
+          context[:cited_papers].push(cited_paper)
+        end
         cited_paper.assign_bibliographic_metadata(bibliographic)
       end
 

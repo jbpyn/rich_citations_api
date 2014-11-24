@@ -87,6 +87,26 @@ class PaperAssignMetadataTest < ActiveSupport::TestCase
     assert_equal p.references[1].uri,   'http://example.com/c2'
   end
 
+  test 'it should be able to create 2 references to the same paper' do
+    # yes, it's an error, but we have papers with this problem
+    p = Paper.new
+    ref_info = { 'uri' => 'http://example.com/c1', 'bibliographic' => { 'title' => '1' } }
+    p.set_from_json('uri' => 'http://example.com/a',
+                    'bibliographic' => {},
+                    'references' => [
+                      { 'id' => 'ref.1', 'number' => 1 }.merge(ref_info),
+                      { 'id' => 'ref.2', 'number' => 2 }.merge(ref_info)
+                    ])
+
+    p.save!
+
+    assert_equal p.references.size, 2
+    assert_equal p.references[0].ref_id, 'ref.1'
+    assert_equal p.references[0].uri,   'http://example.com/c1'
+    assert_equal p.references[1].ref_id, 'ref.2'
+    assert_equal p.references[1].uri,   'http://example.com/c1'
+  end
+
   test "it should not create anything if it there is an error in a Reference" do
     p = Paper.new
     p.set_from_json('references' => [
