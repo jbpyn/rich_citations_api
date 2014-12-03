@@ -12,6 +12,7 @@ gem 'json-schema'
 gem 'rails-html-sanitizer'
 gem 'postgresql_cursor'
 gem 'postrank-uri'
+gem 'rake'
 
 group :production do
   gem 'rails_12factor'
@@ -20,7 +21,6 @@ group :production do
 end
 
 group :test do
-  gem 'rake'
   gem 'mocha'
   gem 'memory_test_fix'
 end
