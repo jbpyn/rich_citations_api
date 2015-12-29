@@ -2,7 +2,7 @@ ruby '2.2.4'
 
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 
 gem 'multi_json'
 gem 'oj'
