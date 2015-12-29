@@ -197,7 +197,7 @@ class ReferenceAssignMetadataTest < ActiveSupport::TestCase
                  'score'             => 2.5,
                  'word_count'        => 99,
                  'bibliographic'     => {'title' => 'Updated Title'},
-                 'citation_groups'   => ['group-2', 'group-1' ],
+                 'citation_groups'   => ['group-1', 'group-2' ],
                  'self_citations'    => ['Doe, John']}
 
     r = Reference.new

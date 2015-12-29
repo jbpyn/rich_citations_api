@@ -37,7 +37,7 @@ module Serializer
       result.add(:original_citation) { self.original_citation }
       result.add(:accessed_at) { self.accessed_at }
       result.add(:score) { self.score }
-      result.add(:citation_groups) { self.citation_groups.map(&:group_id).presence }
+      result.add(:citation_groups) { self.citation_groups.map(&:group_id).sort.presence }
       result.add(:bib_source) { self.cited_paper.bib_source }
       result.add(:word_count) { self.cited_paper.word_count }
       result.add(:bibliographic) { self.bibliographic }
