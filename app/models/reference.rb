@@ -21,16 +21,16 @@
 class Reference < Base
 
   include ::Serializer::Reference
-  
+
   # relationships
-  belongs_to :cited_paper,  class: Paper, inverse_of: :referenced_by, validate:true, autosave:true
-  belongs_to :citing_paper, class: Paper, inverse_of: :references
+  belongs_to :cited_paper,  class_name: Paper, inverse_of: :referenced_by, validate:true, autosave:true
+  belongs_to :citing_paper, class_name: Paper, inverse_of: :references
 
   has_many   :citation_group_references, -> { order(:position) },
              counter_cache: 'mention_count',
              inverse_of: :reference, dependent: :destroy, autosave: true
   has_many   :citation_groups, -> { order('citation_groups.position') },
-             through: :citation_group_references, class: CitationGroup,
+             through: :citation_group_references, class_name: CitationGroup,
              inverse_of: :references
 
   # uniqueness validation is done in the db schema to avoid hitting

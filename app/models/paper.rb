@@ -21,10 +21,10 @@
 class Paper < Base
 
   # relationships
-  has_many :references,     foreign_key: :citing_paper_id,                    inverse_of: :citing_paper, counter_cache: 'references_count'
-  has_many :referenced_by,  foreign_key: :cited_paper_id,   class: Reference, inverse_of: :cited_paper
-  has_many :cited_papers,   through:     :references,       class: Paper,     inverse_of:  :citing_papers
-  has_many :citing_papers,  through:     :referenced_by,    class: Paper,     inverse_of:  :cited_papers
+  has_many :references,     foreign_key: :citing_paper_id,                         inverse_of: :citing_paper, counter_cache: 'references_count'
+  has_many :referenced_by,  foreign_key: :cited_paper_id,   class_name: Reference, inverse_of: :cited_paper
+  has_many :cited_papers,   through:     :references,       class_name: Paper,     inverse_of:  :citing_papers
+  has_many :citing_papers,  through:     :referenced_by,    class_name: Paper,     inverse_of:  :cited_papers
   has_many :audit_log_entries, inverse_of: :paper
   has_many :citation_groups, -> { order('position ASC') }, foreign_key: :citing_paper_id, dependent: :destroy, inverse_of: :citing_paper
 
@@ -48,7 +48,7 @@ class Paper < Base
     max = count if max > count
     offset(rand(count - max + 1)).limit(max)
   end
-  
+
   def to_param
     uri
   end

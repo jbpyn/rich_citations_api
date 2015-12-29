@@ -21,11 +21,11 @@
 class CitationGroup < Base
   include ::Serializer::CitationGroup
 
-  belongs_to :citing_paper, foreign_key: :citing_paper_id, class: Paper, inverse_of: :citation_groups
+  belongs_to :citing_paper, foreign_key: :citing_paper_id, class_name: Paper, inverse_of: :citation_groups
   has_many   :citation_group_references, -> { order(:position) },
              inverse_of: :citation_group, dependent: :destroy
   has_many   :references, -> { reorder('citation_group_references.position') },
-             through: :citation_group_references, class: Reference,
+             through: :citation_group_references, class_name: Reference,
              inverse_of: :citation_groups
 
   validates :citing_paper,              presence:true
